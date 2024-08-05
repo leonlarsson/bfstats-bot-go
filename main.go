@@ -4,12 +4,13 @@ import (
 	"flag"
 	"fmt"
 	"image/color"
-	"math/rand/v2"
+	"image/png"
 	"os"
 	"sync"
-	"time"
 
 	"github.com/leonlarsson/go-image-gen/engine"
+	"github.com/tdewolff/canvas"
+	"github.com/tdewolff/canvas/renderers"
 )
 
 var iterations int
@@ -48,18 +49,67 @@ func resetRendersFolder() {
 }
 
 func main() {
-	startTime := time.Now()
 
-	var wg sync.WaitGroup
+	c := canvas.New(1200, 750)
 
-	// Run one goroutine per iteration
-	for i := 0; i < iterations; i++ {
-		wg.Add(1)
-		go generateImage(rand.IntN(500)+1, rand.IntN(500)+1, i, &wg)
+	ctx := canvas.NewContext(c)
+
+	bgFile, err := os.Open("assets/images/BF2042/BF2042_IMAGE_BG_0.png")
+	if err != nil {
+		panic(err)
 	}
 
-	// Wait for all goroutines to finish
-	wg.Wait()
+	gridFile, err := os.Open("assets/images/Skeleton_BGs/Regular.png")
+	if err != nil {
+		panic(err)
+	}
 
-	fmt.Printf("Generated %d images in %s\n", iterations, time.Since(startTime))
+	gameLogoFile, err := os.Open("assets/images/BF2042/BF2042_LOGO_BG.png")
+	if err != nil {
+		panic(err)
+	}
+
+	bgImg, err := png.Decode(bgFile)
+	if err != nil {
+		panic(err)
+	}
+
+	gridImg, err := png.Decode(gridFile)
+	if err != nil {
+		panic(err)
+	}
+
+	gameLogoImg, err := png.Decode(gameLogoFile)
+	if err != nil {
+		panic(err)
+	}
+
+	ctx.DrawImage(0, 0, bgImg, canvas.DPMM(1))
+	ctx.DrawImage(0, 0, gridImg, canvas.DPMM(1))
+	ctx.DrawImage(0, 0, gameLogoImg, canvas.DPMM(1))
+
+	font := canvas.NewFontFamily("Roboto")
+	font.LoadFontFile("assets/fonts/Roboto-Medium.ttf", canvas.FontRegular)
+	face := font.Face(35*10, canvas.White, canvas.FontRegular, canvas.FontNormal)
+
+	ctx.DrawText(57, 180, canvas.NewTextLine(face, "Lorem", canvas.Left))
+
+	if err := renderers.Write("renders/test.png", c, canvas.DPMM(1)); err != nil {
+		panic(err)
+	}
+
+	// startTime := time.Now()
+
+	// var wg sync.WaitGroup
+
+	// // Run one goroutine per iteration
+	// for i := 0; i < iterations; i++ {
+	// 	wg.Add(1)
+	// 	go generateImage(rand.IntN(500)+1, rand.IntN(500)+1, i, &wg)
+	// }
+
+	// // Wait for all goroutines to finish
+	// wg.Wait()
+
+	// fmt.Printf("Generated %d images in %s\n", iterations, time.Since(startTime))
 }
