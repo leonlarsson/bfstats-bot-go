@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/leonlarsson/go-image-gen/canvas"
+	"github.com/leonlarsson/bfstats-image-gen/canvas"
 	core "github.com/tdewolff/canvas"
 	"github.com/tdewolff/canvas/renderers"
 )
