@@ -11,8 +11,7 @@ import (
 )
 
 func BF2042Handler(w http.ResponseWriter, r *http.Request) {
-
-	var data structs.BaseData
+	var data structs.BF2042Data
 
 	err := json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {

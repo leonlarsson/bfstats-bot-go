@@ -5,9 +5,12 @@ import (
 )
 
 // CreateCanvasAndContext creates a canvas and a context
-func CreateCanvasAndContext(width float64, height float64) (*canvas.Canvas, *canvas.Context) {
-	c := canvas.New(width, height)
+func CreateStatsCanvasAndContext() (*canvas.Canvas, *canvas.Context) {
+	c := canvas.New(1200, 750)
 	ctx := canvas.NewContext(c)
+
+	// Set the coordinate system to match what I am used to: (0, 0) in the top left corner
+	ctx.SetCoordSystem(canvas.CartesianIV)
 	return c, ctx
 }
 
