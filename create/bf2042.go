@@ -3,17 +3,18 @@ package create
 import (
 	"github.com/leonlarsson/bfstats-image-gen/canvas"
 	"github.com/leonlarsson/bfstats-image-gen/structs"
+	"github.com/leonlarsson/bfstats-image-gen/utils"
 	core "github.com/tdewolff/canvas"
 )
 
-func CreateBF2042Image(data structs.BF2042Data) (*core.Canvas, *core.Context) {
+func CreateBF2042Image(data structs.BF2042Data, style canvas.BackgroundFormat) (*core.Canvas, *core.Context) {
 	c, ctx := canvas.CreateStatsCanvasAndContext()
 
 	// Draw some images
-	canvas.DrawBackground(ctx, "assets/images/BF2042/BF2042_SOLID_BG_0.png")
+	canvas.DrawBackground(ctx, utils.GetRandomBackgroundImage("BF2042", style), true)
 	canvas.DrawSkeleton(ctx, canvas.RegularSkeletonType, canvas.RegularStyle)
 	canvas.DrawFooterWithText(ctx, "BY MOZZY", "BATTLEFIELDSTATS.COM")
-	canvas.DrawGameLogo(ctx, "assets/images/BF2042/BF2042_LOGO_BG.png", canvas.RegularStyle)
+	canvas.DrawGameLogo(ctx, "assets/images/BF2042/Logos/BF2042_LOGO_BG.png", canvas.RegularStyle)
 	canvas.DrawAvatar(ctx, "assets/images/DefaultGravatar.png")
 	canvas.DrawPlatformIcon(ctx, canvas.Platform(data.Platform))
 

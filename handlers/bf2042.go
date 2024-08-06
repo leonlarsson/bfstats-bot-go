@@ -19,7 +19,7 @@ func BF2042Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	c, _ := create.CreateBF2042Image(data)
+	c, _ := create.CreateBF2042Image(data, canvas.SolidBackground)
 	w.Header().Set("Content-Type", "image/png")
 	img := canvas.CanvasToImage(c)
 	png.Encode(w, img)

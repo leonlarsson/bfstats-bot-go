@@ -16,8 +16,15 @@ const (
 	DrawnStyle
 )
 
+type BackgroundFormat int
+
+const (
+	SolidBackground BackgroundFormat = iota
+	ImageBackground
+)
+
 // DrawBackground draws a background image
-func DrawBackground(ctx *canvas.Context, filePath string) error {
+func DrawBackground(ctx *canvas.Context, filePath string, addDarkeningLayer bool) error {
 	bgFile, err := os.Open(filePath)
 	if err != nil {
 		return err
@@ -30,6 +37,12 @@ func DrawBackground(ctx *canvas.Context, filePath string) error {
 	}
 
 	ctx.DrawImage(0, 0, bgImg, canvas.DPMM(1))
+
+	if addDarkeningLayer {
+		ctx.SetFillColor(canvas.RGBA(0, 0, 0, .3))
+		rect := canvas.Rectangle(ctx.Width(), ctx.Height())
+		ctx.DrawPath(0, 0, rect)
+	}
 
 	return nil
 }
