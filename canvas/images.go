@@ -112,7 +112,7 @@ const (
 func DrawPlatformIcon(ctx *canvas.Context, requestedPlatform Platform, drawn ...bool) error {
 	platforms := map[int]string{
 		int(PlatformPC):   "assets/images/Platform Icons/PC.png",
-		int(PlatformXBOX): "assets/images/Platform Icons/XBOX.png",
+		int(PlatformXBOX): "assets/images/Platform Icons/Xbox.png",
 		int(PlatformPS):   "assets/images/Platform Icons/PS.png",
 	}
 
