@@ -14,14 +14,18 @@ func main() {
 	ctx.SetCoordSystem(core.CartesianIV)
 
 	// Draw some images
-	canvas.DrawBackground(ctx, "assets/images/BF2042/BF2042_IMAGE_BG_0.png")
-	canvas.DrawBackground(ctx, "assets/images/Skeleton_BGs/Regular.png")
-	canvas.DrawBackground(ctx, "assets/images/BF2042/BF2042_LOGO_BG.png")
+	canvas.DrawBackground(ctx, "assets/images/BF2042/BF2042_SOLID_BG_0.png")
+	canvas.DrawSkeleton(ctx, canvas.RegularSkeletonType, canvas.RegularStyle)
+	canvas.DrawFooterWithText(ctx, "BY MOZZY", "BATTLEFIELDSTATS.COM")
+	canvas.DrawGameLogo(ctx, "assets/images/BF2042/BF2042_LOGO_BG.png", canvas.RegularStyle)
 	canvas.DrawAvatar(ctx, "assets/images/DefaultGravatar.png")
 	canvas.DrawPlatformIcon(ctx, canvas.PlatformPS)
 
 	// Draw some text
 	canvas.DrawIdentifier(ctx, "zPptelDNG1uE")
+
+	canvas.DrawUsername(ctx, "MozzyFX")
+	canvas.DrawTimePlayed(ctx, "150 hours")
 
 	canvas.DrawStat1(ctx, "Kills:", "13,637", "Top 13%")
 	canvas.DrawStat2(ctx, "Deaths:", "3,254", "")
@@ -29,7 +33,8 @@ func main() {
 	canvas.DrawStat3(ctx, "Assists:", "9,158", "Top 10%")
 	canvas.DrawStat4(ctx, "Revives:", "705", "Top 29%")
 
-	canvas.DrawStat5(ctx, "Best Class:", "Angel", "2,818 kills | 15 hours")
+	canvas.DrawStat5BestClass(ctx, "Best Class:", "Angel", "2,818 kills | 15 hours")
+	canvas.DrawBestClass(ctx, "assets/images/BF2042/Specialists/Angel.png")
 	canvas.DrawStat6(ctx, "W/L Ratio:", "61.8%", "Top 13%")
 
 	canvas.DrawRightStat1(ctx, "Kills/Match:", "32.55", "Top 7%")
