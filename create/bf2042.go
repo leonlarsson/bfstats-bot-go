@@ -23,21 +23,21 @@ func CreateBF2042Image(data structs.BF2042Data) (*core.Canvas, *core.Context) {
 	canvas.DrawUsername(ctx, data.Username)
 	canvas.DrawTimePlayed(ctx, data.TimePlayed)
 
-	canvas.DrawStat1(ctx, data.Stats.Kills.Name, data.Stats.Kills.Value, data.Stats.Kills.Extra)
-	canvas.DrawStat2(ctx, data.Stats.Deaths.Name, data.Stats.Deaths.Value, data.Stats.Deaths.Extra)
+	canvas.DrawStat1(ctx, data.Stats.Kills)
+	canvas.DrawStat2(ctx, data.Stats.Deaths)
 
-	canvas.DrawStat3(ctx, data.Stats.Assists.Name, data.Stats.Assists.Value, data.Stats.Assists.Extra)
-	canvas.DrawStat4(ctx, data.Stats.Revives.Name, data.Stats.Revives.Value, data.Stats.Revives.Extra)
+	canvas.DrawStat3(ctx, data.Stats.Assists)
+	canvas.DrawStat4(ctx, data.Stats.Revives)
 
-	canvas.DrawStat5BestClass(ctx, data.Stats.BestClass.Name, data.Stats.BestClass.Value, data.Stats.BestClass.Extra)
+	canvas.DrawStat5BestClass(ctx, data.Stats.BestClass)
 	canvas.DrawBestClass(ctx, "assets/images/BF2042/Specialists/Angel.png")
 
-	canvas.DrawStat6(ctx, data.Stats.WlRatio.Name, data.Stats.WlRatio.Value, data.Stats.WlRatio.Extra)
+	canvas.DrawStat6(ctx, data.Stats.WlRatio)
 
-	canvas.DrawRightStat1(ctx, data.Stats.KillsPerMatch.Name, data.Stats.KillsPerMatch.Value, data.Stats.KillsPerMatch.Extra)
-	canvas.DrawRightStat2(ctx, data.Stats.KdRatio.Name, data.Stats.KdRatio.Value, data.Stats.KdRatio.Extra)
-	canvas.DrawRightStat3(ctx, data.Stats.KillsPerMinute.Name, data.Stats.KillsPerMinute.Value, data.Stats.KillsPerMinute.Extra)
-	canvas.DrawRightStat4Rank(ctx, data.Stats.Rank.Name, data.Stats.Rank.Value, data.Stats.Rank.Extra)
+	canvas.DrawRightStat1(ctx, data.Stats.KillsPerMatch)
+	canvas.DrawRightStat2(ctx, data.Stats.KdRatio)
+	canvas.DrawRightStat3(ctx, data.Stats.KillsPerMinute)
+	canvas.DrawRightStat4Rank(ctx, data.Stats.Rank)
 
 	return c, ctx
 }
