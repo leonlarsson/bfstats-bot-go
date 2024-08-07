@@ -33,6 +33,16 @@ func GetRobotoMonoFontFamily() *canvas.FontFamily {
 	return font
 }
 
+func GetFontsForLanguage(language string) *canvas.FontFamily {
+	if language == "en" {
+		return robotoFont
+	}
+
+	// More languages here
+
+	return robotoFont
+}
+
 func DrawIdentifier(ctx *canvas.Context, identifier string) {
 	face := robotoMonoFont.Face(PixelsToPoints(13), canvas.RGBA(255, 255, 255, .2), canvas.FontLight)
 	ctx.DrawText(1192, 20, canvas.NewTextLine(face, identifier, canvas.Right))
