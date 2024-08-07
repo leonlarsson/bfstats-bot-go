@@ -1,13 +1,12 @@
 package structs
 
+// BF2042Data represents the data needed to create a Battlefield 2042 image.
 type BF2042Data struct {
-	Identifier string      `json:"identifier"`
-	Username   string      `json:"username"`
-	TimePlayed string      `json:"timePlayed"`
-	Platform   int         `json:"platform"`
-	Stats      BF2042Stats `json:"stats"`
+	BaseData `json:"baseData"`
+	Stats    BF2042Stats `json:"stats"`
 }
 
+// BF2042Stats represents the stats for Battlefield 2042.
 type BF2042Stats struct {
 	Kills          Stat `json:"kills"`
 	Deaths         Stat `json:"deaths"`

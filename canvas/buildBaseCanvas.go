@@ -5,24 +5,23 @@ import (
 	"strings"
 
 	"github.com/leonlarsson/bfstats-image-gen/shared"
+	"github.com/leonlarsson/bfstats-image-gen/structs"
 	"github.com/leonlarsson/bfstats-image-gen/utils"
 	"github.com/tdewolff/canvas"
 )
 
-func BuildBaseCanvas(game string, useGridSkeleton shared.SkeletonType) (*canvas.Canvas, *canvas.Context) {
+func BuildBaseCanvas(game string, data structs.BaseData, useGridSkeleton shared.SkeletonType) (*canvas.Canvas, *canvas.Context) {
 	c, ctx := CreateStatsCanvasAndContext()
 
 	game = strings.ToUpper(game)
 
-	font, _ := GetFontsForLanguage("en")
-
 	// Images
-	DrawBackground(ctx, utils.GetRandomBackgroundImage(game, shared.ImageBackground), true)
+	DrawBackground(ctx, utils.GetRandomBackgroundImage(game, shared.SolidBackground), true)
 	DrawSkeleton(ctx, shared.SkeletonType(useGridSkeleton), shared.RegularStyle)
 	DrawGameLogo(ctx, fmt.Sprintf("assets/images/%s/Logos/%s_LOGO_BG.png", game, game), shared.RegularStyle)
 
 	// Identifier
-	DrawIdentifier(ctx, "FECbLioP0ywuiztPUP")
+	DrawIdentifier(ctx, data.Identifier)
 
 	if useGridSkeleton == shared.RegularSkeletonType {
 		if game == "BF2042" /* TODO: AND if best class is base class (has an avatar) */ {
@@ -32,10 +31,10 @@ func BuildBaseCanvas(game string, useGridSkeleton shared.SkeletonType) (*canvas.
 		}
 
 		DrawAvatar(ctx, "assets/images/DefaultGravatar.png")
-		DrawPlatformIcon(ctx, shared.PlatformPC)
+		DrawPlatformIcon(ctx, shared.Platform(data.Platform))
 
-		DrawUsername(ctx, "MozzyFX")
-		DrawTimePlayed(ctx, "150 hours")
+		DrawUsername(ctx, data.Username)
+		DrawTimePlayed(ctx, data.TimePlayed)
 
 		DrawFooterWithText(ctx, "BY MOZZY", "BATTLEFIELDSTATS.COM")
 	}

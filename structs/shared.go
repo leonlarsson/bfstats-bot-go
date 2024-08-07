@@ -1,5 +1,15 @@
 package structs
 
+// BaseData represents the base data for all image creations.
+// Each game embeds BaseData together with its own GAMEStats struct.
+type BaseData struct {
+	Identifier string `json:"identifier"`
+	Username   string `json:"username"`
+	TimePlayed string `json:"timePlayed"`
+	Platform   int    `json:"platform"`
+}
+
+// Stat represents a single stat with a name, value and extra information.
 type Stat struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
