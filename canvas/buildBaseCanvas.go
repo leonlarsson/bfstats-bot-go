@@ -10,20 +10,20 @@ import (
 	"github.com/tdewolff/canvas"
 )
 
-func BuildBaseCanvas(game string, data structs.BaseData, useGridSkeleton shared.SkeletonType) (*canvas.Canvas, *canvas.Context) {
+func BuildBaseCanvas(game string, data structs.BaseData, skeletonType shared.SkeletonType) (*canvas.Canvas, *canvas.Context) {
 	c, ctx := CreateStatsCanvasAndContext()
 
 	game = strings.ToUpper(game)
 
 	// Images
 	DrawBackground(ctx, utils.GetRandomBackgroundImage(game, shared.SolidBackground), true)
-	DrawSkeleton(ctx, shared.SkeletonType(useGridSkeleton), shared.RegularStyle)
+	DrawSkeleton(ctx, skeletonType, shared.RegularStyle)
 	DrawGameLogo(ctx, fmt.Sprintf("assets/images/%s/Logos/%s_LOGO_BG.png", game, game), shared.RegularStyle)
 
 	// Identifier
 	DrawIdentifier(ctx, data.Identifier)
 
-	if useGridSkeleton == shared.RegularSkeletonType {
+	if skeletonType == shared.RegularSkeletonType {
 		if game == "BF2042" /* TODO: AND if best class is base class (has an avatar) */ {
 			DrawBestClassImage(ctx, "assets/images/BF2042/Specialists/Angel.png")
 		} else if game != "BF2042" {
@@ -31,12 +31,19 @@ func BuildBaseCanvas(game string, data structs.BaseData, useGridSkeleton shared.
 		}
 
 		DrawAvatar(ctx, "assets/images/DefaultGravatar.png")
-		DrawPlatformIcon(ctx, shared.Platform(data.Platform))
 
-		DrawUsername(ctx, data.Username)
+		DrawUsernameRegular(ctx, data.Username)
 
-		DrawFooterWithText(ctx, "BY MOZZY", "BATTLEFIELDSTATS.COM")
+	} else {
+
+		DrawSegmentText(ctx, data.Meta.Segment)
+
+		DrawUsernameGrid(ctx, data.Username)
 	}
+
+	DrawPlatformIcon(ctx, shared.Platform(data.Platform), skeletonType, false)
+
+	DrawFooterWithText(ctx, "BY MOZZY", "BATTLEFIELDSTATS.COM", skeletonType)
 
 	return c, ctx
 }

@@ -1,13 +1,13 @@
 package structs
 
-// BF2042Data represents the data needed to create a Battlefield 2042 image.
-type BF2042Data struct {
+// BF2042OverviewData represents the data needed to create a Battlefield 2042 image.
+type BF2042OverviewData struct {
 	BaseData `json:"baseData"`
-	Stats    BF2042Stats `json:"stats"`
+	Stats    BF2042OverviewStats `json:"stats"`
 }
 
-// BF2042Stats represents the stats for Battlefield 2042.
-type BF2042Stats struct {
+// BF2042OverviewStats represents the stats for Battlefield 2042.
+type BF2042OverviewStats struct {
 	TimePlayed     Stat     `json:"timePlayed"`
 	Kills          Stat     `json:"kills"`
 	Deaths         Stat     `json:"deaths"`
@@ -19,4 +19,10 @@ type BF2042Stats struct {
 	KdRatio        Stat     `json:"kdRatio"`
 	KillsPerMinute Stat     `json:"killsPerMinute"`
 	Rank           RankStat `json:"rank"`
+}
+
+// BF2042WeaponsData represents the data needed to create a Battlefield 2042 image.
+type BF2042WeaponsData struct {
+	BaseData `json:"baseData"`
+	Weapons  []Stat `json:"weapons"`
 }

@@ -62,13 +62,23 @@ func DrawSkeleton(ctx *canvas.Context, skeletonType shared.SkeletonType, style s
 	return nil
 }
 
-func DrawFooterWithText(ctx *canvas.Context, leftText string, rightText string) {
+// DrawFooterWithText draws a footer with two texts (left and right).
+func DrawFooterWithText(ctx *canvas.Context, leftText string, rightText string, skeletonType shared.SkeletonType) {
 	ctx.SetFillColor(canvas.RGBA(32, 32, 32, 0.7))
-	rect := canvas.Rectangle(700, 25)
-	ctx.DrawPath(0, 725, rect)
+	leftTextLine := canvas.NewTextLine(robotoFont.Face(PixelsToPoints(20), canvas.RGBA(255, 255, 255, 0.8), canvas.FontMedium), leftText, canvas.Left)
+	rightTextLine := canvas.NewTextLine(robotoFont.Face(PixelsToPoints(20), canvas.RGBA(255, 255, 255, 0.8), canvas.FontMedium), rightText, canvas.Right)
 
-	ctx.DrawText(35, 745, canvas.NewTextLine(robotoFont.Face(PixelsToPoints(20), canvas.RGBA(255, 255, 255, 0.8), canvas.FontMedium), leftText, canvas.Left))
-	ctx.DrawText(665, 745, canvas.NewTextLine(robotoFont.Face(PixelsToPoints(20), canvas.RGBA(255, 255, 255, 0.8), canvas.FontMedium), rightText, canvas.Right))
+	if skeletonType == shared.RegularSkeletonType {
+		rect := canvas.Rectangle(700, 25)
+		ctx.DrawPath(0, 725, rect)
+		ctx.DrawText(35, 745, leftTextLine)
+		ctx.DrawText(665, 745, rightTextLine)
+	} else {
+		rect := canvas.Rectangle(1200, 25)
+		ctx.DrawPath(0, 725, rect)
+		ctx.DrawText(35, 745, leftTextLine)
+		ctx.DrawText(1165, 745, rightTextLine)
+	}
 }
 
 // DrawGameLogo draws a game logo (game logo files are expected to already be placed in the correct position)
@@ -94,7 +104,7 @@ func DrawGameLogo(ctx *canvas.Context, filePath string, style shared.DrawStyle) 
 }
 
 // DrawPlatformIcon draws a platform icon. Dirty way to make drawn optional lol
-func DrawPlatformIcon(ctx *canvas.Context, requestedPlatform shared.Platform, drawn ...bool) error {
+func DrawPlatformIcon(ctx *canvas.Context, requestedPlatform shared.Platform, skeletonType shared.SkeletonType, drawn bool) error {
 	platforms := map[int]string{
 		int(shared.PlatformPC):   "assets/images/Platform Icons/PC.png",
 		int(shared.PlatformXBOX): "assets/images/Platform Icons/Xbox.png",
@@ -107,7 +117,7 @@ func DrawPlatformIcon(ctx *canvas.Context, requestedPlatform shared.Platform, dr
 	}
 
 	// If drawn is true use "assets/images/Platform Icons/{PLATFORM}_Drawn.png" instead
-	if drawn != nil && drawn[0] {
+	if drawn {
 		platformImagePath = platformImagePath[:len(platformImagePath)-4] + "_Drawn.png"
 	}
 
@@ -123,8 +133,12 @@ func DrawPlatformIcon(ctx *canvas.Context, requestedPlatform shared.Platform, dr
 	}
 
 	// Draw the image
-	// 1.3 because that looks more fitting
-	ctx.DrawImage(1088, 73, platformImage, canvas.DPMM(1.3))
+	if skeletonType == shared.RegularSkeletonType {
+		// 1.3 because that looks more fitting
+		ctx.DrawImage(1088, 73, platformImage, canvas.DPMM(1.3))
+	} else {
+		ctx.DrawImage(1125, 36, platformImage, canvas.DPMM(2.5))
+	}
 
 	return nil
 }

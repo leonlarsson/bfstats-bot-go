@@ -7,7 +7,7 @@ import (
 	core "github.com/tdewolff/canvas"
 )
 
-func CreateBF2042Image(data structs.BF2042Data, style shared.BackgroundFormat) (*core.Canvas, *core.Context) {
+func CreateBF2042OverviewImage(data structs.BF2042OverviewData, style shared.BackgroundFormat) (*core.Canvas, *core.Context) {
 	c, ctx := canvas.BuildBaseCanvas("BF2042", data.BaseData, shared.RegularSkeletonType)
 
 	canvas.DrawTimePlayed(ctx, data.Stats.TimePlayed)

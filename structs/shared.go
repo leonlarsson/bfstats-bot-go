@@ -7,6 +7,12 @@ type BaseData struct {
 	Username   string `json:"username"`
 	Avatar     string `json:"avatar"`
 	Platform   int    `json:"platform"`
+	Meta       Meta   `json:"meta"`
+}
+
+type Meta struct {
+	Game    string `json:"game"`
+	Segment string `json:"segment"`
 }
 
 // Stat represents a single stat with a name, value and extra information.
