@@ -6,21 +6,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/leonlarsson/bfstats-image-gen/shared"
 	"github.com/tdewolff/canvas"
-)
-
-type DrawStyle int
-
-const (
-	RegularStyle DrawStyle = iota
-	DrawnStyle
-)
-
-type BackgroundFormat int
-
-const (
-	SolidBackground BackgroundFormat = iota
-	ImageBackground
 )
 
 // DrawBackground draws a background image
@@ -47,22 +34,15 @@ func DrawBackground(ctx *canvas.Context, filePath string, addDarkeningLayer bool
 	return nil
 }
 
-type SkeletonType int
-
-const (
-	RegularSkeletonType SkeletonType = iota
-	GridSkeletonType
-)
-
 // DrawSkeleton draws a skeleton background image (the rectangles and scaffolding)
-func DrawSkeleton(ctx *canvas.Context, skeletonType SkeletonType, style DrawStyle) error {
+func DrawSkeleton(ctx *canvas.Context, skeletonType shared.SkeletonType, style shared.DrawStyle) error {
 	filePath := "assets/images/Skeleton_BGs/Regular.png"
 
-	if skeletonType == GridSkeletonType {
+	if skeletonType == shared.GridSkeletonType {
 		filePath = "assets/images/Skeleton_BGs/Grid.png"
 	}
 
-	if style == DrawnStyle {
+	if style == shared.DrawnStyle {
 		filePath = strings.ReplaceAll(filePath, ".png", "_Drawn.png")
 	}
 
@@ -92,8 +72,8 @@ func DrawFooterWithText(ctx *canvas.Context, leftText string, rightText string) 
 }
 
 // DrawGameLogo draws a game logo (game logo files are expected to already be placed in the correct position)
-func DrawGameLogo(ctx *canvas.Context, filePath string, style DrawStyle) error {
-	if style == DrawnStyle {
+func DrawGameLogo(ctx *canvas.Context, filePath string, style shared.DrawStyle) error {
+	if style == shared.DrawnStyle {
 		filePath = strings.ReplaceAll(filePath, "_LOGO_BG", "_LOGO_WORDART_BG")
 	}
 
@@ -113,20 +93,12 @@ func DrawGameLogo(ctx *canvas.Context, filePath string, style DrawStyle) error {
 	return nil
 }
 
-type Platform int
-
-const (
-	PlatformPC Platform = iota
-	PlatformPS
-	PlatformXBOX
-)
-
 // DrawPlatformIcon draws a platform icon. Dirty way to make drawn optional lol
-func DrawPlatformIcon(ctx *canvas.Context, requestedPlatform Platform, drawn ...bool) error {
+func DrawPlatformIcon(ctx *canvas.Context, requestedPlatform shared.Platform, drawn ...bool) error {
 	platforms := map[int]string{
-		int(PlatformPC):   "assets/images/Platform Icons/PC.png",
-		int(PlatformXBOX): "assets/images/Platform Icons/Xbox.png",
-		int(PlatformPS):   "assets/images/Platform Icons/PS.png",
+		int(shared.PlatformPC):   "assets/images/Platform Icons/PC.png",
+		int(shared.PlatformXBOX): "assets/images/Platform Icons/Xbox.png",
+		int(shared.PlatformPS):   "assets/images/Platform Icons/PS.png",
 	}
 
 	platformImagePath, ok := platforms[int(requestedPlatform)]

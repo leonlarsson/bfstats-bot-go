@@ -6,11 +6,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/leonlarsson/bfstats-image-gen/canvas"
+	"github.com/leonlarsson/bfstats-image-gen/shared"
 )
 
 // GetRandomBackgroundImage returns a random background image from a given game and style
-func GetRandomBackgroundImage(game string, style canvas.BackgroundFormat) string {
+func GetRandomBackgroundImage(game string, style shared.BackgroundFormat) string {
 	var filesContainingString []string
 
 	game = strings.ToUpper(game)
@@ -21,7 +21,7 @@ func GetRandomBackgroundImage(game string, style canvas.BackgroundFormat) string
 	}
 
 	searchString := "SOLID_BG"
-	if style == canvas.ImageBackground {
+	if style == shared.ImageBackground {
 		searchString = "IMAGE_BG"
 	}
 

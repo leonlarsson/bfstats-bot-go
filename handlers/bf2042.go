@@ -7,6 +7,7 @@ import (
 
 	"github.com/leonlarsson/bfstats-image-gen/canvas"
 	"github.com/leonlarsson/bfstats-image-gen/create"
+	"github.com/leonlarsson/bfstats-image-gen/shared"
 	"github.com/leonlarsson/bfstats-image-gen/structs"
 )
 
@@ -19,7 +20,7 @@ func BF2042Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	c, _ := create.CreateBF2042Image(data, canvas.SolidBackground)
+	c, _ := create.CreateBF2042Image(data, shared.SolidBackground)
 	w.Header().Set("Content-Type", "image/png")
 	img := canvas.CanvasToImage(c)
 	png.Encode(w, img)
