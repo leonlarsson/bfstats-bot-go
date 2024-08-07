@@ -53,9 +53,9 @@ func DrawUsername(ctx *canvas.Context, username string) {
 	ctx.DrawText(950, 256, canvas.NewTextLine(face, username, canvas.Center))
 }
 
-func DrawTimePlayed(ctx *canvas.Context, timePlayed string) {
+func DrawTimePlayed(ctx *canvas.Context, stat structs.Stat) {
 	face := robotoFont.Face(PixelsToPoints(30), canvas.White, canvas.FontLight)
-	ctx.DrawText(950, 296, canvas.NewTextLine(face, timePlayed, canvas.Center))
+	ctx.DrawText(950, 296, canvas.NewTextLine(face, stat.Value, canvas.Center))
 }
 
 func DrawStat1(ctx *canvas.Context, stat structs.Stat) {
@@ -124,7 +124,7 @@ func DrawRightStat4(ctx *canvas.Context, stat structs.Stat) {
 	ctx.DrawText(1180, 658, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Right))
 }
 
-func DrawRightStat4Rank(ctx *canvas.Context, stat structs.Stat) {
+func DrawRightStat4Rank(ctx *canvas.Context, stat structs.RankStat) {
 	ctx.DrawText(723, 659, canvas.NewTextLine(statsRankTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(723, 689, canvas.NewTextLine(statsRankValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(723, 721, canvas.NewTextLine(statsRankExtraFace, stat.Extra, canvas.Left))

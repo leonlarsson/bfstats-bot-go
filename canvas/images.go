@@ -151,8 +151,9 @@ func DrawAvatar(ctx *canvas.Context, filePath string) error {
 	return nil
 }
 
-// DrawBestClass draws the best class image in stat slot 5
-func DrawBestClass(ctx *canvas.Context, filePath string) {
+// DrawBestClassImage draws the best class image in stat slot 5
+// TODO: Accept game and class name as arguments?
+func DrawBestClassImage(ctx *canvas.Context, filePath string) {
 	bestClassFile, err := os.Open(filePath)
 	if err != nil {
 		panic(err)

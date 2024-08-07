@@ -5,7 +5,7 @@ package structs
 type BaseData struct {
 	Identifier string `json:"identifier"`
 	Username   string `json:"username"`
-	TimePlayed string `json:"timePlayed"`
+	Avatar     string `json:"avatar"`
 	Platform   int    `json:"platform"`
 }
 
@@ -14,6 +14,14 @@ type Stat struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 	Extra string `json:"extra"`
+}
+
+// RankStat represents a rank stat with a name, value, rankInt and extra information.
+type RankStat struct {
+	Name    string `json:"name"`
+	Value   string `json:"value"`
+	RankInt int    `json:"rankInt"`
+	Extra   string `json:"extra"`
 }
 
 /** Example data

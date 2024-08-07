@@ -10,8 +10,7 @@ import (
 func CreateBF2042Image(data structs.BF2042Data, style shared.BackgroundFormat) (*core.Canvas, *core.Context) {
 	c, ctx := canvas.BuildBaseCanvas("BF2042", data.BaseData, shared.RegularSkeletonType)
 
-	canvas.DrawUsername(ctx, data.Username)
-	canvas.DrawTimePlayed(ctx, data.TimePlayed)
+	canvas.DrawTimePlayed(ctx, data.Stats.TimePlayed)
 
 	canvas.DrawStat1(ctx, data.Stats.Kills)
 	canvas.DrawStat2(ctx, data.Stats.Deaths)
@@ -20,7 +19,6 @@ func CreateBF2042Image(data structs.BF2042Data, style shared.BackgroundFormat) (
 	canvas.DrawStat4(ctx, data.Stats.Revives)
 
 	canvas.DrawStat5BestClass(ctx, data.Stats.BestClass)
-	canvas.DrawBestClass(ctx, "assets/images/BF2042/Specialists/Angel.png")
 
 	canvas.DrawStat6(ctx, data.Stats.WlRatio)
 

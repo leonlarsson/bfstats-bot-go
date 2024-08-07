@@ -8,14 +8,15 @@ type BF2042Data struct {
 
 // BF2042Stats represents the stats for Battlefield 2042.
 type BF2042Stats struct {
-	Kills          Stat `json:"kills"`
-	Deaths         Stat `json:"deaths"`
-	Assists        Stat `json:"assists"`
-	Revives        Stat `json:"revives"`
-	WlRatio        Stat `json:"wlRatio"`
-	BestClass      Stat `json:"bestClass"`
-	KillsPerMatch  Stat `json:"killsPerMatch"`
-	KdRatio        Stat `json:"kdRatio"`
-	KillsPerMinute Stat `json:"killsPerMinute"`
-	Rank           Stat `json:"rank"`
+	TimePlayed     Stat     `json:"timePlayed"`
+	Kills          Stat     `json:"kills"`
+	Deaths         Stat     `json:"deaths"`
+	Assists        Stat     `json:"assists"`
+	Revives        Stat     `json:"revives"`
+	WlRatio        Stat     `json:"wlRatio"`
+	BestClass      Stat     `json:"bestClass"`
+	KillsPerMatch  Stat     `json:"killsPerMatch"`
+	KdRatio        Stat     `json:"kdRatio"`
+	KillsPerMinute Stat     `json:"killsPerMinute"`
+	Rank           RankStat `json:"rank"`
 }

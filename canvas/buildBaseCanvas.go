@@ -25,7 +25,7 @@ func BuildBaseCanvas(game string, data structs.BaseData, useGridSkeleton shared.
 
 	if useGridSkeleton == shared.RegularSkeletonType {
 		if game == "BF2042" /* TODO: AND if best class is base class (has an avatar) */ {
-			DrawBestClass(ctx, "assets/images/BF2042/Specialists/Angel.png")
+			DrawBestClassImage(ctx, "assets/images/BF2042/Specialists/Angel.png")
 		} else if game != "BF2042" {
 			// TODO: Draw slightly bigger best class image
 		}
@@ -34,7 +34,6 @@ func BuildBaseCanvas(game string, data structs.BaseData, useGridSkeleton shared.
 		DrawPlatformIcon(ctx, shared.Platform(data.Platform))
 
 		DrawUsername(ctx, data.Username)
-		DrawTimePlayed(ctx, data.TimePlayed)
 
 		DrawFooterWithText(ctx, "BY MOZZY", "BATTLEFIELDSTATS.COM")
 	}
