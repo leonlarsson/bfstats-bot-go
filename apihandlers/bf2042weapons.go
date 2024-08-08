@@ -1,4 +1,4 @@
-package handlers
+package apihandlers
 
 import (
 	"encoding/json"
@@ -6,13 +6,13 @@ import (
 	"net/http"
 
 	"github.com/leonlarsson/bfstats-bot-go/canvas"
-	"github.com/leonlarsson/bfstats-bot-go/create"
+	create "github.com/leonlarsson/bfstats-bot-go/create/bf2042"
 	"github.com/leonlarsson/bfstats-bot-go/shared"
 	"github.com/leonlarsson/bfstats-bot-go/structs"
 )
 
-func BF2042Handler(w http.ResponseWriter, r *http.Request) {
-	var data structs.BF2042Data
+func BF2042WeaponsHandler(w http.ResponseWriter, r *http.Request) {
+	var data structs.BF2042WeaponsData
 
 	err := json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {
@@ -20,7 +20,7 @@ func BF2042Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	c, _ := create.CreateBF2042Image(data, shared.SolidBackground)
+	c, _ := create.CreateBF2042WeaponsImage(data, shared.SolidBackground)
 	w.Header().Set("Content-Type", "image/png")
 	img := canvas.CanvasToImage(c)
 	png.Encode(w, img)
