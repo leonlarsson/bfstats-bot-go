@@ -23,7 +23,7 @@ func DrawBackground(ctx *canvas.Context, filePath string, addDarkeningLayer bool
 		return err
 	}
 
-	ctx.DrawImage(0, 0, bgImg, canvas.DPMM(1))
+	ctx.DrawImage(0, 0, bgImg, 1)
 
 	if addDarkeningLayer {
 		ctx.SetFillColor(canvas.RGBA(0, 0, 0, .3))
@@ -57,7 +57,7 @@ func DrawSkeleton(ctx *canvas.Context, skeletonType shared.SkeletonType, style s
 		return err
 	}
 
-	ctx.DrawImage(0, 0, bgImg, canvas.DPMM(1))
+	ctx.DrawImage(0, 0, bgImg, 1)
 
 	return nil
 }
@@ -98,7 +98,7 @@ func DrawGameLogo(ctx *canvas.Context, filePath string, style shared.DrawStyle) 
 		return err
 	}
 
-	ctx.DrawImage(0, 0, bgImg, canvas.DPMM(1))
+	ctx.DrawImage(0, 0, bgImg, 1)
 
 	return nil
 }
@@ -134,10 +134,9 @@ func DrawPlatformIcon(ctx *canvas.Context, requestedPlatform shared.Platform, sk
 
 	// Draw the image
 	if skeletonType == shared.RegularSkeletonType {
-		// 1.3 because that looks more fitting
-		ctx.DrawImage(1088, 73, platformImage, canvas.DPMM(1.3))
+		ctx.FitImage(platformImage, canvas.Rect{X: 1088, Y: 73, W: 75, H: 75}, canvas.ImageContain)
 	} else {
-		ctx.DrawImage(1125, 36, platformImage, canvas.DPMM(2.5))
+		ctx.FitImage(platformImage, canvas.Rect{X: 1125, Y: 36, W: 39, H: 39}, canvas.ImageContain)
 	}
 
 	return nil
@@ -145,21 +144,21 @@ func DrawPlatformIcon(ctx *canvas.Context, requestedPlatform shared.Platform, sk
 
 // DrawAvatar draws an avatar image
 func DrawAvatar(ctx *canvas.Context, filePath string) error {
-	bgFile, err := os.Open(filePath)
+	avatarImgFile, err := os.Open(filePath)
 	if err != nil {
 		return err
 	}
-	defer bgFile.Close()
+	defer avatarImgFile.Close()
 
-	bgImg, err := png.Decode(bgFile)
+	avatarImg, err := png.Decode(avatarImgFile)
 	if err != nil {
 		return err
 	}
 
-	// TODO: Figure out how to mask the image into a circle (skill issue)
+	// TODO: Figure out how to mask the image into a circle (skill issue). Ref: https://github.com/tdewolff/canvas/issues/232
 	circlePath := canvas.Circle(100)
 	ctx.DrawPath(950, 111, circlePath)
-	ctx.DrawImage(850, 11, bgImg, canvas.DPMM(1))
+	ctx.FitImage(avatarImg, canvas.Rect{X: 850, Y: 11, W: 200, H: 200}, canvas.ImageContain)
 	ctx.Close()
 
 	return nil
@@ -180,6 +179,5 @@ func DrawBestClassImage(ctx *canvas.Context, filePath string) {
 	}
 
 	// TODO: Values currently hardcoded for BF2042 Specialists. In the future: Support other games (smaller class icons) and cases where no class is found. Ref: https://github.com/leonlarsson/bfstats-bot/blob/main/src/utils/canvasUtils.ts#L225-L229
-	// Image size (256px) / 5 is roughly 50px
-	ctx.DrawImage(60, 565, bestClassImg, canvas.DPMM(5))
+	ctx.FitImage(bestClassImg, canvas.Rect{X: 60, Y: 565, W: 50, H: 50}, canvas.ImageContain)
 }
