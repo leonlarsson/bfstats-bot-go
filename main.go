@@ -1,9 +1,9 @@
 package main
 
 import (
-	create "github.com/leonlarsson/bfstats-image-gen/create/bf2042"
-	"github.com/leonlarsson/bfstats-image-gen/shared"
-	"github.com/leonlarsson/bfstats-image-gen/structs"
+	create "github.com/leonlarsson/bfstats-bot-go/create/bf2042"
+	"github.com/leonlarsson/bfstats-bot-go/shared"
+	"github.com/leonlarsson/bfstats-bot-go/structs"
 	"github.com/tdewolff/canvas/renderers"
 )
 

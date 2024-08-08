@@ -5,10 +5,10 @@ import (
 	"image/png"
 	"net/http"
 
-	"github.com/leonlarsson/bfstats-image-gen/canvas"
-	"github.com/leonlarsson/bfstats-image-gen/create"
-	"github.com/leonlarsson/bfstats-image-gen/shared"
-	"github.com/leonlarsson/bfstats-image-gen/structs"
+	"github.com/leonlarsson/bfstats-bot-go/canvas"
+	"github.com/leonlarsson/bfstats-bot-go/create"
+	"github.com/leonlarsson/bfstats-bot-go/shared"
+	"github.com/leonlarsson/bfstats-bot-go/structs"
 )
 
 func BF2042Handler(w http.ResponseWriter, r *http.Request) {

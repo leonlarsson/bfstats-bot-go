@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/leonlarsson/bfstats-image-gen/shared"
-	"github.com/leonlarsson/bfstats-image-gen/structs"
-	"github.com/leonlarsson/bfstats-image-gen/utils"
+	"github.com/leonlarsson/bfstats-bot-go/shared"
+	"github.com/leonlarsson/bfstats-bot-go/structs"
+	"github.com/leonlarsson/bfstats-bot-go/utils"
 	"github.com/tdewolff/canvas"
 )
 

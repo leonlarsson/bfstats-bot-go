@@ -1,4 +1,4 @@
-module github.com/leonlarsson/bfstats-image-gen
+module github.com/leonlarsson/bfstats-bot-go
 
 go 1.22.5
 

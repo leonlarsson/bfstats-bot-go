@@ -1,9 +1,9 @@
 package create
 
 import (
-	"github.com/leonlarsson/bfstats-image-gen/canvas"
-	"github.com/leonlarsson/bfstats-image-gen/shared"
-	"github.com/leonlarsson/bfstats-image-gen/structs"
+	"github.com/leonlarsson/bfstats-bot-go/canvas"
+	"github.com/leonlarsson/bfstats-bot-go/shared"
+	"github.com/leonlarsson/bfstats-bot-go/structs"
 	core "github.com/tdewolff/canvas"
 )
 

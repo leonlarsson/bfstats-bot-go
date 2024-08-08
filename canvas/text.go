@@ -1,7 +1,7 @@
 package canvas
 
 import (
-	"github.com/leonlarsson/bfstats-image-gen/structs"
+	"github.com/leonlarsson/bfstats-bot-go/structs"
 	"github.com/tdewolff/canvas"
 )
 

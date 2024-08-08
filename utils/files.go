@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/leonlarsson/bfstats-image-gen/shared"
+	"github.com/leonlarsson/bfstats-bot-go/shared"
 )
 
 // GetRandomBackgroundImage returns a random background image from a given game and style
