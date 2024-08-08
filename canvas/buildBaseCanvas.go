@@ -30,7 +30,7 @@ func BuildBaseCanvas(game string, data structs.BaseData, skeletonType shared.Ske
 			// TODO: Draw slightly bigger best class image
 		}
 
-		DrawAvatar(ctx, "assets/images/DefaultGravatar.png")
+		DrawAvatar(ctx, data.Avatar)
 
 		DrawUsernameRegular(ctx, data.Username)
 

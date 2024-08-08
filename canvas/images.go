@@ -2,7 +2,9 @@ package canvas
 
 import (
 	"fmt"
+	"image"
 	"image/png"
+	"net/http"
 	"os"
 	"strings"
 
@@ -142,17 +144,39 @@ func DrawPlatformIcon(ctx *canvas.Context, requestedPlatform shared.Platform, sk
 	return nil
 }
 
-// DrawAvatar draws an avatar image
+// DrawAvatar draws an avatar image. Local path or URL is accepted.
 func DrawAvatar(ctx *canvas.Context, filePath string) error {
-	avatarImgFile, err := os.Open(filePath)
-	if err != nil {
-		return err
-	}
-	defer avatarImgFile.Close()
 
-	avatarImg, err := png.Decode(avatarImgFile)
-	if err != nil {
-		return err
+	var avatarImg image.Image
+
+	// If filePath is a URL, download the image. Otherwise, open the file
+	if strings.HasPrefix(filePath, "http") {
+		res, err := http.Get(filePath)
+		if err != nil {
+			return err
+		}
+		defer res.Body.Close()
+
+		// Decode (works for PNG and JPEG image formats)
+		// If webp is needed in the future, webp.Decode() can be used
+		avatarImg, _, err = image.Decode(res.Body)
+
+		if err != nil {
+			return err
+		}
+
+	} else {
+		avatarImgFile, err := os.Open(filePath)
+		if err != nil {
+			return err
+		}
+		defer avatarImgFile.Close()
+
+		// Assume PNG because I only have PNGs
+		avatarImg, err = png.Decode(avatarImgFile)
+		if err != nil {
+			return err
+		}
 	}
 
 	// TODO: Figure out how to mask the image into a circle (skill issue). Ref: https://github.com/tdewolff/canvas/issues/232
