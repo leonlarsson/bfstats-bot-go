@@ -18,6 +18,11 @@ func main() {
 	// 		Username:   "MozzyFX",
 	// 		Identifier: "FECbLioP0ywuiztPUP",
 	// 		Platform:   0,
+	// 		Avatar:     "assets/images/DefaultGravatar.png",
+	// 		Meta: structs.Meta{
+	// 			Game:    "Battlefield 2042",
+	// 			Segment: "Overview",
+	// 		},
 	// 	},
 	// 	Stats: structs.BF2042OverviewStats{
 	// 		TimePlayed: structs.Stat{
