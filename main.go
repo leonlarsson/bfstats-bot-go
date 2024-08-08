@@ -12,8 +12,7 @@ func main() {
 	// router.HandleFunc("/image/bf2042", handlers.BF2042Handler)
 	// http.ListenAndServe(":8080", router)
 
-	// // Test data
-	// bf2042OverviewData := structs.BF2042OverviewData{
+	// c, _ := create.CreateBF2042OverviewImage(structs.BF2042OverviewData{
 	// 	BaseData: structs.BaseData{
 	// 		Username:   "MozzyFX",
 	// 		Identifier: "FECbLioP0ywuiztPUP",
@@ -81,12 +80,9 @@ func main() {
 	// 			RankInt: 114,
 	// 		},
 	// 	},
-	// }
+	// }, shared.SolidBackground)
 
-	// // Create image with the data
-	// c, _ := create.CreateBF2042OverviewImage(bf2042OverviewData, shared.SolidBackground)
-
-	bf2042WeaponsData := structs.BF2042WeaponsData{
+	c, _ := create.CreateBF2042WeaponsImage(structs.BF2042WeaponsData{
 		BaseData: structs.BaseData{
 			Username:   "MozzyFX",
 			Identifier: "FECbLioP0ywuiztPUP",
@@ -143,9 +139,7 @@ func main() {
 				Extra: "2.3 KPM",
 			},
 		},
-	}
-
-	c, _ := create.CreateBF2042WeaponsImage(bf2042WeaponsData, shared.SolidBackground)
+	}, shared.SolidBackground)
 
 	// Save the image
 	if err := renderers.Write("render.png", c); err != nil {
