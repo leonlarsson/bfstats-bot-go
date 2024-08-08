@@ -18,6 +18,7 @@ type BF2042OverviewStats struct {
 	KillsPerMatch  Stat     `json:"killsPerMatch"`
 	KdRatio        Stat     `json:"kdRatio"`
 	KillsPerMinute Stat     `json:"killsPerMinute"`
+	MultiKills     Stat     `json:"multiKills"`
 	Rank           RankStat `json:"rank"`
 }
 
