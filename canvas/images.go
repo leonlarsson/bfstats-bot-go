@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/leonlarsson/bfstats-bot-go/shared"
+	"github.com/leonlarsson/bfstats-bot-go/utils"
 	"github.com/tdewolff/canvas"
 )
 
@@ -189,19 +190,37 @@ func DrawAvatar(ctx *canvas.Context, filePath string) error {
 }
 
 // DrawBestClassImage draws the best class image in stat slot 5
-// TODO: Accept game and class name as arguments?
-func DrawBestClassImage(ctx *canvas.Context, filePath string) {
+func DrawBestClassImage(ctx *canvas.Context, game string, className string) {
+	game = strings.ToUpper(game)
+
+	var filePath string
+
+	isBF2042BaseClass := utils.IsBaseBF2042Class(game, className)
+
+	if isBF2042BaseClass {
+		filePath = fmt.Sprintf("assets/images/BF2042/Specialists/%s.png", className)
+	} else {
+		filePath = fmt.Sprintf("assets/images/%s/Classes/%s.png", game, className)
+	}
+
 	bestClassFile, err := os.Open(filePath)
 	if err != nil {
-		panic(err)
+		// If the file is not found, draw nothing for now
+		return
 	}
 	defer bestClassFile.Close()
 
 	bestClassImg, err := png.Decode(bestClassFile)
 	if err != nil {
-		panic(err)
+		// If the file could not be decoded, draw nothing for now
+		return
 	}
 
-	// TODO: Values currently hardcoded for BF2042 Specialists. In the future: Support other games (smaller class icons) and cases where no class is found. Ref: https://github.com/leonlarsson/bfstats-bot/blob/main/src/utils/canvasUtils.ts#L225-L229
-	ctx.FitImage(bestClassImg, canvas.Rect{X: 60, Y: 565, W: 50, H: 50}, canvas.ImageContain)
+	// If the best class is a BF2042 base class, draw the image with a specific size and position
+	if isBF2042BaseClass {
+		ctx.FitImage(bestClassImg, canvas.Rect{X: 60, Y: 565, W: 50, H: 50}, canvas.ImageContain)
+	} else {
+		// TODO: Verify for games that have class icons instead
+		ctx.FitImage(bestClassImg, canvas.Rect{X: 40, Y: 552, W: 70, H: 70}, canvas.ImageContain)
+	}
 }

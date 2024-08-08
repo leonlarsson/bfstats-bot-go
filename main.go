@@ -73,6 +73,11 @@ func main() {
 				Value: "1.51",
 				Extra: "Top 10%",
 			},
+			MultiKills: structs.Stat{
+				Name:  "Multikills:",
+				Value: "386",
+				Extra: "Top 2%",
+			},
 			Rank: structs.RankStat{
 				Name:    "Rank 114 (S015)",
 				Value:   "96% to next rank",

@@ -4,6 +4,7 @@ import (
 	"github.com/leonlarsson/bfstats-bot-go/canvas"
 	"github.com/leonlarsson/bfstats-bot-go/shared"
 	"github.com/leonlarsson/bfstats-bot-go/structs"
+	"github.com/leonlarsson/bfstats-bot-go/utils"
 	core "github.com/tdewolff/canvas"
 )
 
@@ -18,7 +19,18 @@ func CreateBF2042OverviewImage(data structs.BF2042OverviewData, style shared.Bac
 	canvas.DrawStat3(ctx, data.Stats.Assists)
 	canvas.DrawStat4(ctx, data.Stats.Revives)
 
-	canvas.DrawStat5BestClass(ctx, data.Stats.BestClass)
+	canvas.DrawBestClassImage(ctx, "BF2042", data.Stats.BestClass.Value)
+
+	// 1. If the best class is a base class, draw the text with room for the image
+	// 2. If the best class is "Unknown", draw the multi-kills stat
+	// 3. If the best class is anything else ("BF3 Engineer, etc."), draw a regular stat
+	if utils.IsBaseBF2042Class("BF2042", data.Stats.BestClass.Value) {
+		canvas.DrawStat5BestClass(ctx, data.Stats.BestClass)
+	} else if data.Stats.BestClass.Value == "Unknown" {
+		canvas.DrawStat5(ctx, data.Stats.MultiKills)
+	} else {
+		canvas.DrawStat5(ctx, data.Stats.BestClass)
+	}
 
 	canvas.DrawStat6(ctx, data.Stats.WlRatio)
 

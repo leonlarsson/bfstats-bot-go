@@ -24,20 +24,11 @@ func BuildBaseCanvas(game string, data structs.BaseData, skeletonType shared.Ske
 	DrawIdentifier(ctx, data.Identifier)
 
 	if skeletonType == shared.RegularSkeletonType {
-		if game == "BF2042" /* TODO: AND if best class is base class (has an avatar) */ {
-			DrawBestClassImage(ctx, "assets/images/BF2042/Specialists/Angel.png")
-		} else if game != "BF2042" {
-			// TODO: Draw slightly bigger best class image
-		}
-
 		DrawAvatar(ctx, data.Avatar)
-
 		DrawUsernameRegular(ctx, data.Username)
 
 	} else {
-
 		DrawSegmentText(ctx, data.Meta.Segment)
-
 		DrawUsernameGrid(ctx, data.Username)
 	}
 
