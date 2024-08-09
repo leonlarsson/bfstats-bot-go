@@ -1,0 +1,6 @@
+{
+    "download": {
+        "files": "./assets/locales/${languageCode}.json",
+        "includeSourceLang": true
+    }
+}
