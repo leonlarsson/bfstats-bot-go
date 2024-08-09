@@ -54,7 +54,7 @@ type TRNOverviewBasicStat[T any] struct {
 func FetchBF2042OverviewData(platform, username string) (TRNOverviewResponse, error) {
 	var trnResponse TRNOverviewResponse
 
-	url := utils.TRNBF2042WeaponsURL(platform, username)
+	url := utils.TRNBF2042OverviewURL(platform, username)
 
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("TRN-Internal-Api-Key", os.Getenv("TRN_API_KEY"))
