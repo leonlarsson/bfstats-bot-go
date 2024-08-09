@@ -2,14 +2,14 @@ package main
 
 import (
 	"net/http"
-	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/leonlarsson/bfstats-bot-go/apihandlers"
 	commandhandlers "github.com/leonlarsson/bfstats-bot-go/commandhandlers/bf2042"
 )
 
 func init() {
-	os.Setenv("TRN_API_KEY", "XXX")
+	godotenv.Load()
 }
 
 func main() {
