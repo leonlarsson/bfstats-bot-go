@@ -1,0 +1,124 @@
+package localization
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+	"strings"
+
+	"github.com/nicksnyder/go-i18n/v2/i18n"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
+)
+
+var (
+	Bundle *i18n.Bundle
+)
+
+func init() {
+	Bundle = GetBundle()
+}
+
+// GetBundle returns a new i18n.Bundle with the English language as the default
+func GetBundle() *i18n.Bundle {
+	bundle := i18n.NewBundle(language.English)
+	bundle.RegisterUnmarshalFunc("json", json.Unmarshal)
+	return bundle
+}
+
+// LoadLocales loads all locale files from the assets/locales directory
+func LoadLocales() error {
+	locFiles := []string{
+		"assets/locales/ar.json",
+		"assets/locales/de.json",
+		"assets/locales/en.json",
+		"assets/locales/es.json",
+		"assets/locales/fi.json",
+		"assets/locales/fr.json",
+		"assets/locales/it.json",
+		"assets/locales/nb.json",
+		"assets/locales/pl.json",
+		"assets/locales/pt.json",
+		"assets/locales/ru.json",
+		"assets/locales/sv.json",
+		"assets/locales/tr.json",
+	}
+
+	for _, file := range locFiles {
+		content, err := os.ReadFile(file)
+		if err != nil {
+			return fmt.Errorf("failed to read locale file %s: %w", file, err)
+		}
+		modifiedContent := replaceDelimiters(string(content))
+		if _, err := Bundle.ParseMessageFileBytes([]byte(modifiedContent), file); err != nil {
+			return fmt.Errorf("failed to parse locale file %s: %w", file, err)
+		}
+	}
+	return nil
+}
+
+// replaceDelimiters replaces the delimiters used in the locale files
+func replaceDelimiters(s string) string {
+	s = strings.ReplaceAll(s, "{{{", "{{.")
+	s = strings.ReplaceAll(s, "}}}", "}}")
+	return s
+}
+
+// Localize returns a localized string based on the key and data provided. This is just a shorthand for the Localizer.MustLocalize method.
+func Localize(localizer *i18n.Localizer, key string, data map[string]string) string {
+	msg, err := localizer.Localize(&i18n.LocalizeConfig{
+		MessageID:    key,
+		TemplateData: data,
+	})
+
+	if err != nil {
+		return "<string not found>"
+	}
+
+	return msg
+}
+
+// LanguageLocalizer is a struct that contains functions for translating and formatting strings based on a specific language
+type LanguageLocalizer struct {
+	Translate               func(string, map[string]string) string
+	FormatInt               func(int) string
+	FormatFloat             func(float64) string
+	SelectedLocale          string
+	SelectedLocaleNumbers   string
+	SelectedLocaleHumanizer string
+	SelectedLocaleDiscord   string
+}
+
+// CreateLocForLanguage creates a new LanguageLocalizer for the specified language
+func CreateLocForLanguage(lang string) *LanguageLocalizer {
+	// Create a new localizer for the language
+	localizer := i18n.NewLocalizer(Bundle, lang)
+
+	translate := func(key string, data map[string]string) string {
+		return Localize(localizer, key, data)
+	}
+
+	selectedLocaleNumbers := translate("meta/lang_code_numbers", nil)
+	selectedLocaleHumanizer := translate("meta/lang_code_humanizer", nil)
+	selectedLocaleDiscord := translate("meta/lang_code_discord", nil)
+
+	printer := message.NewPrinter(language.Make(selectedLocaleNumbers))
+
+	formatInt := func(i int) string {
+		return printer.Sprintf("%d", i)
+	}
+
+	formatFloat := func(f float64) string {
+		return printer.Sprintf("%f", f)
+	}
+
+	return &LanguageLocalizer{
+		Translate:               translate,
+		FormatInt:               formatInt,
+		FormatFloat:             formatFloat,
+		SelectedLocale:          lang,
+		SelectedLocaleNumbers:   selectedLocaleNumbers,
+		SelectedLocaleHumanizer: selectedLocaleHumanizer,
+		SelectedLocaleDiscord:   selectedLocaleDiscord,
+	}
+}
