@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+
+	"github.com/leonlarsson/bfstats-bot-go/utils"
 )
 
 // TRNBF2042OverviewResponse represents the response from the TRN API for Battlefield 2042.
@@ -52,7 +54,7 @@ type TRNOverviewBasicStat[T any] struct {
 func FetchBF2042OverviewData(platform, username string) (TRNOverviewResponse, error) {
 	var trnResponse TRNOverviewResponse
 
-	url := fmt.Sprintf("https://public-api.tracker.gg/v2/bf2042/standard/profile/%s/%s", platform, username)
+	url := utils.TRNBF2042WeaponsURL(platform, username)
 
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("TRN-Internal-Api-Key", os.Getenv("TRN_API_KEY"))
@@ -75,7 +77,7 @@ func FetchBF2042OverviewData(platform, username string) (TRNOverviewResponse, er
 
 // Unused, but a cool idea
 func (trnResponse *TRNOverviewResponse) Fetch(platform, username string) error {
-	url := fmt.Sprintf("https://public-api.tracker.gg/v2/bf2042/standard/profile/%s/%s", platform, username)
+	url := utils.TRNBF2042OverviewURL(platform, username)
 
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("TRN-Internal-Api-Key", os.Getenv("TRN_API_KEY"))
