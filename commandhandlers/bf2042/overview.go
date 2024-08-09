@@ -1,14 +1,13 @@
 package commandhandlers
 
 import (
-	"cmp"
 	"fmt"
 	"math"
 
+	"github.com/leonlarsson/bfstats-bot-go/canvasdatashapes"
 	create "github.com/leonlarsson/bfstats-bot-go/create/bf2042"
-	datafetcher "github.com/leonlarsson/bfstats-bot-go/datafetcher/bf2042"
+	"github.com/leonlarsson/bfstats-bot-go/datafetchers/bf2042datafetcher"
 	"github.com/leonlarsson/bfstats-bot-go/shared"
-	"github.com/leonlarsson/bfstats-bot-go/structs"
 	"github.com/leonlarsson/bfstats-bot-go/utils"
 	"github.com/tdewolff/canvas/renderers"
 	"golang.org/x/text/language"
@@ -16,7 +15,7 @@ import (
 )
 
 func HandleBF2042OverviewCommand(platform, username string) error {
-	data, err := datafetcher.FetchBF2042OverviewData(platform, username)
+	data, err := bf2042datafetcher.FetchBF2042OverviewData(platform, username)
 	if err != nil {
 		return err
 	}
@@ -27,74 +26,74 @@ func HandleBF2042OverviewCommand(platform, username string) error {
 	}
 
 	// Create the image
-	imageData := structs.BF2042OverviewData{
-		BaseData: structs.BaseData{
+	imageData := canvasdatashapes.BF2042OverviewCanvasData{
+		BaseData: canvasdatashapes.BaseData{
 			Identifier: "BF2042-001",
 			Username:   data.Data.PlatformInfo.PlatformUserHandle,
 			Platform:   int(utils.TRNPlatformNameToInt(data.Data.PlatformInfo.PLatformSlug)),
-			Avatar:     cmp.Or(data.Data.PlatformInfo.AvatarURL, "assets/images/DefaultGravatar.png"),
-			Meta: structs.Meta{
+			Avatar:     utils.GetAvatarImageURL(data.Data.PlatformInfo.AvatarURL),
+			Meta: canvasdatashapes.Meta{
 				Game:    "Battlefield 2042",
 				Segment: "Overview",
 			},
 		},
-		Stats: structs.BF2042OverviewStats{
-			TimePlayed: structs.Stat{
+		Stats: canvasdatashapes.BF2042OverviewCanvasStats{
+			TimePlayed: canvasdatashapes.Stat{
 				Name:  "Time Played:",
 				Value: overviewSegment.Stats.TimePlayed.DisplayValue,
 				Extra: percentileToString(overviewSegment.Stats.TimePlayed.Percentile),
 			},
-			Kills: structs.Stat{
+			Kills: canvasdatashapes.Stat{
 				Name:  "Kills:",
 				Value: overviewSegment.Stats.Kills.DisplayValue,
 				Extra: percentileToString(overviewSegment.Stats.Kills.Percentile),
 			},
-			Deaths: structs.Stat{
+			Deaths: canvasdatashapes.Stat{
 				Name:  "Deaths:",
 				Value: overviewSegment.Stats.Deaths.DisplayValue,
 				Extra: percentileToString(overviewSegment.Stats.Deaths.Percentile),
 			},
-			Assists: structs.Stat{
+			Assists: canvasdatashapes.Stat{
 				Name:  "Assists:",
 				Value: overviewSegment.Stats.Assists.DisplayValue,
 				Extra: percentileToString(overviewSegment.Stats.Assists.Percentile),
 			},
-			Revives: structs.Stat{
+			Revives: canvasdatashapes.Stat{
 				Name:  "Revives:",
 				Value: overviewSegment.Stats.Revives.DisplayValue,
 				Extra: percentileToString(overviewSegment.Stats.Revives.Percentile),
 			},
-			WlRatio: structs.Stat{
+			WlRatio: canvasdatashapes.Stat{
 				Name:  "W/L Ratio:",
 				Value: overviewSegment.Stats.WlPercentage.DisplayValue,
 				Extra: percentileToString(overviewSegment.Stats.WlPercentage.Percentile),
 			},
-			// BestClass: structs.Stat{
+			// BestClass: canvasdatashapes.Stat{
 			// 	Name:  "Best Class:",
 			// 	Value: "Angel",
 			// 	Extra: "2,813 kills | 15 hours",
 			// },
-			KillsPerMatch: structs.Stat{
+			KillsPerMatch: canvasdatashapes.Stat{
 				Name:  "Kills/Match:",
 				Value: overviewSegment.Stats.KillsPerMatch.DisplayValue,
 				Extra: percentileToString(overviewSegment.Stats.KillsPerMatch.Percentile),
 			},
-			KdRatio: structs.Stat{
+			KdRatio: canvasdatashapes.Stat{
 				Name:  "K/D Ratio:",
 				Value: overviewSegment.Stats.KdRatio.DisplayValue,
 				Extra: percentileToString(overviewSegment.Stats.KdRatio.Percentile),
 			},
-			KillsPerMinute: structs.Stat{
+			KillsPerMinute: canvasdatashapes.Stat{
 				Name:  "Kills/Minute:",
 				Value: overviewSegment.Stats.KillsPerMinute.DisplayValue,
 				Extra: percentileToString(overviewSegment.Stats.KillsPerMinute.Percentile),
 			},
-			MultiKills: structs.Stat{
+			MultiKills: canvasdatashapes.Stat{
 				Name:  "Multikills:",
 				Value: overviewSegment.Stats.MultiKills.DisplayValue,
 				Extra: percentileToString(overviewSegment.Stats.MultiKills.Percentile),
 			},
-			Rank: structs.RankStat{
+			Rank: canvasdatashapes.RankStat{
 				Name:    formatRankString(overviewSegment.Stats.Level.Value),
 				Value:   fmt.Sprintf("%.0f%% to next rank", overviewSegment.Stats.LevelProgression.Value),
 				RankInt: overviewSegment.Stats.Level.Value,
@@ -111,13 +110,13 @@ func HandleBF2042OverviewCommand(platform, username string) error {
 	return nil
 }
 
-func percentileToString(percentile float64) string {
-	if percentile == 0 {
+func percentileToString(percentile *float64) string {
+	if percentile == nil || *percentile == 0.0 {
 		return ""
 	}
 
 	p := message.NewPrinter(language.English)
-	adjustedPercentile := 100 - percentile
+	adjustedPercentile := 100 - *percentile
 
 	// If the percentile is a whole number, don't show any decimal places
 	if adjustedPercentile == math.Trunc(adjustedPercentile) {

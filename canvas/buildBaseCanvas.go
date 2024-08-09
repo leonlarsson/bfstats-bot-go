@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/leonlarsson/bfstats-bot-go/canvasdatashapes"
 	"github.com/leonlarsson/bfstats-bot-go/shared"
-	"github.com/leonlarsson/bfstats-bot-go/structs"
 	"github.com/leonlarsson/bfstats-bot-go/utils"
 	"github.com/tdewolff/canvas"
 )
 
-func BuildBaseCanvas(game string, data structs.BaseData, skeletonType shared.SkeletonType) (*canvas.Canvas, *canvas.Context) {
+func BuildBaseCanvas(game string, data canvasdatashapes.BaseData, skeletonType shared.SkeletonType) (*canvas.Canvas, *canvas.Context) {
 	c, ctx := CreateStatsCanvasAndContext()
 
 	game = strings.ToUpper(game)

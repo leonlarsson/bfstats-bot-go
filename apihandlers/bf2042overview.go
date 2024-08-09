@@ -6,13 +6,13 @@ import (
 	"net/http"
 
 	"github.com/leonlarsson/bfstats-bot-go/canvas"
+	"github.com/leonlarsson/bfstats-bot-go/canvasdatashapes"
 	create "github.com/leonlarsson/bfstats-bot-go/create/bf2042"
 	"github.com/leonlarsson/bfstats-bot-go/shared"
-	"github.com/leonlarsson/bfstats-bot-go/structs"
 )
 
 func BF2042OverviewHandler(w http.ResponseWriter, r *http.Request) {
-	var data structs.BF2042OverviewData
+	var data canvasdatashapes.BF2042OverviewCanvasData
 
 	err := json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {
