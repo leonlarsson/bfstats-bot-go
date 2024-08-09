@@ -80,7 +80,8 @@ func Localize(localizer *i18n.Localizer, key string, data map[string]string) str
 
 // LanguageLocalizer is a struct that contains functions for translating and formatting strings based on a specific language
 type LanguageLocalizer struct {
-	Translate               func(string, map[string]string) string
+	Translate               func(string, ...map[string]string) string
+	TranslateWithColon      func(string, ...map[string]string) string
 	FormatInt               func(int) string
 	FormatFloat             func(float64) string
 	SelectedLocale          string
@@ -94,8 +95,19 @@ func CreateLocForLanguage(lang string) *LanguageLocalizer {
 	// Create a new localizer for the language
 	localizer := i18n.NewLocalizer(Bundle, lang)
 
-	translate := func(key string, data map[string]string) string {
-		return Localize(localizer, key, data)
+	// Translate function that takes a key and optional data map
+	translate := func(key string, data ...map[string]string) string {
+		// Default to an empty map if no data is provided
+		dataMap := map[string]string{}
+		if len(data) > 0 {
+			dataMap = data[0]
+		}
+		return Localize(localizer, key, dataMap)
+	}
+
+	// Shortcut for translating a key with a colon at the end
+	translateWithColon := func(key string, data ...map[string]string) string {
+		return fmt.Sprintf("%s%s", translate(key, data...), translate("meta/colon"))
 	}
 
 	selectedLocaleNumbers := translate("meta/lang_code_numbers", nil)
@@ -114,6 +126,7 @@ func CreateLocForLanguage(lang string) *LanguageLocalizer {
 
 	return &LanguageLocalizer{
 		Translate:               translate,
+		TranslateWithColon:      translateWithColon,
 		FormatInt:               formatInt,
 		FormatFloat:             formatFloat,
 		SelectedLocale:          lang,
