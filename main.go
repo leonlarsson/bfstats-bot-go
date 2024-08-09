@@ -22,7 +22,7 @@ func main() {
 	msg := loc.Translate("stats/extra/x_score", map[string]string{"score": loc.FormatInt(123456789)})
 	println(msg)
 
-	err := commandhandlers.HandleBF2042OverviewCommand("origin", "MozzyFX")
+	err := commandhandlers.HandleBF2042OverviewCommand(loc, "origin", "MozzyFX")
 	if err != nil {
 		println(err.Error())
 	}

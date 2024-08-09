@@ -6,6 +6,7 @@ import (
 	"github.com/leonlarsson/bfstats-bot-go/canvasdatashapes"
 	create "github.com/leonlarsson/bfstats-bot-go/create/bf2042"
 	"github.com/leonlarsson/bfstats-bot-go/datafetchers/bf2042datafetcher"
+	"github.com/leonlarsson/bfstats-bot-go/localization"
 	"github.com/leonlarsson/bfstats-bot-go/shared"
 	"github.com/leonlarsson/bfstats-bot-go/utils"
 	"github.com/tdewolff/canvas/renderers"
@@ -13,7 +14,7 @@ import (
 
 // HandleBF2042OverviewCommand handles the bf2042 overview command.
 // TODO: In the future, this will take a loc param. Similar to bfstats-bot implementation.
-func HandleBF2042OverviewCommand(platform, username string) error {
+func HandleBF2042OverviewCommand(loc localization.LanguageLocalizer, platform, username string) error {
 	data, err := bf2042datafetcher.FetchBF2042OverviewData(platform, username)
 	if err != nil {
 		return err
@@ -43,60 +44,60 @@ func HandleBF2042OverviewCommand(platform, username string) error {
 				Extra: utils.PercentileToString(overviewSegment.Stats.TimePlayed.Percentile),
 			},
 			Kills: canvasdatashapes.Stat{
-				Name:  "Kills:",
-				Value: overviewSegment.Stats.Kills.DisplayValue,
+				Name:  loc.TranslateWithColon("stats/title/kills"),
+				Value: loc.FormatInt(overviewSegment.Stats.Kills.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Kills.Percentile),
 			},
 			Deaths: canvasdatashapes.Stat{
-				Name:  "Deaths:",
-				Value: overviewSegment.Stats.Deaths.DisplayValue,
+				Name:  loc.TranslateWithColon("stats/title/deaths"),
+				Value: loc.FormatInt(overviewSegment.Stats.Deaths.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Deaths.Percentile),
 			},
 			Assists: canvasdatashapes.Stat{
-				Name:  "Assists:",
-				Value: overviewSegment.Stats.Assists.DisplayValue,
+				Name:  loc.TranslateWithColon("stats/title/assists"),
+				Value: loc.FormatInt(overviewSegment.Stats.Assists.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Assists.Percentile),
 			},
 			Revives: canvasdatashapes.Stat{
-				Name:  "Revives:",
-				Value: overviewSegment.Stats.Revives.DisplayValue,
+				Name:  loc.TranslateWithColon("stats/title/revives"),
+				Value: loc.FormatInt(overviewSegment.Stats.Revives.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Revives.Percentile),
 			},
 			WlRatio: canvasdatashapes.Stat{
-				Name:  "W/L Ratio:",
+				Name:  loc.TranslateWithColon("stats/title/wlratio"),
 				Value: overviewSegment.Stats.WlPercentage.DisplayValue,
 				Extra: utils.PercentileToString(overviewSegment.Stats.WlPercentage.Percentile),
 			},
 			// BestClass: canvasdatashapes.Stat{
-			// 	Name:  "Best Class:",
+			// 	Name:  loc.TranslateWithColon("stats/title/bestclass"),
 			// 	Value: "Angel",
 			// 	Extra: "2,813 kills | 15 hours",
 			// },
 			KillsPerMatch: canvasdatashapes.Stat{
-				Name:  "Kills/Match:",
-				Value: overviewSegment.Stats.KillsPerMatch.DisplayValue,
+				Name:  loc.TranslateWithColon("stats/title/kills_per_match"),
+				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMatch.Value, 1),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KillsPerMatch.Percentile),
 			},
 			KdRatio: canvasdatashapes.Stat{
-				Name:  "K/D Ratio:",
-				Value: overviewSegment.Stats.KdRatio.DisplayValue,
+				Name:  loc.TranslateWithColon("stats/title/kd"),
+				Value: loc.FormatFloat(overviewSegment.Stats.KdRatio.Value, 1),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KdRatio.Percentile),
 			},
 			KillsPerMinute: canvasdatashapes.Stat{
-				Name:  "Kills/Minute:",
-				Value: overviewSegment.Stats.KillsPerMinute.DisplayValue,
+				Name:  loc.TranslateWithColon("stats/title/kpm"),
+				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMinute.Value, 1),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KillsPerMinute.Percentile),
 			},
 			MultiKills: canvasdatashapes.Stat{
-				Name:  "Multikills:",
-				Value: overviewSegment.Stats.MultiKills.DisplayValue,
+				Name:  loc.TranslateWithColon("stats/title/multikills"),
+				Value: loc.FormatInt(overviewSegment.Stats.MultiKills.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.MultiKills.Percentile),
 			},
 			Rank: canvasdatashapes.RankStat{
 				Name:    utils.FormatRankString(overviewSegment.Stats.Level.Value),
-				Value:   fmt.Sprintf("%.0f%% to next rank", overviewSegment.Stats.LevelProgression.Value),
+				Value:   loc.Translate("stats/extra/percentage_to_next_rank", map[string]string{"percentage": fmt.Sprintf("%.0f%%", overviewSegment.Stats.LevelProgression.Value)}),
 				RankInt: overviewSegment.Stats.Level.Value,
-				Extra:   fmt.Sprintf("XP: %s", overviewSegment.Stats.XPAll.DisplayValue),
+				Extra:   fmt.Sprintf("XP: %s", loc.FormatInt(overviewSegment.Stats.XPAll.Value)),
 			},
 		},
 	}
