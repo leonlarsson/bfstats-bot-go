@@ -169,56 +169,74 @@ func DrawRightStat4Rank(ctx *canvas.Context, stat canvasdatashapes.RankStat) {
 	ctx.DrawText(723, 721, canvas.NewTextLine(statsRankExtraFace, stat.Extra, canvas.Left))
 }
 
+/* Grid Stats */
+
+// GridStatsTextBox returns a new text box with the given text. This is used to avoid overflowing text.
+func GridStatTextBox(text string) *canvas.Text {
+	// 335 is the width of the text box
+	// 50 is the height of the text box (to only allow one line, no wrapping)
+	return canvas.NewTextBox(statsTitleFace, text, 335, 50, 0, 0, 0, 0)
+}
+
 func DrawGridStat1(ctx *canvas.Context, stat canvasdatashapes.Stat) {
-	ctx.DrawText(57, 180, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
+	nameTextBox := GridStatTextBox(stat.Name)
+	ctx.DrawText(57, 180+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(57, 221, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(57, 259, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
 func DrawGridStat2(ctx *canvas.Context, stat canvasdatashapes.Stat) {
-	ctx.DrawText(439, 180, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
+	nameTextBox := GridStatTextBox(stat.Name)
+	ctx.DrawText(439, 180+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(439, 221, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(439, 259, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
 func DrawGridStat3(ctx *canvas.Context, stat canvasdatashapes.Stat) {
-	ctx.DrawText(823, 180, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
+	nameTextBox := GridStatTextBox(stat.Name)
+	ctx.DrawText(823, 180+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(823, 221, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(823, 259, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
 func DrawGridStat4(ctx *canvas.Context, stat canvasdatashapes.Stat) {
-	ctx.DrawText(57, 371, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
+	nameTextBox := GridStatTextBox(stat.Name)
+	ctx.DrawText(57, 371+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(57, 412, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(57, 450, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
 func DrawGridStat5(ctx *canvas.Context, stat canvasdatashapes.Stat) {
-	ctx.DrawText(439, 371, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
+	nameTextBox := GridStatTextBox(stat.Name)
+	ctx.DrawText(439, 371+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(439, 412, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(439, 450, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
 func DrawGridStat6(ctx *canvas.Context, stat canvasdatashapes.Stat) {
-	ctx.DrawText(823, 371, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
+	nameTextBox := GridStatTextBox(stat.Name)
+	ctx.DrawText(823, 371+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(823, 412, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(823, 450, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
 func DrawGridStat7(ctx *canvas.Context, stat canvasdatashapes.Stat) {
-	ctx.DrawText(57, 561, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
+	nameTextBox := GridStatTextBox(stat.Name)
+	ctx.DrawText(57, 561+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(57, 602, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(57, 640, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
 func DrawGridStat8(ctx *canvas.Context, stat canvasdatashapes.Stat) {
-	ctx.DrawText(439, 561, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
+	nameTextBox := GridStatTextBox(stat.Name)
+	ctx.DrawText(439, 561+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(439, 602, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(439, 640, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
 func DrawGridStat9(ctx *canvas.Context, stat canvasdatashapes.Stat) {
-	ctx.DrawText(823, 561, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
+	nameTextBox := GridStatTextBox(stat.Name)
+	ctx.DrawText(823, 561+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(823, 602, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(823, 640, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
