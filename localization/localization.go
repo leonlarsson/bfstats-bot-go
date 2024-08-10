@@ -128,7 +128,7 @@ func CreateLocForLanguage(lang string) *LanguageLocalizer {
 
 	// TODO: Accept max fraction digits as a parameter
 	formatPercent := func(f float64, maxFractionDigits int) string {
-		return printer.Sprintf("%.*f%s", maxFractionDigits, f, translate("stats/extra/x_percent"))
+		return translate("stats/extra/x_percent", map[string]string{"number": printer.Sprintf("%.*f", maxFractionDigits, f)})
 	}
 
 	return &LanguageLocalizer{
