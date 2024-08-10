@@ -18,7 +18,7 @@ func init() {
 }
 
 func main() {
-	loc := *localization.CreateLocForLanguage("sv")
+	loc := *localization.CreateLocForLanguage("en")
 
 	err := commandhandlers.HandleBF2042OverviewCommand(loc, "origin", "MozzyFX")
 	if err != nil {

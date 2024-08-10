@@ -3,6 +3,8 @@ package commandhandlers
 import (
 	"cmp"
 	"fmt"
+	"sort"
+	"strings"
 
 	"github.com/leonlarsson/bfstats-bot-go/canvasdatashapes"
 	create "github.com/leonlarsson/bfstats-bot-go/create/bf2042"
@@ -14,9 +16,13 @@ import (
 )
 
 // HandleBF2042OverviewCommand handles the bf2042 overview command.
-// TODO: In the future, this will take a loc param. Similar to bfstats-bot implementation.
 func HandleBF2042OverviewCommand(loc localization.LanguageLocalizer, platform, username string) error {
 	data, err := bf2042datafetcher.FetchBF2042OverviewData(platform, username)
+	if err != nil {
+		return err
+	}
+
+	classData, err := bf2042datafetcher.FetchBF2042ClassesData(platform, username)
 	if err != nil {
 		return err
 	}
@@ -25,6 +31,11 @@ func HandleBF2042OverviewCommand(loc localization.LanguageLocalizer, platform, u
 	if err != nil {
 		return err
 	}
+
+	// Sort the classes by kills
+	sort.Slice(classData.Data, func(i, j int) bool {
+		return classData.Data[i].Stats.Kills.Value > classData.Data[j].Stats.Kills.Value
+	})
 
 	// Create the image
 	imageData := canvasdatashapes.BF2042OverviewCanvasData{
@@ -69,11 +80,11 @@ func HandleBF2042OverviewCommand(loc localization.LanguageLocalizer, platform, u
 				Value: overviewSegment.Stats.WlPercentage.DisplayValue,
 				Extra: utils.PercentileToString(overviewSegment.Stats.WlPercentage.Percentile),
 			},
-			// BestClass: canvasdatashapes.Stat{
-			// 	Name:  loc.TranslateWithColon("stats/title/bestclass"),
-			// 	Value: "Angel",
-			// 	Extra: "2,813 kills | 15 hours",
-			// },
+			BestClass: canvasdatashapes.Stat{
+				Name:  loc.TranslateWithColon("stats/title/bestclass"),
+				Value: strings.TrimSpace(classData.Data[0].Metadata.Name),
+				Extra: fmt.Sprintf("%s | %s", loc.Translate("stats/title/x_kills_short", map[string]string{"kills": loc.FormatInt(classData.Data[0].Stats.Kills.Value)}), classData.Data[0].Stats.TimePlayed.DisplayValue),
+			},
 			KillsPerMatch: canvasdatashapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/kills_per_match"),
 				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMatch.Value, 1),
@@ -81,7 +92,7 @@ func HandleBF2042OverviewCommand(loc localization.LanguageLocalizer, platform, u
 			},
 			KdRatio: canvasdatashapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/kd"),
-				Value: loc.FormatFloat(overviewSegment.Stats.KdRatio.Value, 1),
+				Value: fmt.Sprintf("%s (%s)", loc.FormatFloat(overviewSegment.Stats.KdRatio.Value, 1), loc.FormatFloat(overviewSegment.Stats.HumanKdRatio.Value, 1)),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KdRatio.Percentile),
 			},
 			KillsPerMinute: canvasdatashapes.Stat{
