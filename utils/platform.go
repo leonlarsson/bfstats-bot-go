@@ -1,8 +1,6 @@
 package utils
 
-import "github.com/leonlarsson/bfstats-bot-go/shared"
-
-func TRNPlatformNameToInt(platform string) shared.Platform {
+func TRNPlatformNameToInt(platform string) int {
 	switch platform {
 	case "origin":
 		return 0

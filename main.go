@@ -20,7 +20,7 @@ func init() {
 func main() {
 	loc := *localization.CreateLocForLanguage("en")
 
-	err := commandhandlers.HandleBF2042OverviewCommand(loc, "origin", "MozzyFX")
+	err := commandhandlers.HandleBF2042WeaponsCommand(loc, "origin", "MozzyFX")
 	if err != nil {
 		println(err.Error())
 	}
