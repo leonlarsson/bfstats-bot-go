@@ -87,17 +87,17 @@ func HandleBF2042OverviewCommand(loc localization.LanguageLocalizer, platform, u
 			},
 			KillsPerMatch: canvasdatashapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/kills_per_match"),
-				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMatch.Value, 1),
+				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMatch.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KillsPerMatch.Percentile),
 			},
 			KdRatio: canvasdatashapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/kd"),
-				Value: fmt.Sprintf("%s (%s)", loc.FormatFloat(overviewSegment.Stats.KdRatio.Value, 1), loc.FormatFloat(overviewSegment.Stats.HumanKdRatio.Value, 1)),
+				Value: fmt.Sprintf("%s (%s)", loc.FormatFloat(overviewSegment.Stats.KdRatio.Value), loc.FormatFloat(overviewSegment.Stats.HumanKdRatio.Value)),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KdRatio.Percentile),
 			},
 			KillsPerMinute: canvasdatashapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/kpm"),
-				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMinute.Value, 1),
+				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMinute.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KillsPerMinute.Percentile),
 			},
 			MultiKills: canvasdatashapes.Stat{

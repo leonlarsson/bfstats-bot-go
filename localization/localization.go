@@ -83,8 +83,8 @@ type LanguageLocalizer struct {
 	Translate               func(string, ...map[string]string) string
 	TranslateWithColon      func(string, ...map[string]string) string
 	FormatInt               func(int) string
-	FormatFloat             func(float64, int) string
-	FormatPercent           func(float64, int) string
+	FormatFloat             func(float64, ...int) string
+	FormatPercent           func(float64, ...int) string
 	SelectedLocale          string
 	SelectedLocaleNumbers   string
 	SelectedLocaleHumanizer string
@@ -121,14 +121,20 @@ func CreateLocForLanguage(lang string) *LanguageLocalizer {
 		return printer.Sprintf("%d", i)
 	}
 
-	// TODO: Accept max fraction digits as a parameter
-	formatFloat := func(f float64, maxFractionDigits int) string {
-		return printer.Sprintf("%.*f", maxFractionDigits, f)
+	formatFloat := func(f float64, maxFractionDigits ...int) string {
+		maxDigits := 2
+		if len(maxFractionDigits) > 0 {
+			maxDigits = maxFractionDigits[0]
+		}
+		return printer.Sprintf("%.*f", maxDigits, f)
 	}
 
-	// TODO: Accept max fraction digits as a parameter
-	formatPercent := func(f float64, maxFractionDigits int) string {
-		return translate("stats/extra/x_percent", map[string]string{"number": printer.Sprintf("%.*f", maxFractionDigits, f)})
+	formatPercent := func(f float64, maxFractionDigits ...int) string {
+		maxDigits := 1
+		if len(maxFractionDigits) > 0 {
+			maxDigits = maxFractionDigits[0]
+		}
+		return translate("stats/extra/x_percent", map[string]string{"number": printer.Sprintf("%.*f", maxDigits, f)})
 	}
 
 	return &LanguageLocalizer{
