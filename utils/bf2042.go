@@ -52,13 +52,13 @@ func FormatRankString(rank int) string {
 	return fmt.Sprintf("Rank %d (%s)", rank, buildSLevelString(rank))
 }
 
-func PercentileToString(percentile *float64) string {
-	if percentile == nil || *percentile == 0.0 {
+func PercentileToString(percentile float64) string {
+	if percentile == 0 {
 		return ""
 	}
 
 	p := message.NewPrinter(language.English)
-	adjustedPercentile := 100 - *percentile
+	adjustedPercentile := 100 - percentile
 
 	// If the percentile is a whole number, don't show any decimal places
 	if adjustedPercentile == math.Trunc(adjustedPercentile) {

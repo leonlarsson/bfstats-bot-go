@@ -32,7 +32,7 @@ type trnWeaponsResponse struct {
 type trnWeaponBasicStat[T any] struct {
 	Value        T
 	DisplayValue string
-	Percentile   *float64
+	Percentile   float64
 }
 
 func FetchBF2042WeaponsData(platform, username string) (trnWeaponsResponse, error) {

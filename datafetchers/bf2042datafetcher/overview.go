@@ -42,7 +42,7 @@ type trnOverviewResponse struct {
 type trnOverviewBasicStat[T any] struct {
 	Value        T
 	DisplayValue string
-	Percentile   *float64
+	Percentile   float64
 }
 
 func FetchBF2042OverviewData(platform, username string) (trnOverviewResponse, error) {

@@ -32,7 +32,7 @@ type trnClassesResponse struct {
 type trnClassBasicStat[T any] struct {
 	Value        T
 	DisplayValue string
-	Percentile   *float64
+	Percentile   float64
 }
 
 func FetchBF2042ClassesData(platform, username string) (trnClassesResponse, error) {
