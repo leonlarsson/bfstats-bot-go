@@ -1,6 +1,7 @@
 package commandhandlers
 
 import (
+	"cmp"
 	"fmt"
 
 	"github.com/leonlarsson/bfstats-bot-go/canvasdatashapes"
@@ -31,7 +32,7 @@ func HandleBF2042OverviewCommand(loc localization.LanguageLocalizer, platform, u
 			Identifier: "BF2042-001",
 			Username:   data.Data.PlatformInfo.PlatformUserHandle,
 			Platform:   int(utils.TRNPlatformNameToInt(data.Data.PlatformInfo.PLatformSlug)),
-			Avatar:     utils.GetAvatarImageURL(data.Data.PlatformInfo.AvatarURL),
+			Avatar:     utils.CleanUserAvatar(cmp.Or(data.Data.PlatformInfo.AvatarURL, "assets/images/BF2042/Specialists/Angel.png")),
 			Meta: canvasdatashapes.Meta{
 				Game:    "Battlefield 2042",
 				Segment: "Overview",

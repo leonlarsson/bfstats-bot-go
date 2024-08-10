@@ -15,7 +15,7 @@ type TRNOverviewResponse struct {
 		PlatformInfo struct {
 			PLatformSlug       string
 			PlatformUserHandle string
-			AvatarURL          *string
+			AvatarURL          string
 		}
 		Segments []TRNOverviewSegment
 	}

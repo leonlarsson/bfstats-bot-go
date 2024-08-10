@@ -181,10 +181,7 @@ func DrawAvatar(ctx *canvas.Context, filePath string) error {
 	}
 
 	// TODO: Figure out how to mask the image into a circle (skill issue). Ref: https://github.com/tdewolff/canvas/issues/232
-	circlePath := canvas.Circle(100)
-	ctx.DrawPath(950, 111, circlePath)
 	ctx.FitImage(avatarImg, canvas.Rect{X: 850, Y: 11, W: 200, H: 200}, canvas.ImageContain)
-	ctx.Close()
 
 	return nil
 }
