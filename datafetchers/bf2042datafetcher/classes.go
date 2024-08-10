@@ -9,36 +9,34 @@ import (
 	"github.com/leonlarsson/bfstats-bot-go/utils"
 )
 
-type TRNClassesResponse struct {
-	Data []ClassData
-}
-
-type ClassData struct {
-	Type       string
-	Attributes struct {
-		Soldier     string
-		CategoryKey string
-		Mode        string
-	}
-	Metadata struct {
-		Name     string
-		Category string
-		ImageURL string
-	}
-	Stats struct {
-		TimePlayed TRNOverviewBasicStat[int]
-		Kills      TRNOverviewBasicStat[int]
+type trnClassesResponse struct {
+	Data []struct {
+		Type       string
+		Attributes struct {
+			Soldier     string
+			CategoryKey string
+			Mode        string
+		}
+		Metadata struct {
+			Name     string
+			Category string
+			ImageURL string
+		}
+		Stats struct {
+			TimePlayed trnClassBasicStat[int]
+			Kills      trnClassBasicStat[int]
+		}
 	}
 }
 
-type TRNClassBasicStat[T any] struct {
+type trnClassBasicStat[T any] struct {
 	Value        T
 	DisplayValue string
 	Percentile   *float64
 }
 
-func FetchBF2042ClassesData(platform, username string) (TRNClassesResponse, error) {
-	var trnResponse TRNClassesResponse
+func FetchBF2042ClassesData(platform, username string) (trnClassesResponse, error) {
+	var trnResponse trnClassesResponse
 
 	url := utils.TRNBF2042ClassesURL(platform, username)
 
