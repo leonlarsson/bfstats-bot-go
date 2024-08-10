@@ -27,3 +27,9 @@ type BF2042WeaponsCanvasData struct {
 	BaseData `json:"baseData"`
 	Weapons  []Stat `json:"weapons"`
 }
+
+// BF2042VehiclesCanvasData represents the data needed to create a Battlefield 2042 image.
+type BF2042VehiclesCanvasData struct {
+	BaseData `json:"baseData"`
+	Vehicles []Stat `json:"vehicles"`
+}
