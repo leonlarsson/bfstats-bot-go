@@ -19,8 +19,6 @@ func init() {
 
 func main() {
 	loc := *localization.CreateLocForLanguage("sv")
-	msg := loc.Translate("stats/extra/x_score", map[string]string{"score": loc.FormatInt(123456789)})
-	println(msg)
 
 	err := commandhandlers.HandleBF2042OverviewCommand(loc, "origin", "MozzyFX")
 	if err != nil {
