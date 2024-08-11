@@ -36,7 +36,7 @@ func Start() {
 
 	// Ready event
 	session.AddHandler(func(s *discordgo.Session, readyEvent *discordgo.Ready) {
-		log.Printf("Bot: Running as %s", readyEvent.User.Username)
+		log.Printf("Bot: Running as %s", readyEvent.User.String())
 	})
 
 	// Interaction event
