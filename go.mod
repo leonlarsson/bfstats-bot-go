@@ -10,10 +10,12 @@ require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/benoitkugler/textlayout v0.3.0 // indirect
 	github.com/benoitkugler/textprocessing v0.0.3 // indirect
+	github.com/bwmarrin/discordgo v0.28.1 // indirect
 	github.com/go-fonts/latin-modern v0.3.3 // indirect
 	github.com/go-latex/latex v0.0.0-20230307184459-12ec69307ad9 // indirect
 	github.com/go-text/typesetting v0.1.1 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
+	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/kolesa-team/go-webp v1.0.4 // indirect
 	github.com/nicksnyder/go-i18n/v2 v2.4.0 // indirect
@@ -21,8 +23,10 @@ require (
 	github.com/tdewolff/minify/v2 v2.20.37 // indirect
 	github.com/tdewolff/parse/v2 v2.7.15 // indirect
 	github.com/wcharczuk/go-chart/v2 v2.1.1 // indirect
+	golang.org/x/crypto v0.25.0 // indirect
 	golang.org/x/image v0.18.0 // indirect
 	golang.org/x/net v0.27.0 // indirect
+	golang.org/x/sys v0.22.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
 	gonum.org/v1/plot v0.14.0 // indirect
 	star-tex.org/x/tex v0.4.0 // indirect

@@ -5,17 +5,23 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/bwmarrin/discordgo"
+	"github.com/leonlarsson/bfstats-bot-go/canvas"
 	"github.com/leonlarsson/bfstats-bot-go/canvasdatashapes"
 	create "github.com/leonlarsson/bfstats-bot-go/create/bf2042"
 	"github.com/leonlarsson/bfstats-bot-go/datafetchers/bf2042datafetcher"
 	"github.com/leonlarsson/bfstats-bot-go/localization"
 	"github.com/leonlarsson/bfstats-bot-go/shared"
 	"github.com/leonlarsson/bfstats-bot-go/utils"
-	"github.com/tdewolff/canvas/renderers"
 )
 
 // HandleBF2042VehiclesCommand handles the bf2042 vehicles command.
-func HandleBF2042VehiclesCommand(loc localization.LanguageLocalizer, platform, username string) error {
+func HandleBF2042VehiclesCommand(session *discordgo.Session, interaction *discordgo.InteractionCreate, loc localization.LanguageLocalizer) error {
+	username, platform, usernameFailedValidation := utils.GetStatsCommandArgs(session, interaction, &loc)
+	if usernameFailedValidation {
+		return errors.New("username failed validation")
+	}
+
 	data, err := bf2042datafetcher.FetchBF2042VehiclesData(platform, username)
 	if err != nil {
 		return err
@@ -56,9 +62,18 @@ func HandleBF2042VehiclesCommand(loc localization.LanguageLocalizer, platform, u
 	}
 
 	c, _ := create.CreateBF2042VehiclesImage(imageData, shared.SolidBackground)
-	if err := renderers.Write("render.png", c); err != nil {
-		panic(err)
-	}
+	imgBuf := canvas.CanvasToBuffer(c)
+
+	// Edit the response
+	session.InteractionResponseEdit(interaction.Interaction, &discordgo.WebhookEdit{
+		Files: []*discordgo.File{
+			{
+				Name:        "vehicles.png",
+				ContentType: "image/png",
+				Reader:      imgBuf,
+			},
+		},
+	})
 
 	return nil
 }
