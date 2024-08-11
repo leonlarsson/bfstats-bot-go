@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -30,23 +31,24 @@ func GetBundle() *i18n.Bundle {
 // LoadLocales loads all locale files from the assets/locales directory
 func LoadLocales() error {
 	locFiles := []string{
-		"assets/locales/ar.json",
-		"assets/locales/de.json",
-		"assets/locales/en.json",
-		"assets/locales/es.json",
-		"assets/locales/fi.json",
-		"assets/locales/fr.json",
-		"assets/locales/it.json",
-		"assets/locales/nb.json",
-		"assets/locales/pl.json",
-		"assets/locales/pt.json",
-		"assets/locales/ru.json",
-		"assets/locales/sv.json",
-		"assets/locales/tr.json",
+		"ar.json",
+		"de.json",
+		"en.json",
+		"es.json",
+		"fi.json",
+		"fr.json",
+		"it.json",
+		"nb.json",
+		"pl.json",
+		"pt.json",
+		"ru.json",
+		"sv.json",
+		"tr.json",
 	}
 
 	for _, file := range locFiles {
-		content, err := os.ReadFile(file)
+		path := filepath.Join("assets", "locales", file)
+		content, err := os.ReadFile(path)
 		if err != nil {
 			return fmt.Errorf("failed to read locale file %s: %w", file, err)
 		}
@@ -65,11 +67,52 @@ func replaceDelimiters(s string) string {
 	return s
 }
 
-// Localize returns a localized string based on the key and data provided. This is just a shorthand for the Localizer.MustLocalize method.
-func Localize(localizer *i18n.Localizer, key string, data map[string]string) string {
-	msg, err := localizer.Localize(&i18n.LocalizeConfig{
+// LanguageLocalizer is a struct that contains functions for translating and formatting strings based on a specific language
+type LanguageLocalizer struct {
+	localizer               *i18n.Localizer
+	printer                 *message.Printer
+	SelectedLocale          string
+	SelectedLocaleNumbers   string
+	SelectedLocaleHumanizer string
+	SelectedLocaleDiscord   string
+}
+
+// CreateLocForLanguage creates a new LanguageLocalizer for the specified language
+func CreateLocForLanguage(lang string) *LanguageLocalizer {
+	localizer := i18n.NewLocalizer(Bundle, lang)
+
+	selectedLocaleNumbers := localizer.MustLocalize(&i18n.LocalizeConfig{
+		MessageID: "meta/lang_code_numbers",
+	})
+	selectedLocaleHumanizer := localizer.MustLocalize(&i18n.LocalizeConfig{
+		MessageID: "meta/lang_code_humanizer",
+	})
+	selectedLocaleDiscord := localizer.MustLocalize(&i18n.LocalizeConfig{
+		MessageID: "meta/lang_code_discord",
+	})
+
+	printer := message.NewPrinter(language.Make(selectedLocaleNumbers))
+
+	return &LanguageLocalizer{
+		localizer:               localizer,
+		printer:                 printer,
+		SelectedLocale:          lang,
+		SelectedLocaleNumbers:   selectedLocaleNumbers,
+		SelectedLocaleHumanizer: selectedLocaleHumanizer,
+		SelectedLocaleDiscord:   selectedLocaleDiscord,
+	}
+}
+
+func (loc LanguageLocalizer) Translate(key string, data ...map[string]string) string {
+	// Default to an empty map if no data is provided
+	dataMap := map[string]string{}
+	if len(data) > 0 {
+		dataMap = data[0]
+	}
+
+	msg, err := loc.localizer.Localize(&i18n.LocalizeConfig{
 		MessageID:    key,
-		TemplateData: data,
+		TemplateData: dataMap,
 	})
 
 	if err != nil {
@@ -79,86 +122,38 @@ func Localize(localizer *i18n.Localizer, key string, data map[string]string) str
 	return msg
 }
 
-// LanguageLocalizer is a struct that contains functions for translating and formatting strings based on a specific language
-type LanguageLocalizer struct {
-	Translate               func(string, ...map[string]string) string
-	TranslateWithColon      func(string, ...map[string]string) string
-	FormatInt               func(int) string
-	FormatFloat             func(float64, ...int) string
-	FormatPercent           func(float64, ...int) string
-	SelectedLocale          string
-	SelectedLocaleNumbers   string
-	SelectedLocaleHumanizer string
-	SelectedLocaleDiscord   string
+func (loc LanguageLocalizer) TranslateWithColon(key string, data ...map[string]string) string {
+	return fmt.Sprintf("%s%s", loc.Translate(key, data...), loc.Translate("meta/colon"))
 }
 
-// CreateLocForLanguage creates a new LanguageLocalizer for the specified language
-func CreateLocForLanguage(lang string) *LanguageLocalizer {
-	// Create a new localizer for the language
-	localizer := i18n.NewLocalizer(Bundle, lang)
+func (loc LanguageLocalizer) FormatInt(i int) string {
+	return loc.printer.Sprintf("%d", i)
+}
 
-	// Translate function that takes a key and optional data map
-	translate := func(key string, data ...map[string]string) string {
-		// Default to an empty map if no data is provided
-		dataMap := map[string]string{}
-		if len(data) > 0 {
-			dataMap = data[0]
-		}
-		return Localize(localizer, key, dataMap)
+func (loc LanguageLocalizer) FormatFloat(f float64, maxFractionDigits ...int) string {
+	maxDigits := 2
+	if len(maxFractionDigits) > 0 {
+		maxDigits = maxFractionDigits[0]
 	}
 
-	// Shortcut for translating a key with a colon at the end
-	translateWithColon := func(key string, data ...map[string]string) string {
-		return fmt.Sprintf("%s%s", translate(key, data...), translate("meta/colon"))
+	// If the float is a whole number, return it as an integer to avoid unnecessary decimal points
+	if f == float64(int64(f)) {
+		return strconv.FormatInt(int64(f), 10)
 	}
 
-	selectedLocaleNumbers := translate("meta/lang_code_numbers", nil)
-	selectedLocaleHumanizer := translate("meta/lang_code_humanizer", nil)
-	selectedLocaleDiscord := translate("meta/lang_code_discord", nil)
+	return fmt.Sprintf("%.*f", maxDigits, f)
+}
 
-	printer := message.NewPrinter(language.Make(selectedLocaleNumbers))
-
-	formatInt := func(i int) string {
-		return printer.Sprintf("%d", i)
+func (loc LanguageLocalizer) FormatPercent(f float64, maxFractionDigits ...int) string {
+	maxDigits := 1
+	if len(maxFractionDigits) > 0 {
+		maxDigits = maxFractionDigits[0]
 	}
 
-	formatFloat := func(f float64, maxFractionDigits ...int) string {
-		maxDigits := 2
-		if len(maxFractionDigits) > 0 {
-			maxDigits = maxFractionDigits[0]
-		}
-
-		// If the float is a whole number, return it as an integer to avoid unnecessary decimal points
-		if f == float64(int64(f)) {
-			return strconv.FormatInt(int64(f), 10)
-		}
-
-		return fmt.Sprintf("%.*f", maxDigits, f)
+	// If the float is a whole number, return it as an integer to avoid unnecessary decimal points
+	if f == float64(int64(f)) {
+		return loc.Translate("stats/extra/x_percent", map[string]string{"number": loc.printer.Sprintf("%d", int(f))})
 	}
 
-	formatPercent := func(f float64, maxFractionDigits ...int) string {
-		maxDigits := 1
-		if len(maxFractionDigits) > 0 {
-			maxDigits = maxFractionDigits[0]
-		}
-
-		// If the float is a whole number, return it as an integer to avoid unnecessary decimal points
-		if f == float64(int64(f)) {
-			return translate("stats/extra/x_percent", map[string]string{"number": printer.Sprintf("%d", int(f))})
-		}
-
-		return translate("stats/extra/x_percent", map[string]string{"number": printer.Sprintf("%.*f", maxDigits, f)})
-	}
-
-	return &LanguageLocalizer{
-		Translate:               translate,
-		TranslateWithColon:      translateWithColon,
-		FormatInt:               formatInt,
-		FormatFloat:             formatFloat,
-		FormatPercent:           formatPercent,
-		SelectedLocale:          lang,
-		SelectedLocaleNumbers:   selectedLocaleNumbers,
-		SelectedLocaleHumanizer: selectedLocaleHumanizer,
-		SelectedLocaleDiscord:   selectedLocaleDiscord,
-	}
+	return loc.Translate("stats/extra/x_percent", map[string]string{"number": loc.printer.Sprintf("%.*f", maxDigits, f)})
 }
