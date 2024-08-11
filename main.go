@@ -30,7 +30,9 @@ func init() {
 	localization.LoadLocales()
 
 	// Start API service
-	api.Start()
+	go func() {
+		api.Start()
+	}()
 
 	// TODO: Start Discord bot
 	// discordbot.Start()
