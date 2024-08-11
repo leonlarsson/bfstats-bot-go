@@ -141,6 +141,12 @@ func CreateLocForLanguage(lang string) *LanguageLocalizer {
 		if len(maxFractionDigits) > 0 {
 			maxDigits = maxFractionDigits[0]
 		}
+
+		// If the float is a whole number, return it as an integer to avoid unnecessary decimal points
+		if f == float64(int64(f)) {
+			return translate("stats/extra/x_percent", map[string]string{"number": printer.Sprintf("%d", int(f))})
+		}
+
 		return translate("stats/extra/x_percent", map[string]string{"number": printer.Sprintf("%.*f", maxDigits, f)})
 	}
 
