@@ -17,11 +17,23 @@ func init() {
 	// Load .env
 	godotenv.Load()
 
+	// Verify required environment variables
+	requiredEnvVars := []string{"TRN_API_KEY", "BOT_TOKEN", "BOT_ID", "GUILD_ID"}
+
+	for _, varName := range requiredEnvVars {
+		if os.Getenv(varName) == "" {
+			log.Fatalf("environment variable %s is not set", varName)
+		}
+	}
+
 	// Load locales
 	localization.LoadLocales()
 
 	// Start API service
 	api.Start()
+
+	// TODO: Start Discord bot
+	// discordbot.Start()
 }
 
 func main() {
