@@ -7,6 +7,7 @@ import (
 	"github.com/leonlarsson/bfstats-bot-go/apihandlers"
 )
 
+// Start starts the API service.
 func Start(port string) {
 	r := http.NewServeMux()
 

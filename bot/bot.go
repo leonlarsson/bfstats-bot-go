@@ -23,6 +23,7 @@ func CheckEnvVars() {
 	}
 }
 
+// Start starts the Discord bot.
 func Start() {
 	// Create a new Discord session using the provided bot token. The equivalent of discord.js's new Client()
 	session, _ := discordgo.New("Bot " + os.Getenv("BOT_TOKEN"))
