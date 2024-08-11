@@ -36,7 +36,7 @@ func HandleBF2042VehiclesCommand(loc localization.LanguageLocalizer, platform, u
 		vehicleSlice := canvasdatashapes.Stat{
 			Name:  strings.TrimSpace(vehicle.Metadata.Name),
 			Value: loc.Translate("stats/title/x_kills_short", map[string]string{"kills": loc.FormatInt(vehicle.Stats.Kills.Value)}),
-			Extra: loc.Translate("stats/title/x_kpm_and_time", map[string]string{"kpm": loc.FormatFloat(vehicle.Stats.KillsPerMinute.Value, 1), "time": vehicle.Stats.TimePlayed.DisplayValue}),
+			Extra: loc.Translate("stats/title/x_kpm_and_time", map[string]string{"kpm": loc.FormatFloat(vehicle.Stats.KillsPerMinute.Value), "time": vehicle.Stats.TimePlayed.DisplayValue}),
 		}
 		vehicles = append(vehicles, vehicleSlice)
 	}
