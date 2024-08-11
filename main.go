@@ -31,7 +31,7 @@ func init() {
 
 	// Start API service
 	go func() {
-		api.Start()
+		api.Start(":8080")
 	}()
 
 	// TODO: Start Discord bot
