@@ -15,7 +15,6 @@ import (
 	"github.com/leonlarsson/bfstats-bot-go/localization"
 	"github.com/leonlarsson/bfstats-bot-go/shared"
 	"github.com/leonlarsson/bfstats-bot-go/utils"
-	"github.com/tdewolff/canvas/renderers"
 )
 
 // HandleBF2042OverviewCommand handles the bf2042 overview command.
@@ -135,10 +134,6 @@ func HandleBF2042OverviewCommand(session *discordgo.Session, interaction *discor
 			},
 		},
 	})
-
-	if err := renderers.Write("render.png", c); err != nil {
-		panic(err)
-	}
 
 	return nil
 }
