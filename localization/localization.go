@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/nicksnyder/go-i18n/v2/i18n"
@@ -126,7 +127,13 @@ func CreateLocForLanguage(lang string) *LanguageLocalizer {
 		if len(maxFractionDigits) > 0 {
 			maxDigits = maxFractionDigits[0]
 		}
-		return printer.Sprintf("%.*f", maxDigits, f)
+
+		// If the float is a whole number, return it as an integer to avoid unnecessary decimal points
+		if f == float64(int64(f)) {
+			return strconv.FormatInt(int64(f), 10)
+		}
+
+		return fmt.Sprintf("%.*f", maxDigits, f)
 	}
 
 	formatPercent := func(f float64, maxFractionDigits ...int) string {
