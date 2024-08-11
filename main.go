@@ -7,6 +7,7 @@ import (
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/joho/godotenv"
+	"github.com/leonlarsson/bfstats-bot-go/api"
 	"github.com/leonlarsson/bfstats-bot-go/commanddata"
 	commandhandlers "github.com/leonlarsson/bfstats-bot-go/commandhandlers/bf2042"
 	"github.com/leonlarsson/bfstats-bot-go/localization"
@@ -18,6 +19,9 @@ func init() {
 
 	// Load locales
 	localization.LoadLocales()
+
+	// Start API service
+	api.Start()
 }
 
 func main() {
@@ -80,16 +84,4 @@ func main() {
 		println("Error closing connection: ", err)
 		return
 	}
-
-	// loc := *localization.CreateLocForLanguage("en")
-
-	// err := commandhandlers.HandleBF2042VehiclesCommand(loc, "origin", "MozzyFX")
-	// if err != nil {
-	// 	println(err.Error())
-	// }
-
-	// r := http.NewServeMux()
-	// r.HandleFunc("/bf2042/overview", apihandlers.BF2042OverviewHandler)
-	// r.HandleFunc("/bf2042/weapons", apihandlers.BF2042WeaponsHandler)
-	// http.ListenAndServe(":8080", r)
 }

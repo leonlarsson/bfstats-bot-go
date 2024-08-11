@@ -12,6 +12,7 @@ import (
 	"github.com/leonlarsson/bfstats-bot-go/shared"
 )
 
+// BF2042WeaponsHandler handles the /bf2042/weapons endpoint
 func BF2042WeaponsHandler(w http.ResponseWriter, r *http.Request) {
 	var data canvasdatashapes.BF2042WeaponsCanvasData
 
