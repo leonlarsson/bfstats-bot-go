@@ -2,7 +2,6 @@ package apihandlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"image/png"
 	"net/http"
 
@@ -27,8 +26,6 @@ func BF2042WeaponsHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Not enough weapons", http.StatusBadRequest)
 		return
 	}
-
-	fmt.Println(data)
 
 	c, _ := create.CreateBF2042WeaponsImage(data, shared.SolidBackground)
 	w.Header().Set("Content-Type", "image/png")
