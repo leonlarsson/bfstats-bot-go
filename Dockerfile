@@ -26,6 +26,9 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /bfstats-go
 # Use a minimal image to actually run the binary
 FROM scratch
 
+# Copy CA certificates from the build stage
+COPY --from=build /etc/ssl/certs /etc/ssl/certs
+
 # Copy the binary from the build stage
 COPY --from=build /bfstats-go /bfstats-go
 
