@@ -13,8 +13,9 @@ type optionMap = map[string]*discordgo.ApplicationCommandInteractionDataOption
 func ParseOptions(options []*discordgo.ApplicationCommandInteractionDataOption) (om optionMap) {
 	om = make(optionMap)
 	for _, opt := range options {
-		// If the option has suboptions, the "option" is likely a subcommand. Parse the suboptions. Else add the option to the map.
+		// If the option has suboptions, add subcommand to the map and then add the suboptions. Else just add the option.
 		if len(opt.Options) > 0 {
+			om["subcommand"] = opt
 			for _, suboption := range opt.Options {
 				om[suboption.Name] = suboption
 			}
@@ -23,6 +24,30 @@ func ParseOptions(options []*discordgo.ApplicationCommandInteractionDataOption) 
 		}
 	}
 	return
+}
+
+// GetOptionStringValue returns the string value of an option if it exists, otherwise an empty string.
+func GetOptionStringValue(options optionMap, key string) string {
+	if option, exists := options[key]; exists {
+		if option.Type != discordgo.ApplicationCommandOptionString {
+			return option.Name
+		} else {
+			return option.StringValue()
+		}
+	}
+	return ""
+}
+
+// GetOptionBoolValue returns the bool value of an option if it exists, otherwise false.
+func GetOptionBoolValue(options optionMap, key string) bool {
+	if option, exists := options[key]; exists {
+		if option.Type != discordgo.ApplicationCommandOptionBoolean {
+			return false
+		} else {
+			return option.BoolValue()
+		}
+	}
+	return false
 }
 
 // UsernameOption returns the username option for the stats command. Autocomplete is provided as an argument.

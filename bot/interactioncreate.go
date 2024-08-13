@@ -63,4 +63,16 @@ func HandleInteractionCreate(s *discordgo.Session, interaction *discordgo.Intera
 		})
 	}
 
+	// Chat input command
+	// TODO: Just prototyping. Add actual command handling based on the command name and subcommand if needed.
+	if interaction.Type == discordgo.InteractionApplicationCommand {
+		cmdData := interaction.ApplicationCommandData()
+		options := commanddata.ParseOptions(cmdData.Options)
+		println("Command: ", cmdData.Name)
+		println("Subcommand: ", commanddata.GetOptionStringValue(options, "subcommand"))
+		println("Username: ", commanddata.GetOptionStringValue(options, "username"))
+		println("Platform: ", commanddata.GetOptionStringValue(options, "platform"))
+		println("Format: ", commanddata.GetOptionStringValue(options, "format"))
+		println("Language: ", commanddata.GetOptionStringValue(options, "language"))
+	}
 }
