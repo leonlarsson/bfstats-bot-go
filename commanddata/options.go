@@ -13,7 +13,14 @@ type optionMap = map[string]*discordgo.ApplicationCommandInteractionDataOption
 func ParseOptions(options []*discordgo.ApplicationCommandInteractionDataOption) (om optionMap) {
 	om = make(optionMap)
 	for _, opt := range options {
-		om[opt.Name] = opt
+		// If the option has suboptions, the "option" is likely a subcommand. Parse the suboptions. Else add the option to the map.
+		if len(opt.Options) > 0 {
+			for _, suboption := range opt.Options {
+				om[suboption.Name] = suboption
+			}
+		} else {
+			om[opt.Name] = opt
+		}
 	}
 	return
 }
