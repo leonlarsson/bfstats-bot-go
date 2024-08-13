@@ -28,33 +28,44 @@ func GetBundle() *i18n.Bundle {
 	return bundle
 }
 
+func GetLocales() []string {
+	return []string{
+		"ar",
+		"de",
+		"en",
+		"es",
+		"fi",
+		"fr",
+		"it",
+		"nb",
+		"pl",
+		"pt",
+		"ru",
+		"sv",
+		"tr",
+	}
+}
+
 // LoadLocales loads all locale files from the assets/locales directory
 func LoadLocales() error {
-	locFiles := []string{
-		"ar.json",
-		"de.json",
-		"en.json",
-		"es.json",
-		"fi.json",
-		"fr.json",
-		"it.json",
-		"nb.json",
-		"pl.json",
-		"pt.json",
-		"ru.json",
-		"sv.json",
-		"tr.json",
-	}
+	locales := GetLocales()
 
-	for _, file := range locFiles {
-		path := filepath.Join("assets", "locales", file)
+	for _, locale := range locales {
+		path := filepath.Join("assets", "locales", locale+".json")
+
+		// Read the original file content
 		content, err := os.ReadFile(path)
 		if err != nil {
-			return fmt.Errorf("failed to read locale file %s: %w", file, err)
+			return fmt.Errorf("failed to read locale file %s: %w", locale, err)
 		}
+
+		// Replace the delimiters in the content
 		modifiedContent := replaceDelimiters(string(content))
-		if _, err := Bundle.ParseMessageFileBytes([]byte(modifiedContent), file); err != nil {
-			return fmt.Errorf("failed to parse locale file %s: %w", file, err)
+
+		// Parse/load the modified content
+		_, err = Bundle.ParseMessageFileBytes([]byte(modifiedContent), path)
+		if err != nil {
+			return fmt.Errorf("failed to parse locale file %s: %w", locale, err)
 		}
 	}
 	return nil
