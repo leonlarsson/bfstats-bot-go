@@ -6,8 +6,13 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+// GetEnglishString returns the English translation for a given key.
+func GetEnglishString(key string) string {
+	return CreateLocForLanguage("en").Translate(key)
+}
+
 // BuildDiscordLocalizations builds a map of Discord localizations for a given key.
-func BuildDiscordLocalizations(key string) map[discordgo.Locale]string {
+func BuildDiscordLocalizations(key string, suffix ...string) map[discordgo.Locale]string {
 	locales := GetLocales()
 
 	// Locales to skip. en is the default locale, ar is not supported by Discord.
@@ -19,7 +24,15 @@ func BuildDiscordLocalizations(key string) map[discordgo.Locale]string {
 			continue
 		}
 		loc := CreateLocForLanguage(locale)
-		translations[discordgo.Locale(loc.Translate("meta/lang_code_discord"))] = loc.Translate(key)
+
+		suffixToAdd := ""
+
+		// If suffix is provided, append it to the result of loc.Translate(key)
+		if len(suffix) > 0 {
+			suffixToAdd = suffix[0]
+		}
+
+		translations[discordgo.Locale(loc.Translate("meta/lang_code_discord"))] = loc.Translate(key) + suffixToAdd
 	}
 	return translations
 }
