@@ -28,8 +28,8 @@ func Start() {
 	// Create a new Discord session using the provided bot token. The equivalent of discord.js's new Client()
 	session, _ := discordgo.New("Bot " + os.Getenv("BOT_TOKEN"))
 
-	// Deploy commands (currently on every start, will change this later)
-	_, err := session.ApplicationCommandBulkOverwrite(os.Getenv("BOT_ID"), os.Getenv("GUILD_ID"), commanddata.Commands)
+	// Deploy commands (currently on every start, will change to an API call later probably)
+	_, err := session.ApplicationCommandBulkOverwrite(os.Getenv("BOT_ID"), os.Getenv("GUILD_ID"), commanddata.GetCommands())
 	if err != nil {
 		log.Printf("Bot: Error deploying commands: %v", err)
 		return

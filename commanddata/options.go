@@ -2,6 +2,7 @@ package commanddata
 
 import (
 	"github.com/bwmarrin/discordgo"
+	"github.com/leonlarsson/bfstats-bot-go/localization"
 )
 
 type optionMap = map[string]*discordgo.ApplicationCommandInteractionDataOption
@@ -15,30 +16,36 @@ func ParseOptions(options []*discordgo.ApplicationCommandInteractionDataOption) 
 	return
 }
 
-var usernameOption = discordgo.ApplicationCommandOption{
-	Name:        "username",
-	Description: "The username to get stats for.",
-	Type:        discordgo.ApplicationCommandOptionString,
-	Required:    true,
+func UsernameOption() *discordgo.ApplicationCommandOption {
+	return &discordgo.ApplicationCommandOption{
+		Name:              "username",
+		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/username/name"),
+		Description:       "The username to get stats for.",
+		Type:              discordgo.ApplicationCommandOptionString,
+		Required:          true,
+	}
 }
 
-var platformOption = discordgo.ApplicationCommandOption{
-	Name:        "platform",
-	Description: "The platform to get stats for.",
-	Type:        discordgo.ApplicationCommandOptionString,
-	Required:    true,
-	Choices: []*discordgo.ApplicationCommandOptionChoice{
-		{
-			Name:  "PC/Origin",
-			Value: "origin",
+func PlatformOption() *discordgo.ApplicationCommandOption {
+	return &discordgo.ApplicationCommandOption{
+		Name:              "platform",
+		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/platform/name"),
+		Description:       "The platform to get stats for.",
+		Type:              discordgo.ApplicationCommandOptionString,
+		Required:          true,
+		Choices: []*discordgo.ApplicationCommandOptionChoice{
+			{
+				Name:  "PC/Origin",
+				Value: "origin",
+			},
+			{
+				Name:  "Xbox",
+				Value: "xbox",
+			},
+			{
+				Name:  "PlayStation",
+				Value: "playstation",
+			},
 		},
-		{
-			Name:  "Xbox",
-			Value: "xbox",
-		},
-		{
-			Name:  "PlayStation",
-			Value: "playstation",
-		},
-	},
+	}
 }
