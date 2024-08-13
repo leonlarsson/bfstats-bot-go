@@ -6,9 +6,6 @@ import (
 	"os/signal"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/leonlarsson/bfstats-bot-go/commanddata"
-	commandhandlers "github.com/leonlarsson/bfstats-bot-go/commandhandlers/bf2042"
-	"github.com/leonlarsson/bfstats-bot-go/localization"
 )
 
 // CheckEnvVars checks if all required environment variables are set.
@@ -27,43 +24,20 @@ func CheckEnvVars() {
 func Start() {
 	// Create a new Discord session using the provided bot token. The equivalent of discord.js's new Client()
 	session, _ := discordgo.New("Bot " + os.Getenv("BOT_TOKEN"))
+	var err error
 
 	// Deploy commands (currently on every start, will change to an API call later probably)
-	_, err := session.ApplicationCommandBulkOverwrite(os.Getenv("BOT_ID"), os.Getenv("GUILD_ID"), commanddata.GetCommands())
-	if err != nil {
-		log.Printf("Bot: Error deploying commands: %v", err)
-		return
-	}
+	// _, err = session.ApplicationCommandBulkOverwrite(os.Getenv("BOT_ID"), os.Getenv("GUILD_ID"), commanddata.GetCommands())
+	// if err != nil {
+	// 	log.Printf("Bot: Error deploying commands: %v", err)
+	// 	return
+	// }
 
 	// Ready event
-	session.AddHandler(func(s *discordgo.Session, readyEvent *discordgo.Ready) {
-		log.Printf("Bot: Running as %s", readyEvent.User.String())
-	})
+	session.AddHandler(HandleReady)
 
 	// Interaction event
-	session.AddHandler(func(s *discordgo.Session, interaction *discordgo.InteractionCreate) {
-		if interaction.Type == discordgo.InteractionApplicationCommand {
-			loc := *localization.CreateLocForLanguage(string(interaction.Locale))
-
-			switch interaction.ApplicationCommandData().Name {
-			case "bf2042overview":
-				err := commandhandlers.HandleBF2042OverviewCommand(s, interaction, loc)
-				if err != nil {
-					log.Printf("Bot: Error in bf2042overview command: %v", err)
-				}
-			case "bf2042weapons":
-				err := commandhandlers.HandleBF2042WeaponsCommand(s, interaction, loc)
-				if err != nil {
-					log.Printf("Bot: Error in bf2042weapons command: %v", err)
-				}
-			case "bf2042vehicles":
-				err := commandhandlers.HandleBF2042VehiclesCommand(s, interaction, loc)
-				if err != nil {
-					log.Printf("Bot: Error in bf2042vehicles command: %v", err)
-				}
-			}
-		}
-	})
+	session.AddHandler(HandleInteractionCreate)
 
 	// Open a websocket connection to Discord and begin listening.
 	err = session.Open()

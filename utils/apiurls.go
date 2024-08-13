@@ -1,6 +1,21 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+	"net/url"
+)
+
+func TRNSearchURL(game string, platform, username string) string {
+	baseUrl := fmt.Sprintf("https://public-api.tracker.gg/v2/%s/standard/search", game)
+
+	queryParams := url.Values{
+		"autocomplete": {"true"},
+		"platform":     {platform},
+		"query":        {username},
+	}
+
+	return baseUrl + "?" + queryParams.Encode()
+}
 
 func TRNBF2042OverviewURL(platform string, username string) string {
 	return fmt.Sprintf("https://public-api.tracker.gg/v2/bf2042/standard/profile/%s/%s", platform, username)
