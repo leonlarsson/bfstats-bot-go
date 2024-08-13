@@ -74,5 +74,6 @@ func HandleInteractionCreate(s *discordgo.Session, interaction *discordgo.Intera
 		println("Platform: ", commanddata.GetOptionStringValue(options, "platform"))
 		println("Format: ", commanddata.GetOptionStringValue(options, "format"))
 		println("Language: ", commanddata.GetOptionStringValue(options, "language"))
+		println("PoemGPT: ", commanddata.GetOptionBoolValue(options, "poem_gpt"))
 	}
 }
