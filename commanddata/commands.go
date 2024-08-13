@@ -60,11 +60,11 @@ func GetCommands() []*discordgo.ApplicationCommand {
 							},
 							{
 								Name:  "Xbox",
-								Value: "xbox",
+								Value: "xbl",
 							},
 							{
 								Name:  "PlayStation",
-								Value: "playstation",
+								Value: "psn",
 							},
 						}),
 						UsernameOption(true),
