@@ -34,5 +34,6 @@ func init() {
 }
 
 func main() {
+	log.Println("Bot: Starting")
 	bot.Start(deployCommands)
 }

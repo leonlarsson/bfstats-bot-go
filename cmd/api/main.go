@@ -1,9 +1,12 @@
 package main
 
 import (
+	"log"
+
 	"github.com/leonlarsson/bfstats-go/internal/api"
 )
 
 func main() {
-	api.StartServer(":8080")
+	log.Println("API: Starting")
+	api.Start(":8080")
 }

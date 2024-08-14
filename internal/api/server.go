@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func StartServer(port string) {
+func Start(port string) {
 	r := http.NewServeMux()
 
 	for route, handlerFunc := range Routes {
