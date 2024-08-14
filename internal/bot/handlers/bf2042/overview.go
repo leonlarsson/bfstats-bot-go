@@ -8,13 +8,13 @@ import (
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
-	create "github.com/leonlarsson/bfstats-bot-go/create/bf2042"
-	"github.com/leonlarsson/bfstats-bot-go/internal/canvas"
-	shapes "github.com/leonlarsson/bfstats-bot-go/internal/canvas/shapes"
-	"github.com/leonlarsson/bfstats-bot-go/internal/datafetchers/bf2042datafetcher"
-	"github.com/leonlarsson/bfstats-bot-go/internal/localization"
-	"github.com/leonlarsson/bfstats-bot-go/internal/shared"
-	"github.com/leonlarsson/bfstats-bot-go/internal/utils"
+	create "github.com/leonlarsson/bfstats-go/create/bf2042"
+	"github.com/leonlarsson/bfstats-go/internal/canvas"
+	shapes "github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
+	"github.com/leonlarsson/bfstats-go/internal/datafetchers/bf2042datafetcher"
+	"github.com/leonlarsson/bfstats-go/internal/localization"
+	"github.com/leonlarsson/bfstats-go/internal/shared"
+	"github.com/leonlarsson/bfstats-go/internal/utils"
 )
 
 // HandleBF2042OverviewCommand handles the bf2042 overview command.

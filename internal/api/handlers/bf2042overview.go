@@ -5,10 +5,10 @@ import (
 	"image/png"
 	"net/http"
 
-	create "github.com/leonlarsson/bfstats-bot-go/create/bf2042"
-	"github.com/leonlarsson/bfstats-bot-go/internal/canvas"
-	shapes "github.com/leonlarsson/bfstats-bot-go/internal/canvas/shapes"
-	"github.com/leonlarsson/bfstats-bot-go/internal/shared"
+	create "github.com/leonlarsson/bfstats-go/create/bf2042"
+	"github.com/leonlarsson/bfstats-go/internal/canvas"
+	shapes "github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
+	"github.com/leonlarsson/bfstats-go/internal/shared"
 )
 
 // BF2042OverviewHandler handles the /bf2042/overview endpoint

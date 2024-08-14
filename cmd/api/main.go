@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/leonlarsson/bfstats-bot-go/internal/api"
+	"github.com/leonlarsson/bfstats-go/internal/api"
 )
 
 func main() {

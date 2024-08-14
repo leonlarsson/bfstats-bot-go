@@ -1,4 +1,4 @@
-module github.com/leonlarsson/bfstats-bot-go
+module github.com/leonlarsson/bfstats-go
 
 go 1.22.5
 

@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/leonlarsson/bfstats-bot-go/internal/shared"
-	"github.com/leonlarsson/bfstats-bot-go/internal/utils"
+	"github.com/leonlarsson/bfstats-go/internal/shared"
+	"github.com/leonlarsson/bfstats-go/internal/utils"
 	"github.com/tdewolff/canvas"
 )
 

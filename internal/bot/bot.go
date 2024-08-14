@@ -6,8 +6,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	commands "github.com/leonlarsson/bfstats-bot-go/internal/bot/commands"
-	events "github.com/leonlarsson/bfstats-bot-go/internal/bot/events"
+	commands "github.com/leonlarsson/bfstats-go/internal/bot/commands"
+	events "github.com/leonlarsson/bfstats-go/internal/bot/events"
 	"github.com/servusdei2018/shards/v2"
 )
 

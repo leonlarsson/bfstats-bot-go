@@ -5,8 +5,8 @@ import (
 	"log"
 	"sync"
 
-	"github.com/leonlarsson/bfstats-bot-go/internal/api"
-	"github.com/leonlarsson/bfstats-bot-go/internal/bot"
+	"github.com/leonlarsson/bfstats-go/internal/api"
+	"github.com/leonlarsson/bfstats-go/internal/bot"
 )
 
 var (

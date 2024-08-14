@@ -2,8 +2,8 @@ package bot
 
 import (
 	"github.com/bwmarrin/discordgo"
-	bot "github.com/leonlarsson/bfstats-bot-go/internal/bot/commands"
-	trndatafetcher "github.com/leonlarsson/bfstats-bot-go/internal/datafetchers/trn"
+	bot "github.com/leonlarsson/bfstats-go/internal/bot/commands"
+	trndatafetcher "github.com/leonlarsson/bfstats-go/internal/datafetchers/trn"
 )
 
 func HandleInteractionCreateEvent(s *discordgo.Session, interaction *discordgo.InteractionCreate) {

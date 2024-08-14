@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
-	commands "github.com/leonlarsson/bfstats-bot-go/internal/bot/commands"
-	"github.com/leonlarsson/bfstats-bot-go/internal/localization"
+	commands "github.com/leonlarsson/bfstats-go/internal/bot/commands"
+	"github.com/leonlarsson/bfstats-go/internal/localization"
 )
 
 // GetStatsCommandArgs gets the arguments for the stats commands and defers the response if username validation passes.

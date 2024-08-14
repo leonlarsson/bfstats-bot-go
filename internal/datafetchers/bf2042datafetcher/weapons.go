@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/leonlarsson/bfstats-bot-go/internal/utils"
+	"github.com/leonlarsson/bfstats-go/internal/utils"
 )
 
 type trnWeaponsResponse struct {

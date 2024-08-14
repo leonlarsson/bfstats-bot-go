@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/leonlarsson/bfstats-bot-go/internal/localization"
+	"github.com/leonlarsson/bfstats-go/internal/localization"
 )
 
 type optionMap = map[string]*discordgo.ApplicationCommandInteractionDataOption

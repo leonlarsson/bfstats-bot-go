@@ -6,8 +6,8 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/leonlarsson/bfstats-bot-go/internal/bot"
-	"github.com/leonlarsson/bfstats-bot-go/internal/localization"
+	"github.com/leonlarsson/bfstats-go/internal/bot"
+	"github.com/leonlarsson/bfstats-go/internal/localization"
 )
 
 var deployCommands bool

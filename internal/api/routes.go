@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 
-	"github.com/leonlarsson/bfstats-bot-go/internal/api/handlers"
+	"github.com/leonlarsson/bfstats-go/internal/api/handlers"
 )
 
 var Routes = map[string]func(w http.ResponseWriter, r *http.Request){

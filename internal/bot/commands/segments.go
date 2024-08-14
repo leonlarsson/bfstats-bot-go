@@ -2,7 +2,7 @@ package bot
 
 import (
 	"github.com/bwmarrin/discordgo"
-	"github.com/leonlarsson/bfstats-bot-go/internal/localization"
+	"github.com/leonlarsson/bfstats-go/internal/localization"
 )
 
 // OverviewSegment returns the overview segment choice for the stats command.
