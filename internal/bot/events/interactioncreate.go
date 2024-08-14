@@ -1,16 +1,16 @@
-package bot
+package events
 
 import (
 	"github.com/bwmarrin/discordgo"
-	bot "github.com/leonlarsson/bfstats-go/internal/bot/commands"
-	trndatafetcher "github.com/leonlarsson/bfstats-go/internal/datafetchers/trn"
+	"github.com/leonlarsson/bfstats-go/internal/bot/commands"
+	"github.com/leonlarsson/bfstats-go/internal/datafetchers/trndatafetcher"
 )
 
 func HandleInteractionCreateEvent(s *discordgo.Session, interaction *discordgo.InteractionCreate) {
 	// Autocomplete
 	if interaction.Type == discordgo.InteractionApplicationCommandAutocomplete {
 		cmdData := interaction.ApplicationCommandData()
-		options := bot.ParseOptions(cmdData.Options)
+		options := commands.ParseOptions(cmdData.Options)
 		game := cmdData.Name
 		username := options["username"].StringValue()
 		platform := options["platform"].StringValue()
@@ -67,13 +67,13 @@ func HandleInteractionCreateEvent(s *discordgo.Session, interaction *discordgo.I
 	// TODO: Just prototyping. Add actual command handling based on the command name and subcommand if needed.
 	if interaction.Type == discordgo.InteractionApplicationCommand {
 		cmdData := interaction.ApplicationCommandData()
-		options := bot.ParseOptions(cmdData.Options)
+		options := commands.ParseOptions(cmdData.Options)
 		println("Command: ", cmdData.Name)
-		println("Subcommand: ", bot.GetOptionStringValue(options, "subcommand"))
-		println("Username: ", bot.GetOptionStringValue(options, "username"))
-		println("Platform: ", bot.GetOptionStringValue(options, "platform"))
-		println("Format: ", bot.GetOptionStringValue(options, "format"))
-		println("Language: ", bot.GetOptionStringValue(options, "language"))
-		println("PoemGPT: ", bot.GetOptionBoolValue(options, "poem_gpt"))
+		println("Subcommand: ", commands.GetOptionStringValue(options, "subcommand"))
+		println("Username: ", commands.GetOptionStringValue(options, "username"))
+		println("Platform: ", commands.GetOptionStringValue(options, "platform"))
+		println("Format: ", commands.GetOptionStringValue(options, "format"))
+		println("Language: ", commands.GetOptionStringValue(options, "language"))
+		println("PoemGPT: ", commands.GetOptionBoolValue(options, "poem_gpt"))
 	}
 }

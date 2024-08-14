@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
-	commands "github.com/leonlarsson/bfstats-go/internal/bot/commands"
+	"github.com/leonlarsson/bfstats-go/internal/bot/commands"
 	"github.com/leonlarsson/bfstats-go/internal/localization"
 )
 

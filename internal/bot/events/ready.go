@@ -1,4 +1,4 @@
-package bot
+package events
 
 import (
 	"fmt"
