@@ -1,44 +1,52 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"sync"
 
-	"github.com/joho/godotenv"
 	"github.com/leonlarsson/bfstats-bot-go/api"
 	"github.com/leonlarsson/bfstats-bot-go/bot"
-	"github.com/leonlarsson/bfstats-bot-go/localization"
 )
 
+var startApi bool
+var startBot bool
+
 func init() {
-	// Load .env
-	godotenv.Load()
-
-	// Load locales
-	localization.LoadLocales()
-
-	// Check environment variables
-	bot.CheckEnvVars()
+	// Parse command line flags
+	flag.BoolVar(&startApi, "api", false, "Start API service")
+	flag.BoolVar(&startBot, "bot", false, "Start bot service")
+	flag.Parse()
 }
 
 func main() {
 	var wg sync.WaitGroup
 
+	// If no services are to be started, log and return
+	if !startApi && !startBot {
+		log.Println("No services to start")
+		return
+	}
+
 	// Start API service
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		log.Println("API: Attempting to start API service")
-		api.Start(":8080")
-	}()
+	if startApi {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			log.Println("API: Attempting to start API service")
+			api.Start(":8080")
+		}()
+	}
 
 	// Start Discord bot
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		log.Println("Bot: Attempting to start Discord bot")
-		bot.Start()
-	}()
+	if startBot {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			log.Println("Bot: Attempting to start Discord bot")
+			bot.Start()
+		}()
+	}
 
 	// Wait for both goroutines to finish
 	wg.Wait()

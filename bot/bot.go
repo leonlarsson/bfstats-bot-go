@@ -1,12 +1,32 @@
 package bot
 
 import (
+	"flag"
 	"log"
 	"os"
 	"os/signal"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/joho/godotenv"
+	"github.com/leonlarsson/bfstats-bot-go/commanddata"
+	"github.com/leonlarsson/bfstats-bot-go/localization"
 )
+
+var deployCommands bool
+
+func init() {
+	// Load locales
+	localization.LoadLocales()
+
+	// Load .env
+	godotenv.Load()
+
+	// Check if all required environment variables are set
+	CheckEnvVars()
+
+	// Parse command line flags
+	flag.BoolVar(&deployCommands, "deploy-commands", false, "Deploy commands to Discord on start")
+}
 
 // CheckEnvVars checks if all required environment variables are set.
 func CheckEnvVars() {
@@ -27,11 +47,15 @@ func Start() {
 	var err error
 
 	// Deploy commands (currently on every start, will change to an API call later probably)
-	// _, err = session.ApplicationCommandBulkOverwrite(os.Getenv("BOT_ID"), os.Getenv("GUILD_ID"), commanddata.GetCommands())
-	// if err != nil {
-	// 	log.Printf("Bot: Error deploying commands: %v", err)
-	// 	return
-	// }
+	if deployCommands {
+		log.Println("Bot: Attempting to deploy commands to Discord")
+		commands, err := session.ApplicationCommandBulkOverwrite(os.Getenv("BOT_ID"), os.Getenv("GUILD_ID"), commanddata.GetCommands())
+		if err != nil {
+			log.Printf("Bot: Error deploying commands: %v", err)
+			return
+		}
+		log.Printf("Bot: Successfully deployed %v commands to Discord", len(commands))
+	}
 
 	// Ready event
 	session.AddHandler(HandleReady)
