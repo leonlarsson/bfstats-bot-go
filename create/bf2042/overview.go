@@ -1,14 +1,14 @@
 package create
 
 import (
-	"github.com/leonlarsson/bfstats-bot-go/canvas"
-	"github.com/leonlarsson/bfstats-bot-go/canvasdatashapes"
-	"github.com/leonlarsson/bfstats-bot-go/shared"
-	"github.com/leonlarsson/bfstats-bot-go/utils"
+	"github.com/leonlarsson/bfstats-bot-go/internal/canvas"
+	shapes "github.com/leonlarsson/bfstats-bot-go/internal/canvas/shapes"
+	"github.com/leonlarsson/bfstats-bot-go/internal/shared"
+	"github.com/leonlarsson/bfstats-bot-go/internal/utils"
 	core "github.com/tdewolff/canvas"
 )
 
-func CreateBF2042OverviewImage(data canvasdatashapes.BF2042OverviewCanvasData, style shared.BackgroundFormat) (*core.Canvas, *core.Context) {
+func CreateBF2042OverviewImage(data shapes.BF2042OverviewCanvasData, style shared.BackgroundFormat) (*core.Canvas, *core.Context) {
 	c, ctx := canvas.BuildBaseCanvas("BF2042", data.BaseData, shared.RegularSkeletonType)
 
 	canvas.DrawTimePlayed(ctx, data.Stats.TimePlayed)
