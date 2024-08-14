@@ -5,11 +5,12 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"syscall"
 
-	"github.com/bwmarrin/discordgo"
 	"github.com/joho/godotenv"
 	"github.com/leonlarsson/bfstats-bot-go/commanddata"
 	"github.com/leonlarsson/bfstats-bot-go/localization"
+	"github.com/servusdei2018/shards/v2"
 )
 
 var deployCommands bool
@@ -42,43 +43,48 @@ func CheckEnvVars() {
 
 // Start starts the Discord bot.
 func Start() {
-	// Create a new Discord session using the provided bot token. The equivalent of discord.js's new Client()
-	session, _ := discordgo.New("Bot " + os.Getenv("BOT_TOKEN"))
+
 	var err error
+
+	mgr, err := shards.New("Bot " + os.Getenv("BOT_TOKEN"))
+	if err != nil {
+		log.Fatalf("Bot: Error creating shards manager: %v", err)
+	}
 
 	// Deploy commands (currently on every start, will change to an API call later probably)
 	if deployCommands {
 		log.Println("Bot: Attempting to deploy commands to Discord")
-		commands, err := session.ApplicationCommandBulkOverwrite(os.Getenv("BOT_ID"), os.Getenv("GUILD_ID"), commanddata.GetCommands())
+		err := mgr.ApplicationCommandBulkOverwrite(os.Getenv("GUILD_ID"), commanddata.GetCommands())
 		if err != nil {
 			log.Printf("Bot: Error deploying commands: %v", err)
 			return
 		}
-		log.Printf("Bot: Successfully deployed %v commands to Discord", len(commands))
+		log.Println("Bot: Successfully deployed commands to Discord")
 	}
 
 	// Ready event
-	session.AddHandler(HandleReady)
+	mgr.AddHandler(HandleReady)
 
 	// Interaction event
-	session.AddHandler(HandleInteractionCreate)
+	mgr.AddHandler(HandleInteractionCreate)
 
 	// Open a websocket connection to Discord and begin listening.
-	err = session.Open()
+	err = mgr.Start()
 	if err != nil {
-		log.Printf("Bot: Error opening connection: %v", err)
+		log.Fatalf("Bot: Error opening connection: %v", err)
 		return
 	}
 
 	// Wait here until CTRL-C or other term signal is received.
-	sigch := make(chan os.Signal, 1)
-	signal.Notify(sigch, os.Interrupt)
-	<-sigch
+	sc := make(chan os.Signal, 1)
+	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
+	<-sc
 
 	// Cleanly close down the Discord session.
-	err = session.Close()
+	err = mgr.Shutdown()
 	if err != nil {
 		log.Printf("Bot: Error closing connection: %v", err)
 		return
 	}
+	log.Println("Bot: Stopped")
 }

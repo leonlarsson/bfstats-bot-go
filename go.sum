@@ -40,6 +40,8 @@ github.com/nicksnyder/go-i18n/v2 v2.4.0 h1:3IcvPOAvnCKwNm0TB0dLDTuawWEj+ax/RERNC
 github.com/nicksnyder/go-i18n/v2 v2.4.0/go.mod h1:nxYSZE9M0bf3Y70gPQjN9ha7XNHX7gMc814+6wVyEI4=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/servusdei2018/shards/v2 v2.4.0 h1:ywC+/Z16Y+hH0lX1hF7yH4BMvuMMxk8ikz0sqXLUyM4=
+github.com/servusdei2018/shards/v2 v2.4.0/go.mod h1:Pp+YjNOMLpKPInGfzqoLBFNI4G2dkU0tpFkyCDeN/1Y=
 github.com/tdewolff/canvas v0.0.0-20240728194142-58998955aae5 h1:jp4AXwTKRvlMKaHTtFB5ROWdG64TU+u60bmxM1iTB6E=
 github.com/tdewolff/canvas v0.0.0-20240728194142-58998955aae5/go.mod h1:1bMKQWV4mWh4GtLPMBzMaY2Z8E8zqolCi4ceTxStVFE=
 github.com/tdewolff/font v0.0.0-20240728193914-9dc6e3441d03 h1:8gZpGeUF+0bYYNDJCWXG64YH4WdSFZDFoWp1RKil1Qg=
