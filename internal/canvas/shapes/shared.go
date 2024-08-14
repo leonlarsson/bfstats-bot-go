@@ -1,4 +1,4 @@
-package canvas
+package shapes
 
 // BaseData represents the base data for all image creations.
 // Each game embeds BaseData together with its own GAMEStats struct.

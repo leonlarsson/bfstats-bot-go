@@ -7,7 +7,7 @@ import (
 
 	create "github.com/leonlarsson/bfstats-go/create/bf2042"
 	"github.com/leonlarsson/bfstats-go/internal/canvas"
-	shapes "github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
+	"github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
 	"github.com/leonlarsson/bfstats-go/internal/shared"
 )
 

@@ -1,4 +1,4 @@
-package canvas
+package shapes
 
 // BF2042OverviewCanvasData represents the data needed to create a Battlefield 2042 image.
 type BF2042OverviewCanvasData struct {

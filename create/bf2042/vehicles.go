@@ -2,7 +2,7 @@ package create
 
 import (
 	"github.com/leonlarsson/bfstats-go/internal/canvas"
-	shapes "github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
+	"github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
 	"github.com/leonlarsson/bfstats-go/internal/shared"
 	core "github.com/tdewolff/canvas"
 )

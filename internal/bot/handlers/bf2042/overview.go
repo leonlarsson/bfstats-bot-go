@@ -10,7 +10,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 	create "github.com/leonlarsson/bfstats-go/create/bf2042"
 	"github.com/leonlarsson/bfstats-go/internal/canvas"
-	shapes "github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
+	"github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
 	"github.com/leonlarsson/bfstats-go/internal/datafetchers/bf2042datafetcher"
 	"github.com/leonlarsson/bfstats-go/internal/localization"
 	"github.com/leonlarsson/bfstats-go/internal/shared"

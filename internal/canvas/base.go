@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	shapes "github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
+	"github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
 	"github.com/leonlarsson/bfstats-go/internal/shared"
 	"github.com/leonlarsson/bfstats-go/internal/utils"
 	"github.com/tdewolff/canvas"

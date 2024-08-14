@@ -1,7 +1,7 @@
 package canvas
 
 import (
-	shapes "github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
+	"github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
 	"github.com/tdewolff/canvas"
 )
 
