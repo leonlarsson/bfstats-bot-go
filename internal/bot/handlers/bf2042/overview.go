@@ -8,9 +8,9 @@ import (
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
-	create "github.com/leonlarsson/bfstats-go/create/bf2042"
 	"github.com/leonlarsson/bfstats-go/internal/canvas"
 	"github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
+	"github.com/leonlarsson/bfstats-go/internal/createcanvas/bf2042"
 	"github.com/leonlarsson/bfstats-go/internal/datafetchers/bf2042datafetcher"
 	"github.com/leonlarsson/bfstats-go/internal/localization"
 	"github.com/leonlarsson/bfstats-go/internal/shared"
@@ -121,7 +121,7 @@ func HandleBF2042OverviewCommand(session *discordgo.Session, interaction *discor
 		},
 	}
 
-	c, _ := create.CreateBF2042OverviewImage(imageData, shared.SolidBackground)
+	c, _ := bf2042.CreateBF2042OverviewImage(imageData, shared.SolidBackground)
 	imgBuf := canvas.CanvasToBuffer(c)
 
 	// Edit the response

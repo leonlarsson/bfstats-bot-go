@@ -5,9 +5,9 @@ import (
 	"image/png"
 	"net/http"
 
-	create "github.com/leonlarsson/bfstats-go/create/bf2042"
 	"github.com/leonlarsson/bfstats-go/internal/canvas"
 	"github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
+	"github.com/leonlarsson/bfstats-go/internal/createcanvas/bf2042"
 	"github.com/leonlarsson/bfstats-go/internal/shared"
 )
 
@@ -27,7 +27,7 @@ func BF2042VehiclesHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	c, _ := create.CreateBF2042VehiclesImage(data, shared.SolidBackground)
+	c, _ := bf2042.CreateBF2042VehiclesImage(data, shared.SolidBackground)
 	w.Header().Set("Content-Type", "image/png")
 	img := canvas.CanvasToImage(c)
 	png.Encode(w, img)

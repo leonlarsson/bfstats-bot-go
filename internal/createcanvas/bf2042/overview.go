@@ -1,4 +1,4 @@
-package create
+package bf2042
 
 import (
 	"github.com/leonlarsson/bfstats-go/internal/canvas"

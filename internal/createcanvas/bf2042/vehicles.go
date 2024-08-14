@@ -1,4 +1,4 @@
-package create
+package bf2042
 
 import (
 	"github.com/leonlarsson/bfstats-go/internal/canvas"
@@ -7,9 +7,9 @@ import (
 	core "github.com/tdewolff/canvas"
 )
 
-func CreateBF2042WeaponsImage(data shapes.BF2042WeaponsCanvasData, style shared.BackgroundFormat) (*core.Canvas, *core.Context) {
+func CreateBF2042VehiclesImage(data shapes.BF2042VehiclesCanvasData, style shared.BackgroundFormat) (*core.Canvas, *core.Context) {
 	c, ctx := canvas.BuildBaseCanvas("BF2042", data.BaseData, shared.GridSkeletonType)
 
-	canvas.DrawAllGridStats(ctx, data.Weapons)
+	canvas.DrawAllGridStats(ctx, data.Vehicles)
 	return c, ctx
 }
