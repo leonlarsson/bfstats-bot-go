@@ -12,7 +12,6 @@ import (
 )
 
 func Start(deployCommands bool) {
-	println(deployCommands)
 	var err error
 
 	mgr, err := shards.New("Bot " + os.Getenv("BOT_TOKEN"))
