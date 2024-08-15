@@ -7,9 +7,9 @@ import (
 	core "github.com/tdewolff/canvas"
 )
 
-func CreateBF2042VehiclesImage(data shapes.BF2042VehiclesCanvasData, style shared.BackgroundFormat) (*core.Canvas, *core.Context) {
+func CreateBF2042VehiclesImage(data shapes.GenericGridData, style shared.BackgroundFormat) (*core.Canvas, *core.Context) {
 	c, ctx := canvas.BuildBaseCanvas("BF2042", data.BaseData, shared.GridSkeletonType)
 
-	canvas.DrawAllGridStats(ctx, data.Vehicles)
+	canvas.DrawAllGridStats(ctx, data.Entries)
 	return c, ctx
 }

@@ -46,7 +46,7 @@ func HandleBF2042OverviewCommand(session *discordgo.Session, interaction *discor
 	})
 
 	// Create the image
-	imageData := shapes.BF2042OverviewCanvasData{
+	imageData := shapes.GenericRegularData{
 		BaseData: shapes.BaseData{
 			Identifier: "BF2042-001",
 			Username:   overviewData.Data.PlatformInfo.PlatformUserHandle,
@@ -56,68 +56,63 @@ func HandleBF2042OverviewCommand(session *discordgo.Session, interaction *discor
 				Game:    "Battlefield 2042",
 				Segment: "Overview",
 			},
+			TimePlayed: overviewSegment.Stats.TimePlayed.DisplayValue,
 		},
-		Stats: shapes.BF2042OverviewCanvasStats{
-			TimePlayed: shapes.Stat{
-				Name:  "Time Played:",
-				Value: overviewSegment.Stats.TimePlayed.DisplayValue,
-				Extra: utils.PercentileToString(overviewSegment.Stats.TimePlayed.Percentile),
-			},
-			Kills: shapes.Stat{
+		Stats: shapes.GenericRegularStats{
+			L1: shapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/kills"),
 				Value: loc.FormatInt(overviewSegment.Stats.Kills.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Kills.Percentile),
 			},
-			Deaths: shapes.Stat{
+			L2: shapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/deaths"),
 				Value: loc.FormatInt(overviewSegment.Stats.Deaths.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Deaths.Percentile),
 			},
-			Assists: shapes.Stat{
+			L3: shapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/assists"),
 				Value: loc.FormatInt(overviewSegment.Stats.Assists.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Assists.Percentile),
 			},
-			Revives: shapes.Stat{
+			L4: shapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/revives"),
 				Value: loc.FormatInt(overviewSegment.Stats.Revives.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Revives.Percentile),
 			},
-			WlRatio: shapes.Stat{
-				Name:  loc.TranslateWithColon("stats/title/wlratio"),
-				Value: overviewSegment.Stats.WlPercentage.DisplayValue,
-				Extra: utils.PercentileToString(overviewSegment.Stats.WlPercentage.Percentile),
-			},
-			BestClass: shapes.Stat{
+			L5: shapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/bestclass"),
 				Value: strings.TrimSpace(classData.Data[0].Metadata.Name),
 				Extra: fmt.Sprintf("%s | %s", loc.Translate("stats/title/x_kills_short", map[string]string{"kills": loc.FormatInt(classData.Data[0].Stats.Kills.Value)}), classData.Data[0].Stats.TimePlayed.DisplayValue),
 			},
-			KillsPerMatch: shapes.Stat{
+			L6: shapes.Stat{
+				Name:  loc.TranslateWithColon("stats/title/wlratio"),
+				Value: overviewSegment.Stats.WlPercentage.DisplayValue,
+				Extra: utils.PercentileToString(overviewSegment.Stats.WlPercentage.Percentile),
+			},
+			R1: shapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/kills_per_match"),
 				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMatch.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KillsPerMatch.Percentile),
 			},
-			KdRatio: shapes.Stat{
+			R2: shapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/kd"),
 				Value: fmt.Sprintf("%s (%s)", loc.FormatFloat(overviewSegment.Stats.KdRatio.Value), loc.FormatFloat(overviewSegment.Stats.HumanKdRatio.Value)),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KdRatio.Percentile),
 			},
-			KillsPerMinute: shapes.Stat{
+			R3: shapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/kpm"),
 				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMinute.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KillsPerMinute.Percentile),
 			},
-			MultiKills: shapes.Stat{
+			L5Fallback: shapes.Stat{
 				Name:  loc.TranslateWithColon("stats/title/multikills"),
 				Value: loc.FormatInt(overviewSegment.Stats.MultiKills.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.MultiKills.Percentile),
 			},
-			Rank: shapes.RankStat{
-				Name:    utils.FormatRankString(overviewSegment.Stats.Level.Value),
-				Value:   loc.Translate("stats/extra/percentage_to_next_rank", map[string]string{"percentage": fmt.Sprintf("%.0f%%", overviewSegment.Stats.LevelProgression.Value)}),
-				RankInt: overviewSegment.Stats.Level.Value,
-				Extra:   fmt.Sprintf("XP: %s", loc.FormatInt(overviewSegment.Stats.XPAll.Value)),
+			R4: shapes.Stat{
+				Name:  utils.FormatRankString(overviewSegment.Stats.Level.Value),
+				Value: loc.Translate("stats/extra/percentage_to_next_rank", map[string]string{"percentage": fmt.Sprintf("%.0f%%", overviewSegment.Stats.LevelProgression.Value)}),
+				Extra: fmt.Sprintf("XP: %s", loc.FormatInt(overviewSegment.Stats.XPAll.Value)),
 			},
 		},
 	}

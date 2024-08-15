@@ -13,7 +13,7 @@ import (
 
 // BF2042WeaponsHandler handles the /bf2042/weapons endpoint
 func BF2042WeaponsHandler(w http.ResponseWriter, r *http.Request) {
-	var data shapes.BF2042WeaponsCanvasData
+	var data shapes.GenericGridData
 
 	err := json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {
@@ -22,7 +22,7 @@ func BF2042WeaponsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Check if we have enough weapons
-	if len(data.Weapons) < 9 {
+	if len(data.Entries) < 9 {
 		http.Error(w, "Not enough weapons", http.StatusBadRequest)
 		return
 	}

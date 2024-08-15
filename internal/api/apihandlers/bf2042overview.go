@@ -13,7 +13,7 @@ import (
 
 // BF2042OverviewHandler handles the /bf2042/overview endpoint
 func BF2042OverviewHandler(w http.ResponseWriter, r *http.Request) {
-	var data shapes.BF2042OverviewCanvasData
+	var data shapes.GenericRegularData
 
 	err := json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {

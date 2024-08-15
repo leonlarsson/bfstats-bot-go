@@ -49,7 +49,7 @@ func HandleBF2042VehiclesCommand(session *discordgo.Session, interaction *discor
 	}
 
 	// Create the image
-	imageData := shapes.BF2042VehiclesCanvasData{
+	imageData := shapes.GenericGridData{
 		BaseData: shapes.BaseData{
 			Identifier: "BF2042-001",
 			Username:   username,
@@ -59,7 +59,7 @@ func HandleBF2042VehiclesCommand(session *discordgo.Session, interaction *discor
 				Segment: "Vehicles",
 			},
 		},
-		Vehicles: vehicles,
+		Entries: vehicles,
 	}
 
 	c, _ := bf2042.CreateBF2042VehiclesImage(imageData, shared.SolidBackground)

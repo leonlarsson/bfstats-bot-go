@@ -1,9 +1,13 @@
 package events
 
 import (
+	"cmp"
+
 	"github.com/bwmarrin/discordgo"
 	"github.com/leonlarsson/bfstats-go/internal/bot/commands"
+	commandhandlers "github.com/leonlarsson/bfstats-go/internal/bot/handlers/bf2042"
 	"github.com/leonlarsson/bfstats-go/internal/datafetchers/trndatafetcher"
+	"github.com/leonlarsson/bfstats-go/internal/localization"
 )
 
 func HandleInteractionCreateEvent(s *discordgo.Session, interaction *discordgo.InteractionCreate) {
@@ -68,12 +72,24 @@ func HandleInteractionCreateEvent(s *discordgo.Session, interaction *discordgo.I
 	if interaction.Type == discordgo.InteractionApplicationCommand {
 		cmdData := interaction.ApplicationCommandData()
 		options := commands.ParseOptions(cmdData.Options)
-		println("Command: ", cmdData.Name)
-		println("Subcommand: ", commands.GetOptionStringValue(options, "subcommand"))
-		println("Username: ", commands.GetOptionStringValue(options, "username"))
-		println("Platform: ", commands.GetOptionStringValue(options, "platform"))
-		println("Format: ", commands.GetOptionStringValue(options, "format"))
-		println("Language: ", commands.GetOptionStringValue(options, "language"))
-		println("PoemGPT: ", commands.GetOptionBoolValue(options, "poem_gpt"))
+
+		locale := cmp.Or(string(commands.GetOptionStringValue(options, "language")), string(interaction.Locale), "en")
+		loc := *localization.CreateLocForLanguage(string(locale))
+
+		if cmdData.Name == "bf2042" {
+			subcommand := commands.GetOptionStringValue(options, "subcommand")
+			if subcommand == "stats" {
+				segment := commands.GetOptionStringValue(options, "segment")
+				switch segment {
+				case "overview":
+					commandhandlers.HandleBF2042OverviewCommand(s, interaction, loc)
+				case "weapons":
+					commandhandlers.HandleBF2042WeaponsCommand(s, interaction, loc)
+				case "vehicles":
+					commandhandlers.HandleBF2042VehiclesCommand(s, interaction, loc)
+				}
+			}
+		}
+
 	}
 }

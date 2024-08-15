@@ -49,7 +49,7 @@ func HandleBF2042WeaponsCommand(session *discordgo.Session, interaction *discord
 	}
 
 	// Create the image
-	imageData := shapes.BF2042WeaponsCanvasData{
+	imageData := shapes.GenericGridData{
 		BaseData: shapes.BaseData{
 			Identifier: "BF2042-001",
 			Username:   username,
@@ -59,7 +59,7 @@ func HandleBF2042WeaponsCommand(session *discordgo.Session, interaction *discord
 				Segment: "Weapons",
 			},
 		},
-		Weapons: weapons,
+		Entries: weapons,
 	}
 
 	c, _ := bf2042.CreateBF2042WeaponsImage(imageData, shared.SolidBackground)

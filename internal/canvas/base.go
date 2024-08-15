@@ -26,7 +26,7 @@ func BuildBaseCanvas(game string, data shapes.BaseData, skeletonType shared.Skel
 	if skeletonType == shared.RegularSkeletonType {
 		DrawAvatar(ctx, data.Avatar)
 		DrawUsernameRegular(ctx, data.Username)
-
+		DrawTimePlayed(ctx, data.TimePlayed)
 	} else {
 		DrawSegmentText(ctx, data.Meta.Segment)
 		DrawUsernameGrid(ctx, data.Username)

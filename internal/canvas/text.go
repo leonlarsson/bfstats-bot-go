@@ -92,9 +92,9 @@ func DrawUsernameGrid(ctx *canvas.Context, username string) {
 	ctx.DrawText(1100, 67, textLine)
 }
 
-func DrawTimePlayed(ctx *canvas.Context, stat shapes.Stat) {
+func DrawTimePlayed(ctx *canvas.Context, timePlayed string) {
 	face := robotoFont.Face(PixelsToPoints(30), canvas.White, canvas.FontLight)
-	ctx.DrawText(950, 296, canvas.NewTextLine(face, stat.Value, canvas.Center))
+	ctx.DrawText(950, 296, canvas.NewTextLine(face, timePlayed, canvas.Center))
 }
 
 func DrawStat1(ctx *canvas.Context, stat shapes.Stat) {
@@ -163,7 +163,7 @@ func DrawRightStat4(ctx *canvas.Context, stat shapes.Stat) {
 	ctx.DrawText(1180, 658, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Right))
 }
 
-func DrawRightStat4Rank(ctx *canvas.Context, stat shapes.RankStat) {
+func DrawRightStat4Rank(ctx *canvas.Context, stat shapes.Stat) {
 	ctx.DrawText(723, 659, canvas.NewTextLine(statsRankTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(723, 689, canvas.NewTextLine(statsRankValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(723, 721, canvas.NewTextLine(statsRankExtraFace, stat.Extra, canvas.Left))
