@@ -46,5 +46,5 @@ type GenericRegularSlots struct {
 // GenericGridData represents the data for a grid format image.
 type GenericGridData struct {
 	BaseData BaseData
-	Entries  []Slot
+	Slots    []Slot
 }

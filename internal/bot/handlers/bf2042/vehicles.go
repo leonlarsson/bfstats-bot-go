@@ -59,7 +59,7 @@ func HandleBF2042VehiclesCommand(session *discordgo.Session, interaction *discor
 				Segment: "Vehicles",
 			},
 		},
-		Entries: vehicles,
+		Slots: vehicles,
 	}
 
 	c, _ := bf2042.CreateBF2042VehiclesImage(imageData, shared.SolidBackground)

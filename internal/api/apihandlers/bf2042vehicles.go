@@ -22,7 +22,7 @@ func BF2042VehiclesHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Check if we have enough vehicles
-	if len(data.Entries) < 9 {
+	if len(data.Slots) < 9 {
 		http.Error(w, "Not enough weapons", http.StatusBadRequest)
 		return
 	}

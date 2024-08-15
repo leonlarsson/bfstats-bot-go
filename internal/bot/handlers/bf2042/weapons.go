@@ -59,7 +59,7 @@ func HandleBF2042WeaponsCommand(session *discordgo.Session, interaction *discord
 				Segment: "Weapons",
 			},
 		},
-		Entries: weapons,
+		Slots: weapons,
 	}
 
 	c, _ := bf2042.CreateBF2042WeaponsImage(imageData, shared.SolidBackground)
