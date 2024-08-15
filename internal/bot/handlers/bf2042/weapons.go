@@ -9,7 +9,8 @@ import (
 	"github.com/leonlarsson/bfstats-go/internal/canvas"
 	"github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
 	"github.com/leonlarsson/bfstats-go/internal/createcanvas/bf2042"
-	"github.com/leonlarsson/bfstats-go/internal/datafetchers/bf2042datafetcher"
+	"github.com/leonlarsson/bfstats-go/internal/datafetcher"
+	"github.com/leonlarsson/bfstats-go/internal/datafetcher/types"
 	"github.com/leonlarsson/bfstats-go/internal/localization"
 	"github.com/leonlarsson/bfstats-go/internal/shared"
 	"github.com/leonlarsson/bfstats-go/internal/utils"
@@ -22,7 +23,7 @@ func HandleBF2042WeaponsCommand(session *discordgo.Session, interaction *discord
 		return errors.New("username failed validation")
 	}
 
-	data, err := bf2042datafetcher.FetchBF2042WeaponsData(platform, username)
+	data, err := datafetcher.Fetch[types.TrnWeaponsResponse](utils.TRNBF2042WeaponsURL(platform, username))
 	if err != nil {
 		return err
 	}

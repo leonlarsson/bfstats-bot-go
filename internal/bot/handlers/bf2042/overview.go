@@ -11,7 +11,8 @@ import (
 	"github.com/leonlarsson/bfstats-go/internal/canvas"
 	"github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
 	"github.com/leonlarsson/bfstats-go/internal/createcanvas/bf2042"
-	"github.com/leonlarsson/bfstats-go/internal/datafetchers/bf2042datafetcher"
+	"github.com/leonlarsson/bfstats-go/internal/datafetcher"
+	"github.com/leonlarsson/bfstats-go/internal/datafetcher/types"
 	"github.com/leonlarsson/bfstats-go/internal/localization"
 	"github.com/leonlarsson/bfstats-go/internal/shared"
 	"github.com/leonlarsson/bfstats-go/internal/utils"
@@ -24,17 +25,17 @@ func HandleBF2042OverviewCommand(session *discordgo.Session, interaction *discor
 		return errors.New("username failed validation")
 	}
 
-	data, err := bf2042datafetcher.FetchBF2042OverviewData(platform, username)
+	overviewData, err := datafetcher.Fetch[types.TrnOverviewResponse](utils.TRNBF2042OverviewURL(platform, username))
 	if err != nil {
 		return err
 	}
 
-	classData, err := bf2042datafetcher.FetchBF2042ClassesData(platform, username)
+	classData, err := datafetcher.Fetch[types.TrnClassesResponse](utils.TRNBF2042ClassesURL(platform, username))
 	if err != nil {
 		return err
 	}
 
-	overviewSegment, err := utils.GetTRNSegmentByType(data.Data.Segments, "overview")
+	overviewSegment, err := utils.GetTRNSegmentByType(overviewData.Data.Segments, "overview")
 	if err != nil {
 		return err
 	}
@@ -48,9 +49,9 @@ func HandleBF2042OverviewCommand(session *discordgo.Session, interaction *discor
 	imageData := shapes.BF2042OverviewCanvasData{
 		BaseData: shapes.BaseData{
 			Identifier: "BF2042-001",
-			Username:   data.Data.PlatformInfo.PlatformUserHandle,
-			Platform:   int(utils.TRNPlatformNameToInt(data.Data.PlatformInfo.PLatformSlug)),
-			Avatar:     utils.CleanUserAvatar(cmp.Or(data.Data.PlatformInfo.AvatarURL, "assets/images/BF2042/Specialists/Angel.png")),
+			Username:   overviewData.Data.PlatformInfo.PlatformUserHandle,
+			Platform:   int(utils.TRNPlatformNameToInt(overviewData.Data.PlatformInfo.PLatformSlug)),
+			Avatar:     utils.CleanUserAvatar(cmp.Or(overviewData.Data.PlatformInfo.AvatarURL, "assets/images/BF2042/Specialists/Angel.png")),
 			Meta: shapes.Meta{
 				Game:    "Battlefield 2042",
 				Segment: "Overview",

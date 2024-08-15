@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-// Unused, but cool. Pass it the struct and url, and it will fetch the data from the URL and decode it into the struct.
-func FetchData[T any](url string) (T, error) {
+// Fetch fetches data from the provided URL and decodes it into the provided type.
+func Fetch[T any](url string) (T, error) {
 	var result T
 
 	req, _ := http.NewRequest("GET", url, nil)
