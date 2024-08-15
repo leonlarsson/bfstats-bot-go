@@ -10,6 +10,6 @@ import (
 func CreateBF2042WeaponsImage(data shapes.GenericGridData, style shared.BackgroundFormat) (*core.Canvas, *core.Context) {
 	c, ctx := canvas.BuildBaseCanvas("BF2042", data.BaseData, shared.GridSkeletonType)
 
-	canvas.DrawAllGridStats(ctx, data.Entries)
+	canvas.DrawAllGridSlots(ctx, data.Entries)
 	return c, ctx
 }
