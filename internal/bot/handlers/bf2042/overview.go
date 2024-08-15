@@ -104,17 +104,21 @@ func HandleBF2042OverviewCommand(session *discordgo.Session, interaction *discor
 				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMinute.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KillsPerMinute.Percentile),
 			},
-			L5Fallback: shapes.Stat{
-				Name:  loc.TranslateWithColon("stats/title/multikills"),
-				Value: loc.FormatInt(overviewSegment.Stats.MultiKills.Value),
-				Extra: utils.PercentileToString(overviewSegment.Stats.MultiKills.Percentile),
-			},
 			R4: shapes.Stat{
 				Name:  utils.FormatRankString(overviewSegment.Stats.Level.Value),
 				Value: loc.Translate("stats/extra/percentage_to_next_rank", map[string]string{"percentage": fmt.Sprintf("%.0f%%", overviewSegment.Stats.LevelProgression.Value)}),
 				Extra: fmt.Sprintf("XP: %s", loc.FormatInt(overviewSegment.Stats.XPAll.Value)),
 			},
 		},
+	}
+
+	// if the user is not a base BF2042 class, replace with another stat
+	if !utils.IsBaseBF2042Class("BF2042", imageData.Stats.L5.Value) {
+		imageData.Stats.L5 = shapes.Stat{
+			Name:  loc.TranslateWithColon("stats/title/multikills"),
+			Value: loc.FormatInt(overviewSegment.Stats.MultiKills.Value),
+			Extra: utils.PercentileToString(overviewSegment.Stats.MultiKills.Percentile),
+		}
 	}
 
 	c, _ := bf2042.CreateBF2042OverviewImage(imageData, shared.SolidBackground)

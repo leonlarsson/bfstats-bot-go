@@ -45,7 +45,6 @@ type GenericRegularStats struct {
 	L3,
 	L4,
 	L5,
-	L5Fallback,
 	L6,
 	R1,
 	R2,
