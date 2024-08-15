@@ -58,53 +58,53 @@ func HandleBF2042OverviewCommand(session *discordgo.Session, interaction *discor
 			},
 			TimePlayed: overviewSegment.Stats.TimePlayed.DisplayValue,
 		},
-		Stats: shapes.GenericRegularStats{
-			L1: shapes.Stat{
+		Slots: shapes.GenericRegularSlots{
+			L1: shapes.Slot{
 				Name:  loc.TranslateWithColon("stats/title/kills"),
 				Value: loc.FormatInt(overviewSegment.Stats.Kills.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Kills.Percentile),
 			},
-			L2: shapes.Stat{
+			L2: shapes.Slot{
 				Name:  loc.TranslateWithColon("stats/title/deaths"),
 				Value: loc.FormatInt(overviewSegment.Stats.Deaths.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Deaths.Percentile),
 			},
-			L3: shapes.Stat{
+			L3: shapes.Slot{
 				Name:  loc.TranslateWithColon("stats/title/assists"),
 				Value: loc.FormatInt(overviewSegment.Stats.Assists.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Assists.Percentile),
 			},
-			L4: shapes.Stat{
+			L4: shapes.Slot{
 				Name:  loc.TranslateWithColon("stats/title/revives"),
 				Value: loc.FormatInt(overviewSegment.Stats.Revives.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.Revives.Percentile),
 			},
-			L5: shapes.Stat{
+			L5: shapes.Slot{
 				Name:  loc.TranslateWithColon("stats/title/bestclass"),
 				Value: strings.TrimSpace(classData.Data[0].Metadata.Name),
 				Extra: fmt.Sprintf("%s | %s", loc.Translate("stats/title/x_kills_short", map[string]string{"kills": loc.FormatInt(classData.Data[0].Stats.Kills.Value)}), classData.Data[0].Stats.TimePlayed.DisplayValue),
 			},
-			L6: shapes.Stat{
+			L6: shapes.Slot{
 				Name:  loc.TranslateWithColon("stats/title/wlratio"),
 				Value: overviewSegment.Stats.WlPercentage.DisplayValue,
 				Extra: utils.PercentileToString(overviewSegment.Stats.WlPercentage.Percentile),
 			},
-			R1: shapes.Stat{
+			R1: shapes.Slot{
 				Name:  loc.TranslateWithColon("stats/title/kills_per_match"),
 				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMatch.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KillsPerMatch.Percentile),
 			},
-			R2: shapes.Stat{
+			R2: shapes.Slot{
 				Name:  loc.TranslateWithColon("stats/title/kd"),
 				Value: fmt.Sprintf("%s (%s)", loc.FormatFloat(overviewSegment.Stats.KdRatio.Value), loc.FormatFloat(overviewSegment.Stats.HumanKdRatio.Value)),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KdRatio.Percentile),
 			},
-			R3: shapes.Stat{
+			R3: shapes.Slot{
 				Name:  loc.TranslateWithColon("stats/title/kpm"),
 				Value: loc.FormatFloat(overviewSegment.Stats.KillsPerMinute.Value),
 				Extra: utils.PercentileToString(overviewSegment.Stats.KillsPerMinute.Percentile),
 			},
-			R4: shapes.Stat{
+			R4: shapes.Slot{
 				Name:  utils.FormatRankString(overviewSegment.Stats.Level.Value),
 				Value: loc.Translate("stats/extra/percentage_to_next_rank", map[string]string{"percentage": fmt.Sprintf("%.0f%%", overviewSegment.Stats.LevelProgression.Value)}),
 				Extra: fmt.Sprintf("XP: %s", loc.FormatInt(overviewSegment.Stats.XPAll.Value)),
@@ -113,8 +113,8 @@ func HandleBF2042OverviewCommand(session *discordgo.Session, interaction *discor
 	}
 
 	// if the user is not a base BF2042 class, replace with another stat
-	if !utils.IsBaseBF2042Class("BF2042", imageData.Stats.L5.Value) {
-		imageData.Stats.L5 = shapes.Stat{
+	if !utils.IsBaseBF2042Class("BF2042", imageData.Slots.L5.Value) {
+		imageData.Slots.L5 = shapes.Slot{
 			Name:  loc.TranslateWithColon("stats/title/multikills"),
 			Value: loc.FormatInt(overviewSegment.Stats.MultiKills.Value),
 			Extra: utils.PercentileToString(overviewSegment.Stats.MultiKills.Percentile),

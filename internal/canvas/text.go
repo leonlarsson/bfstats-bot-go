@@ -97,73 +97,73 @@ func DrawTimePlayed(ctx *canvas.Context, timePlayed string) {
 	ctx.DrawText(950, 296, canvas.NewTextLine(face, timePlayed, canvas.Center))
 }
 
-func DrawStat1(ctx *canvas.Context, stat shapes.Stat) {
+func DrawStat1(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(57, 180, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(57, 221, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(57, 259, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawStat2(ctx *canvas.Context, stat shapes.Stat) {
+func DrawStat2(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(388, 180, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(388, 221, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(388, 259, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawStat3(ctx *canvas.Context, stat shapes.Stat) {
+func DrawStat3(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(57, 371, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(57, 412, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(57, 450, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawStat4(ctx *canvas.Context, stat shapes.Stat) {
+func DrawStat4(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(388, 371, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(388, 412, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(388, 450, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawStat5(ctx *canvas.Context, stat shapes.Stat) {
+func DrawStat5(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(57, 561, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(57, 602, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(57, 640, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawStat5BestClass(ctx *canvas.Context, stat shapes.Stat) {
+func DrawStat5BestClass(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(57, 561, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(116, 602, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(57, 640, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawStat6(ctx *canvas.Context, stat shapes.Stat) {
+func DrawStat6(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(388, 561, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(388, 602, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(388, 640, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawRightStat1(ctx *canvas.Context, stat shapes.Stat) {
+func DrawRightStat1(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(723, 354, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(723, 395, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(1180, 354, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Right))
 }
 
-func DrawRightStat2(ctx *canvas.Context, stat shapes.Stat) {
+func DrawRightStat2(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(723, 451, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(723, 492, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(1180, 451, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Right))
 }
 
-func DrawRightStat3(ctx *canvas.Context, stat shapes.Stat) {
+func DrawRightStat3(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(723, 548, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(723, 589, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(1180, 548, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Right))
 }
 
-func DrawRightStat4(ctx *canvas.Context, stat shapes.Stat) {
+func DrawRightStat4(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(723, 658, canvas.NewTextLine(statsTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(723, 699, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(1180, 658, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Right))
 }
 
-func DrawRightStat4Rank(ctx *canvas.Context, stat shapes.Stat) {
+func DrawRightStat4Rank(ctx *canvas.Context, stat shapes.Slot) {
 	ctx.DrawText(723, 659, canvas.NewTextLine(statsRankTitleFace, stat.Name, canvas.Left))
 	ctx.DrawText(723, 689, canvas.NewTextLine(statsRankValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(723, 721, canvas.NewTextLine(statsRankExtraFace, stat.Extra, canvas.Left))
@@ -178,70 +178,70 @@ func GridStatTextBox(text string) *canvas.Text {
 	return canvas.NewTextBox(statsTitleFace, text, 335, 50, 0, 0, 0, 0)
 }
 
-func DrawGridStat1(ctx *canvas.Context, stat shapes.Stat) {
+func DrawGridStat1(ctx *canvas.Context, stat shapes.Slot) {
 	nameTextBox := GridStatTextBox(stat.Name)
 	ctx.DrawText(57, 180+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(57, 221, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(57, 259, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawGridStat2(ctx *canvas.Context, stat shapes.Stat) {
+func DrawGridStat2(ctx *canvas.Context, stat shapes.Slot) {
 	nameTextBox := GridStatTextBox(stat.Name)
 	ctx.DrawText(439, 180+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(439, 221, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(439, 259, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawGridStat3(ctx *canvas.Context, stat shapes.Stat) {
+func DrawGridStat3(ctx *canvas.Context, stat shapes.Slot) {
 	nameTextBox := GridStatTextBox(stat.Name)
 	ctx.DrawText(823, 180+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(823, 221, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(823, 259, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawGridStat4(ctx *canvas.Context, stat shapes.Stat) {
+func DrawGridStat4(ctx *canvas.Context, stat shapes.Slot) {
 	nameTextBox := GridStatTextBox(stat.Name)
 	ctx.DrawText(57, 371+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(57, 412, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(57, 450, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawGridStat5(ctx *canvas.Context, stat shapes.Stat) {
+func DrawGridStat5(ctx *canvas.Context, stat shapes.Slot) {
 	nameTextBox := GridStatTextBox(stat.Name)
 	ctx.DrawText(439, 371+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(439, 412, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(439, 450, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawGridStat6(ctx *canvas.Context, stat shapes.Stat) {
+func DrawGridStat6(ctx *canvas.Context, stat shapes.Slot) {
 	nameTextBox := GridStatTextBox(stat.Name)
 	ctx.DrawText(823, 371+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(823, 412, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(823, 450, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawGridStat7(ctx *canvas.Context, stat shapes.Stat) {
+func DrawGridStat7(ctx *canvas.Context, stat shapes.Slot) {
 	nameTextBox := GridStatTextBox(stat.Name)
 	ctx.DrawText(57, 561+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(57, 602, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(57, 640, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawGridStat8(ctx *canvas.Context, stat shapes.Stat) {
+func DrawGridStat8(ctx *canvas.Context, stat shapes.Slot) {
 	nameTextBox := GridStatTextBox(stat.Name)
 	ctx.DrawText(439, 561+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(439, 602, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(439, 640, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawGridStat9(ctx *canvas.Context, stat shapes.Stat) {
+func DrawGridStat9(ctx *canvas.Context, stat shapes.Slot) {
 	nameTextBox := GridStatTextBox(stat.Name)
 	ctx.DrawText(823, 561+nameTextBox.Bounds().Y+9, nameTextBox)
 	ctx.DrawText(823, 602, canvas.NewTextLine(statsValueFace, stat.Value, canvas.Left))
 	ctx.DrawText(823, 640, canvas.NewTextLine(statsExtraFace, stat.Extra, canvas.Left))
 }
 
-func DrawAllGridStats(ctx *canvas.Context, stats []shapes.Stat) {
+func DrawAllGridStats(ctx *canvas.Context, stats []shapes.Slot) {
 	DrawGridStat1(ctx, stats[0])
 	DrawGridStat2(ctx, stats[1])
 	DrawGridStat3(ctx, stats[2])

@@ -38,9 +38,9 @@ func HandleBF2042WeaponsCommand(session *discordgo.Session, interaction *discord
 	})
 
 	// Build the weapons slice
-	var weapons []shapes.Stat
+	var weapons []shapes.Slot
 	for _, weapon := range data.Data {
-		weaponStat := shapes.Stat{
+		weaponStat := shapes.Slot{
 			Name:  strings.TrimSpace(weapon.Metadata.Name),
 			Value: loc.Translate("stats/title/x_kills_short", map[string]string{"kills": loc.FormatInt(weapon.Stats.Kills.Value)}),
 			Extra: loc.Translate("stats/title/x_accuracy_and_kpm", map[string]string{"accuracy": loc.FormatPercent(weapon.Stats.ShotsAccuracy.Value), "kpm": loc.FormatFloat(weapon.Stats.KillsPerMinute.Value)}),

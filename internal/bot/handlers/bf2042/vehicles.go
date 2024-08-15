@@ -38,9 +38,9 @@ func HandleBF2042VehiclesCommand(session *discordgo.Session, interaction *discor
 	})
 
 	// Build the vehicles slice
-	var vehicles []shapes.Stat
+	var vehicles []shapes.Slot
 	for _, vehicle := range data.Data {
-		vehicleSlice := shapes.Stat{
+		vehicleSlice := shapes.Slot{
 			Name:  strings.TrimSpace(vehicle.Metadata.Name),
 			Value: loc.Translate("stats/title/x_kills_short", map[string]string{"kills": loc.FormatInt(vehicle.Stats.Kills.Value)}),
 			Extra: loc.Translate("stats/title/x_kpm_and_time", map[string]string{"kpm": loc.FormatFloat(vehicle.Stats.KillsPerMinute.Value), "time": vehicle.Stats.TimePlayed.DisplayValue}),
