@@ -2,12 +2,14 @@ package events
 
 import (
 	"cmp"
+	"log"
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/leonlarsson/bfstats-go/internal/bot/commands"
-	commandhandlers "github.com/leonlarsson/bfstats-go/internal/bot/handlers/bf2042"
+	"github.com/leonlarsson/bfstats-go/internal/bot/handlers"
 	"github.com/leonlarsson/bfstats-go/internal/datafetchers/trndatafetcher"
 	"github.com/leonlarsson/bfstats-go/internal/localization"
+	"github.com/leonlarsson/bfstats-go/internal/utils"
 )
 
 func HandleInteractionCreateEvent(s *discordgo.Session, interaction *discordgo.InteractionCreate) {
@@ -68,28 +70,24 @@ func HandleInteractionCreateEvent(s *discordgo.Session, interaction *discordgo.I
 	}
 
 	// Chat input command
-	// TODO: Just prototyping. Add actual command handling based on the command name and subcommand if needed.
 	if interaction.Type == discordgo.InteractionApplicationCommand {
 		cmdData := interaction.ApplicationCommandData()
 		options := commands.ParseOptions(cmdData.Options)
 
 		locale := cmp.Or(string(commands.GetOptionStringValue(options, "language")), string(interaction.Locale), "en")
 		loc := *localization.CreateLocForLanguage(string(locale))
+		commandUsed := utils.GetCommandName(interaction)
 
-		if cmdData.Name == "bf2042" {
-			subcommand := commands.GetOptionStringValue(options, "subcommand")
-			if subcommand == "stats" {
-				segment := commands.GetOptionStringValue(options, "segment")
-				switch segment {
-				case "overview":
-					commandhandlers.HandleBF2042OverviewCommand(s, interaction, loc)
-				case "weapons":
-					commandhandlers.HandleBF2042WeaponsCommand(s, interaction, loc)
-				case "vehicles":
-					commandhandlers.HandleBF2042VehiclesCommand(s, interaction, loc)
-				}
+		// Retrieve and execute the handler
+		if handler, ok := handlers.HandlersMap[commandUsed]; ok {
+			// Type assert the handler func
+			if handler, ok := handler.(func(*discordgo.Session, *discordgo.InteractionCreate, localization.LanguageLocalizer) error); ok {
+				handler(s, interaction, loc)
+			} else {
+				log.Println("Bot: Handler function signature mismatch")
 			}
+		} else {
+			log.Println("Bot: Handler not found for command:", commandUsed)
 		}
-
 	}
 }
