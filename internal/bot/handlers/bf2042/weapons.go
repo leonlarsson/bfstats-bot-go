@@ -1,4 +1,4 @@
-package commandhandlers
+package bf2042
 
 import (
 	"errors"
