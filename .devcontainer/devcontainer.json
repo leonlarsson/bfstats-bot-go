@@ -3,5 +3,8 @@
 {
 	"name": "Go",
 	"image": "mcr.microsoft.com/devcontainers/go:1-1.22-bookworm",
+	"features": {
+		"ghcr.io/jckimble/devcontainer-features/ngrok": {}
+	},
 	"postCreateCommand": "go install github.com/air-verse/air@latest && curl -sS https://dist.localazy.com/debian/pubkey.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/localazy.gpg && echo 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/localazy.gpg] https://maven.localazy.com/repository/apt/ stable main' | sudo tee /etc/apt/sources.list.d/localazy.list && sudo apt-get update && sudo apt-get install -y localazy"
 }
