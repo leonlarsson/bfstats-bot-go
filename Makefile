@@ -8,11 +8,13 @@ bot:
 
 # Build and run the httpbot configuration
 httpbot:
+	@killall -q air || true
 	@echo "Starting air with httpbot configuration..."
 	@air -c .air-httpbot.toml -- $(ARGS)
 
 # Run ngrok
 ngrok:
+	@killall -q ngrok || true
 	@ngrok http --domain weekly-proper-alien.ngrok-free.app 80
 
 # Build and run the api configuration
