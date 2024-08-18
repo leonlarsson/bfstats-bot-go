@@ -9,7 +9,7 @@ import (
 func OverviewSegment() *discordgo.ApplicationCommandOptionChoice {
 	return &discordgo.ApplicationCommandOptionChoice{
 		Name:              localization.GetEnglishString("slash_commands/stats/options/segment/overview_name"),
-		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/overview_name"),
+		NameLocalizations: localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/overview_name"),
 		Value:             "overview",
 	}
 }
@@ -18,7 +18,7 @@ func OverviewSegment() *discordgo.ApplicationCommandOptionChoice {
 func WeaponsSegment() *discordgo.ApplicationCommandOptionChoice {
 	return &discordgo.ApplicationCommandOptionChoice{
 		Name:              localization.GetEnglishString("slash_commands/stats/options/segment/weapons_name"),
-		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/weapons_name"),
+		NameLocalizations: localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/weapons_name"),
 		Value:             "weapons",
 	}
 }
@@ -27,7 +27,7 @@ func WeaponsSegment() *discordgo.ApplicationCommandOptionChoice {
 func VehiclesSegment() *discordgo.ApplicationCommandOptionChoice {
 	return &discordgo.ApplicationCommandOptionChoice{
 		Name:              localization.GetEnglishString("slash_commands/stats/options/segment/vehicles_name"),
-		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/vehicles_name"),
+		NameLocalizations: localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/vehicles_name"),
 		Value:             "vehicles",
 	}
 }
@@ -36,7 +36,7 @@ func VehiclesSegment() *discordgo.ApplicationCommandOptionChoice {
 func ClassesSegment() *discordgo.ApplicationCommandOptionChoice {
 	return &discordgo.ApplicationCommandOptionChoice{
 		Name:              localization.GetEnglishString("slash_commands/stats/options/segment/classes_name"),
-		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/classes_name"),
+		NameLocalizations: localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/classes_name"),
 		Value:             "classes",
 	}
 }
@@ -45,7 +45,7 @@ func ClassesSegment() *discordgo.ApplicationCommandOptionChoice {
 func GadgetsSegment() *discordgo.ApplicationCommandOptionChoice {
 	return &discordgo.ApplicationCommandOptionChoice{
 		Name:              localization.GetEnglishString("slash_commands/stats/options/segment/gadgets_name"),
-		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/gadgets_name"),
+		NameLocalizations: localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/gadgets_name"),
 		Value:             "gadgets",
 	}
 }
@@ -54,7 +54,7 @@ func GadgetsSegment() *discordgo.ApplicationCommandOptionChoice {
 func MapsSegment() *discordgo.ApplicationCommandOptionChoice {
 	return &discordgo.ApplicationCommandOptionChoice{
 		Name:              localization.GetEnglishString("slash_commands/stats/options/segment/maps_name"),
-		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/maps_name"),
+		NameLocalizations: localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/maps_name"),
 		Value:             "maps",
 	}
 }
@@ -63,7 +63,7 @@ func MapsSegment() *discordgo.ApplicationCommandOptionChoice {
 func ModesSegment() *discordgo.ApplicationCommandOptionChoice {
 	return &discordgo.ApplicationCommandOptionChoice{
 		Name:              localization.GetEnglishString("slash_commands/stats/options/segment/modes_name"),
-		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/modes_name"),
+		NameLocalizations: localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/modes_name"),
 		Value:             "modes",
 	}
 }
@@ -72,7 +72,7 @@ func ModesSegment() *discordgo.ApplicationCommandOptionChoice {
 func MatchesSegment() *discordgo.ApplicationCommandOptionChoice {
 	return &discordgo.ApplicationCommandOptionChoice{
 		Name:              localization.GetEnglishString("slash_commands/stats/options/segment/matches_name"),
-		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/matches_name"),
+		NameLocalizations: localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/matches_name"),
 		Value:             "matches",
 	}
 }
@@ -81,7 +81,7 @@ func MatchesSegment() *discordgo.ApplicationCommandOptionChoice {
 func FirestormSegment() *discordgo.ApplicationCommandOptionChoice {
 	return &discordgo.ApplicationCommandOptionChoice{
 		Name:              localization.GetEnglishString("slash_commands/stats/options/segment/firestorm_name"),
-		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/firestorm_name"),
+		NameLocalizations: localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/firestorm_name"),
 		Value:             "firestorm",
 	}
 }
@@ -90,7 +90,7 @@ func FirestormSegment() *discordgo.ApplicationCommandOptionChoice {
 func HazardZoneSegment() *discordgo.ApplicationCommandOptionChoice {
 	return &discordgo.ApplicationCommandOptionChoice{
 		Name:              localization.GetEnglishString("slash_commands/stats/options/segment/hazardzone_name"),
-		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/hazardzone_name"),
+		NameLocalizations: localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/hazardzone_name"),
 		Value:             "hazardzone",
 	}
 }
@@ -99,7 +99,7 @@ func HazardZoneSegment() *discordgo.ApplicationCommandOptionChoice {
 func ProgressionSegment() *discordgo.ApplicationCommandOptionChoice {
 	return &discordgo.ApplicationCommandOptionChoice{
 		Name:              localization.GetEnglishString("slash_commands/stats/options/segment/progression_name"),
-		NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/progression_name"),
+		NameLocalizations: localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/progression_name"),
 		Value:             "progression",
 	}
 }

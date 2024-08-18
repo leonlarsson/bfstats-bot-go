@@ -9,17 +9,17 @@ import (
 func GetCommands() []*discordgo.ApplicationCommand {
 	// Commonly used things
 	statsName := localization.GetEnglishString("slash_commands/stats/name")
-	statsNameLocalizations := localization.BuildDiscordLocalizations("slash_commands/stats/name")
+	statsNameLocalizations := localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/name")
 	statsDescription := localization.GetEnglishString("slash_commands/stats/bf2042_description")
-	statsDescriptionLocalizations := localization.BuildDiscordLocalizations("slash_commands/stats/bf2042_description")
+	statsDescriptionLocalizations := localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/bf2042_description")
 
 	segmentName := localization.GetEnglishString("slash_commands/stats/options/segment/name")
-	segmentNameLocalizations := localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/name")
+	segmentNameLocalizations := localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/name")
 	segmentDescription := localization.GetEnglishString("slash_commands/stats/options/segment/description")
-	segmentDescriptionLocalizations := localization.BuildDiscordLocalizations("slash_commands/stats/options/segment/description")
+	segmentDescriptionLocalizations := localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/stats/options/segment/description")
 
 	// Workaround. Ref: https://github.com/bwmarrin/discordgo/issues/1555
-	descriptionLocations := localization.BuildDiscordLocalizations("slash_commands/base/bf2042_description")
+	descriptionLocations := localization.BuildDiscordLocalizations[discordgo.Locale]("slash_commands/base/bf2042_description")
 
 	return []*discordgo.ApplicationCommand{
 		{

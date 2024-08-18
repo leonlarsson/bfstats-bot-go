@@ -53,52 +53,53 @@ func GetOptionBoolValue(options optionMap, key string) bool {
 
 // UsernameOption returns the username option for the stats command. Autocomplete is provided as an argument.
 func UsernameOption(autocomplete bool) discord.ApplicationCommandOptionString {
+	var maxLength = 100
 	return discord.ApplicationCommandOptionString{
-		Name: localization.GetEnglishString("slash_commands/stats/options/username/name"),
-		// NameLocalizations:        localization.BuildDiscordLocalizations("slash_commands/stats/options/username/name"),
-		Description: localization.GetEnglishString("slash_commands/stats/options/username/description"),
-		// DescriptionLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/username/description"),
-		// MaxLength: 			100,
-		Autocomplete: autocomplete,
-		Required:     true,
+		Name:                     localization.GetEnglishString("slash_commands/stats/options/username/name"),
+		NameLocalizations:        localization.BuildDiscordLocalizations[discord.Locale]("slash_commands/stats/options/username/name"),
+		Description:              localization.GetEnglishString("slash_commands/stats/options/username/description"),
+		DescriptionLocalizations: localization.BuildDiscordLocalizations[discord.Locale]("slash_commands/stats/options/username/description"),
+		MaxLength:                &maxLength,
+		Autocomplete:             autocomplete,
+		Required:                 true,
 	}
 }
 
 // PlatformOption returns the platform option for the stats command. Actual platforms and values are provided as an argument.
 func PlatformOption(platformChoices []discord.ApplicationCommandOptionChoiceString) discord.ApplicationCommandOptionString {
 	return discord.ApplicationCommandOptionString{
-		Name: localization.GetEnglishString("slash_commands/stats/options/platform/name"),
-		// NameLocalizations:        localization.BuildDiscordLocalizations("slash_commands/stats/options/platform/name"),
-		Description: localization.GetEnglishString("slash_commands/stats/options/platform/description"),
-		// DescriptionLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/platform/description"),
-		Required: true,
-		Choices:  platformChoices,
+		Name:                     localization.GetEnglishString("slash_commands/stats/options/platform/name"),
+		NameLocalizations:        localization.BuildDiscordLocalizations[discord.Locale]("slash_commands/stats/options/platform/name"),
+		Description:              localization.GetEnglishString("slash_commands/stats/options/platform/description"),
+		DescriptionLocalizations: localization.BuildDiscordLocalizations[discord.Locale]("slash_commands/stats/options/platform/description"),
+		Required:                 true,
+		Choices:                  platformChoices,
 	}
 }
 
 // FormatOption returns the format option for the stats command.
 func FormatOption() discord.ApplicationCommandOptionString {
 	return discord.ApplicationCommandOptionString{
-		Name: localization.GetEnglishString("slash_commands/stats/options/format/name"),
-		// NameLocalizations:        localization.BuildDiscordLocalizations("slash_commands/stats/options/format/name"),
-		Description: localization.GetEnglishString("slash_commands/stats/options/format/description"),
-		// DescriptionLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/format/description"),
-		Required: false,
+		Name:                     localization.GetEnglishString("slash_commands/stats/options/format/name"),
+		NameLocalizations:        localization.BuildDiscordLocalizations[discord.Locale]("slash_commands/stats/options/format/name"),
+		Description:              localization.GetEnglishString("slash_commands/stats/options/format/description"),
+		DescriptionLocalizations: localization.BuildDiscordLocalizations[discord.Locale]("slash_commands/stats/options/format/description"),
+		Required:                 false,
 		Choices: []discord.ApplicationCommandOptionChoiceString{
 			{
-				Name: localization.GetEnglishString("slash_commands/stats/options/format/image_name"),
-				// NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/format/image_name"),
-				Value: "image",
+				Name:              localization.GetEnglishString("slash_commands/stats/options/format/image_name"),
+				NameLocalizations: localization.BuildDiscordLocalizations[discord.Locale]("slash_commands/stats/options/format/image_name"),
+				Value:             "image",
 			},
 			{
-				Name: localization.GetEnglishString("slash_commands/stats/options/format/image_name") + "++",
-				// NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/format/image_name", "++"),
-				Value: "image2",
+				Name:              localization.GetEnglishString("slash_commands/stats/options/format/image_name") + "++",
+				NameLocalizations: localization.BuildDiscordLocalizations[discord.Locale]("slash_commands/stats/options/format/image_name", "++"),
+				Value:             "image2",
 			},
 			{
-				Name: localization.GetEnglishString("slash_commands/stats/options/format/text_name"),
-				// NameLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/format/text_name"),
-				Value: "text",
+				Name:              localization.GetEnglishString("slash_commands/stats/options/format/text_name"),
+				NameLocalizations: localization.BuildDiscordLocalizations[discord.Locale]("slash_commands/stats/options/format/text_name"),
+				Value:             "text",
 			},
 		},
 	}
@@ -127,11 +128,11 @@ func LanguageOption() discord.ApplicationCommandOptionString {
 	}
 
 	return discord.ApplicationCommandOptionString{
-		Name: localization.GetEnglishString("slash_commands/stats/options/language/name"),
-		// NameLocalizations:        localization.BuildDiscordLocalizations("slash_commands/stats/options/language/name"),
-		Description: localization.GetEnglishString("slash_commands/stats/options/language/description"),
-		// DescriptionLocalizations: localization.BuildDiscordLocalizations("slash_commands/stats/options/language/description"),
-		Required: false,
-		Choices:  languageChoices,
+		Name:                     localization.GetEnglishString("slash_commands/stats/options/language/name"),
+		NameLocalizations:        localization.BuildDiscordLocalizations[discord.Locale]("slash_commands/stats/options/language/name"),
+		Description:              localization.GetEnglishString("slash_commands/stats/options/language/description"),
+		DescriptionLocalizations: localization.BuildDiscordLocalizations[discord.Locale]("slash_commands/stats/options/language/description"),
+		Required:                 false,
+		Choices:                  languageChoices,
 	}
 }
