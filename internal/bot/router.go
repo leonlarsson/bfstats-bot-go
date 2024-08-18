@@ -1,4 +1,4 @@
-package httpbot
+package bot
 
 import (
 	"cmp"
@@ -6,9 +6,9 @@ import (
 	"github.com/disgoorg/disgo/discord"
 	"github.com/disgoorg/disgo/handler"
 	"github.com/disgoorg/disgo/handler/middleware"
-	"github.com/leonlarsson/bfstats-go/internal/httpbot/events"
-	"github.com/leonlarsson/bfstats-go/internal/httpbot/handlers/bf2042"
-	"github.com/leonlarsson/bfstats-go/internal/httpbot/handlers/misc"
+	"github.com/leonlarsson/bfstats-go/internal/bot/events"
+	"github.com/leonlarsson/bfstats-go/internal/bot/handlers/bf2042"
+	"github.com/leonlarsson/bfstats-go/internal/bot/handlers/misc"
 	"github.com/leonlarsson/bfstats-go/internal/localization"
 )
 

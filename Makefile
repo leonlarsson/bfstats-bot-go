@@ -3,14 +3,9 @@ ARGS ?=
 
 # Build and run the bot configuration
 bot:
+	@killall -q air || true
 	@echo "Starting air with bot configuration..."
 	@air -c .air-bot.toml -- $(ARGS)
-
-# Build and run the httpbot configuration
-httpbot:
-	@killall -q air || true
-	@echo "Starting air with httpbot configuration..."
-	@air -c .air-httpbot.toml -- $(ARGS)
 
 # Run ngrok
 ngrok:
