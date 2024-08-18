@@ -1,4 +1,4 @@
-package bot
+package httpbot
 
 import (
 	"context"

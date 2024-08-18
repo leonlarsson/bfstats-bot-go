@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/leonlarsson/bfstats-go/internal/bot"
+	"github.com/leonlarsson/bfstats-go/internal/httpbot"
 	"github.com/leonlarsson/bfstats-go/internal/localization"
 )
 
@@ -24,7 +24,7 @@ func init() {
 
 	for _, varName := range requiredEnvVars {
 		if os.Getenv(varName) == "" {
-			log.Fatalf("Bot: Environment variable %s is not set", varName)
+			log.Fatalf("HTTPBot: Environment variable %s is not set", varName)
 		}
 	}
 
@@ -34,6 +34,6 @@ func init() {
 }
 
 func main() {
-	log.Println("Bot: Starting")
-	bot.Start(deployCommands)
+	log.Println("HTTPBot: Starting")
+	httpbot.Start(deployCommands)
 }

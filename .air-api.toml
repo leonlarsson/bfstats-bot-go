@@ -1,4 +1,3 @@
 [build]
-args_bin = []
 bin = "./tmp/api"
 cmd = "go build -o ./tmp/api ./cmd/api"
