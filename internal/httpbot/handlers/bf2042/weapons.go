@@ -30,20 +30,14 @@ func HandleBF2042WeaponsCommand(interaction *events.ApplicationCommandInteractio
 		return err
 	}
 
-	println("Bot: Data fetched for command: bf2042weapons")
-
 	if len(data.Data) < 9 {
 		return errors.New(loc.Translate("messages/not_enough_weapons", map[string]string{"weapons": string(rune(len(data.Data)))}))
 	}
-
-	println("Bot: Data length check passed for command: bf2042weapons")
 
 	// Sort the weapons by kills
 	sort.Slice(data.Data, func(i, j int) bool {
 		return data.Data[i].Stats.Kills.Value > data.Data[j].Stats.Kills.Value
 	})
-
-	println("Bot: Data sorted for command: bf2042weapons")
 
 	// Build the weapons slice
 	var weapons []shapes.Slot
@@ -55,8 +49,6 @@ func HandleBF2042WeaponsCommand(interaction *events.ApplicationCommandInteractio
 		}
 		weapons = append(weapons, weaponStat)
 	}
-
-	println("Bot: Weapons built for command: bf2042weapons")
 
 	// Create the image
 	imageData := shapes.GenericGridData{
@@ -72,12 +64,8 @@ func HandleBF2042WeaponsCommand(interaction *events.ApplicationCommandInteractio
 		Slots: weapons,
 	}
 
-	println("Bot: Image data created for command: bf2042weapons")
-
 	c, _ := bf2042.CreateBF2042WeaponsImage(imageData, shared.SolidBackground)
 	imgBuf := canvas.CanvasToBuffer(c)
-
-	println("Bot: Image created for command: bf2042weapons")
 
 	// Edit the response
 	_, err = interaction.Client().Rest().UpdateInteractionResponse(interaction.ApplicationID(), interaction.Token(), discord.MessageUpdate{
@@ -91,8 +79,6 @@ func HandleBF2042WeaponsCommand(interaction *events.ApplicationCommandInteractio
 	if err != nil {
 		return err
 	}
-
-	println("Bot: Response updated for command: bf2042weapons")
 
 	return nil
 }

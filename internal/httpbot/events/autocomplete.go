@@ -6,7 +6,7 @@ import (
 	"github.com/leonlarsson/bfstats-go/internal/datafetchers/trndatafetcher"
 )
 
-func HandleAutocomplete(event *events.AutocompleteInteractionCreate) {
+func HandleAutocomplete(event *events.AutocompleteInteractionCreate) error {
 	data := event.Data
 	game := event.Data.CommandName
 	username := data.String("username")
@@ -33,7 +33,7 @@ func HandleAutocomplete(event *events.AutocompleteInteractionCreate) {
 		// Fetch data
 		data, err := trndatafetcher.FetchTRNSearchData(game, platform, username)
 		if err != nil {
-			return
+			return err
 		}
 
 		// Build the response data for the first 25 users
@@ -48,7 +48,11 @@ func HandleAutocomplete(event *events.AutocompleteInteractionCreate) {
 		}
 	}
 
-	event.Respond(discord.InteractionResponseTypeAutocompleteResult, discord.AutocompleteResult{
+	if err := event.Respond(discord.InteractionResponseTypeAutocompleteResult, discord.AutocompleteResult{
 		Choices: choices,
-	})
+	}); err != nil {
+		return err
+	}
+
+	return nil
 }

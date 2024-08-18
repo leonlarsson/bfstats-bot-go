@@ -10,11 +10,9 @@ import (
 
 	"github.com/disgoorg/disgo"
 	"github.com/disgoorg/disgo/bot"
-	disgoevents "github.com/disgoorg/disgo/events"
 	"github.com/disgoorg/disgo/httpserver"
 	"github.com/disgoorg/snowflake/v2"
 	"github.com/leonlarsson/bfstats-go/internal/httpbot/commands"
-	"github.com/leonlarsson/bfstats-go/internal/httpbot/events"
 )
 
 // NOTE: Run ngrok http 80 to expose the local server to the internet. Add {ngrok_url}/interactions/callback to the Discord application's interaction endpoint to use this.
@@ -26,12 +24,7 @@ func Start(deployCommands bool) {
 			httpserver.WithURL("/interactions/callback"),
 			httpserver.WithAddress(":80"),
 		),
-		bot.WithEventListenerFunc(func(event *disgoevents.AutocompleteInteractionCreate) {
-			go events.HandleAutocomplete(event)
-		}),
-		bot.WithEventListenerFunc(func(event *disgoevents.ApplicationCommandInteractionCreate) {
-			go events.HandleInteractionCreate(event)
-		}),
+		bot.WithEventListeners(Router()),
 	)
 	if err != nil {
 		panic("error while building disgo instance: " + err.Error())

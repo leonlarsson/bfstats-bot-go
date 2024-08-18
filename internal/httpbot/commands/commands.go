@@ -69,5 +69,63 @@ func GetCommands() []discord.ApplicationCommandCreate {
 				},
 			},
 		},
+		discord.SlashCommandCreate{
+			Name:                     "bfv",
+			Description:              localization.GetEnglishString("slash_commands/base/bfv_description"),
+			DescriptionLocalizations: localization.BuildDiscordLocalizations("slash_commands/base/bf_description"),
+			Options: []discord.ApplicationCommandOption{
+				discord.ApplicationCommandOptionSubCommand{
+					Name:                     statsName,
+					NameLocalizations:        statsNameLocalizations,
+					Description:              statsDescription,
+					DescriptionLocalizations: statsDescriptionLocalizations,
+					Options: []discord.ApplicationCommandOption{
+						discord.ApplicationCommandOptionString{
+							Name:                     segmentName,
+							NameLocalizations:        segmentNameLocalizations,
+							Description:              segmentDescription,
+							DescriptionLocalizations: segmentDescriptionLocalizations,
+							Required:                 true,
+							Choices: []discord.ApplicationCommandOptionChoiceString{
+								OverviewSegment(),
+								WeaponsSegment(),
+								VehiclesSegment(),
+								ClassesSegment(),
+								GadgetsSegment(),
+								MapsSegment(),
+								ModesSegment(),
+								HazardZoneSegment(),
+							},
+						},
+						PlatformOption([]discord.ApplicationCommandOptionChoiceString{
+							{
+								Name:  "PC/Origin",
+								Value: "origin",
+							},
+							{
+								Name:  "Xbox",
+								Value: "xbl",
+							},
+							{
+								Name:  "PlayStation",
+								Value: "psn",
+							},
+						}),
+						UsernameOption(true),
+						LanguageOption(),
+						FormatOption(),
+						PoemGPTOption(),
+					},
+				},
+			},
+		},
+		discord.SlashCommandCreate{
+			Name:        "help",
+			Description: "Help command",
+		},
+		discord.SlashCommandCreate{
+			Name:        "about",
+			Description: "About command",
+		},
 	}
 }
