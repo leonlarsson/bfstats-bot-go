@@ -3,12 +3,10 @@ module github.com/leonlarsson/bfstats-go
 go 1.22.5
 
 require (
-	github.com/bwmarrin/discordgo v0.28.1
 	github.com/disgoorg/disgo v0.18.10
 	github.com/disgoorg/snowflake/v2 v2.0.3
 	github.com/joho/godotenv v1.5.1
 	github.com/nicksnyder/go-i18n/v2 v2.4.0
-	github.com/servusdei2018/shards/v2 v2.4.0
 	github.com/tdewolff/canvas v0.0.0-20240728194142-58998955aae5
 	golang.org/x/text v0.16.0
 )

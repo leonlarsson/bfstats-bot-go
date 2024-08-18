@@ -5,7 +5,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/bwmarrin/discordgo"
+	"github.com/disgoorg/disgo/discord"
+	"github.com/disgoorg/disgo/events"
 	"github.com/leonlarsson/bfstats-go/internal/canvas"
 	"github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
 	"github.com/leonlarsson/bfstats-go/internal/createcanvas/bf2042"
@@ -17,8 +18,9 @@ import (
 )
 
 // HandleBF2042WeaponsCommand handles the bf2042 weapons command.
-func HandleBF2042WeaponsCommand(session *discordgo.Session, interaction *discordgo.InteractionCreate, loc localization.LanguageLocalizer) error {
-	username, platform, usernameFailedValidation := utils.GetStatsCommandArgs(session, interaction, &loc)
+func HandleBF2042WeaponsCommand(interaction *events.ApplicationCommandInteractionCreate, loc localization.LanguageLocalizer) error {
+	println("Bot: Handler running for command: bf2042weapons")
+	username, platform, usernameFailedValidation := utils.GetStatsCommandArgs(interaction, loc)
 	if usernameFailedValidation {
 		return errors.New("username failed validation")
 	}
@@ -28,14 +30,20 @@ func HandleBF2042WeaponsCommand(session *discordgo.Session, interaction *discord
 		return err
 	}
 
+	println("Bot: Data fetched for command: bf2042weapons")
+
 	if len(data.Data) < 9 {
 		return errors.New(loc.Translate("messages/not_enough_weapons", map[string]string{"weapons": string(rune(len(data.Data)))}))
 	}
+
+	println("Bot: Data length check passed for command: bf2042weapons")
 
 	// Sort the weapons by kills
 	sort.Slice(data.Data, func(i, j int) bool {
 		return data.Data[i].Stats.Kills.Value > data.Data[j].Stats.Kills.Value
 	})
+
+	println("Bot: Data sorted for command: bf2042weapons")
 
 	// Build the weapons slice
 	var weapons []shapes.Slot
@@ -47,6 +55,8 @@ func HandleBF2042WeaponsCommand(session *discordgo.Session, interaction *discord
 		}
 		weapons = append(weapons, weaponStat)
 	}
+
+	println("Bot: Weapons built for command: bf2042weapons")
 
 	// Create the image
 	imageData := shapes.GenericGridData{
@@ -62,19 +72,27 @@ func HandleBF2042WeaponsCommand(session *discordgo.Session, interaction *discord
 		Slots: weapons,
 	}
 
+	println("Bot: Image data created for command: bf2042weapons")
+
 	c, _ := bf2042.CreateBF2042WeaponsImage(imageData, shared.SolidBackground)
 	imgBuf := canvas.CanvasToBuffer(c)
 
+	println("Bot: Image created for command: bf2042weapons")
+
 	// Edit the response
-	session.InteractionResponseEdit(interaction.Interaction, &discordgo.WebhookEdit{
-		Files: []*discordgo.File{
+	_, err = interaction.Client().Rest().UpdateInteractionResponse(interaction.ApplicationID(), interaction.Token(), discord.MessageUpdate{
+		Files: []*discord.File{
 			{
-				Name:        "weapons.png",
-				ContentType: "image/png",
-				Reader:      imgBuf,
+				Name:   "overview.png",
+				Reader: imgBuf,
 			},
 		},
 	})
+	if err != nil {
+		return err
+	}
+
+	println("Bot: Response updated for command: bf2042weapons")
 
 	return nil
 }

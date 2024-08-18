@@ -10,39 +10,28 @@ import (
 
 	"github.com/disgoorg/disgo"
 	"github.com/disgoorg/disgo/bot"
-	"github.com/disgoorg/disgo/discord"
-	"github.com/disgoorg/disgo/handler"
-	"github.com/disgoorg/disgo/handler/middleware"
+	disgoevents "github.com/disgoorg/disgo/events"
 	"github.com/disgoorg/disgo/httpserver"
 	"github.com/disgoorg/snowflake/v2"
 	"github.com/leonlarsson/bfstats-go/internal/httpbot/commands"
+	"github.com/leonlarsson/bfstats-go/internal/httpbot/events"
 )
-
-func handlePing(event *handler.CommandEvent) error {
-	return event.CreateMessage(discord.MessageCreate{
-		Content: "pong",
-		Flags:   discord.MessageFlagEphemeral,
-	})
-}
 
 // NOTE: Run ngrok http 80 to expose the local server to the internet. Add {ngrok_url}/interactions/callback to the Discord application's interaction endpoint to use this.
 func Start(deployCommands bool) {
 	var err error
-
-	r := handler.New()
-	r.Use(middleware.Logger)
-
-	r.Group(func(r handler.Router) {
-		r.Use(middleware.Print("group1"))
-		r.Command("/ping", handlePing)
-	})
 
 	client, err := disgo.New(os.Getenv("BOT_TOKEN"),
 		bot.WithHTTPServerConfigOpts(os.Getenv("BOT_PUBLIC_KEY"),
 			httpserver.WithURL("/interactions/callback"),
 			httpserver.WithAddress(":80"),
 		),
-		bot.WithEventListeners(r),
+		bot.WithEventListenerFunc(func(event *disgoevents.AutocompleteInteractionCreate) {
+			go events.HandleAutocomplete(event)
+		}),
+		bot.WithEventListenerFunc(func(event *disgoevents.ApplicationCommandInteractionCreate) {
+			go events.HandleInteractionCreate(event)
+		}),
 	)
 	if err != nil {
 		panic("error while building disgo instance: " + err.Error())

@@ -5,7 +5,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/bwmarrin/discordgo"
+	"github.com/disgoorg/disgo/discord"
+	"github.com/disgoorg/disgo/events"
 	"github.com/leonlarsson/bfstats-go/internal/canvas"
 	"github.com/leonlarsson/bfstats-go/internal/canvas/shapes"
 	"github.com/leonlarsson/bfstats-go/internal/createcanvas/bf2042"
@@ -17,8 +18,8 @@ import (
 )
 
 // HandleBF2042VehiclesCommand handles the bf2042 vehicles command.
-func HandleBF2042VehiclesCommand(session *discordgo.Session, interaction *discordgo.InteractionCreate, loc localization.LanguageLocalizer) error {
-	username, platform, usernameFailedValidation := utils.GetStatsCommandArgs(session, interaction, &loc)
+func HandleBF2042VehiclesCommand(interaction *events.ApplicationCommandInteractionCreate, loc localization.LanguageLocalizer) error {
+	username, platform, usernameFailedValidation := utils.GetStatsCommandArgs(interaction, loc)
 	if usernameFailedValidation {
 		return errors.New("username failed validation")
 	}
@@ -66,12 +67,11 @@ func HandleBF2042VehiclesCommand(session *discordgo.Session, interaction *discor
 	imgBuf := canvas.CanvasToBuffer(c)
 
 	// Edit the response
-	session.InteractionResponseEdit(interaction.Interaction, &discordgo.WebhookEdit{
-		Files: []*discordgo.File{
+	interaction.Client().Rest().UpdateInteractionResponse(interaction.ApplicationID(), interaction.Token(), discord.MessageUpdate{
+		Files: []*discord.File{
 			{
-				Name:        "vehicles.png",
-				ContentType: "image/png",
-				Reader:      imgBuf,
+				Name:   "overview.png",
+				Reader: imgBuf,
 			},
 		},
 	})
