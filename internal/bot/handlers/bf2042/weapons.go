@@ -25,7 +25,7 @@ func HandleBF2042WeaponsCommand(interaction *events.ApplicationCommandInteractio
 		return errors.New("username failed validation")
 	}
 
-	data, err := datafetcher.Fetch[types.TrnWeaponsResponse](utils.TRNBF2042WeaponsURL(platform, username))
+	data, err := datafetcher.Fetch[types.TrnWeaponsResponse](utils.TRNBF2042WeaponsURL(platform, username), interaction, loc, username)
 	if err != nil {
 		return err
 	}

@@ -26,12 +26,12 @@ func HandleBF2042OverviewCommand(interaction *events.ApplicationCommandInteracti
 		return errors.New("username failed validation")
 	}
 
-	overviewData, err := datafetcher.Fetch[types.TrnOverviewResponse](utils.TRNBF2042OverviewURL(platform, username))
+	overviewData, err := datafetcher.Fetch[types.TrnOverviewResponse](utils.TRNBF2042OverviewURL(platform, username), interaction, loc, username)
 	if err != nil {
 		return err
 	}
 
-	classData, err := datafetcher.Fetch[types.TrnClassesResponse](utils.TRNBF2042ClassesURL(platform, username))
+	classData, err := datafetcher.FetchNoHandling[types.TrnClassesResponse](utils.TRNBF2042ClassesURL(platform, username))
 	if err != nil {
 		return err
 	}

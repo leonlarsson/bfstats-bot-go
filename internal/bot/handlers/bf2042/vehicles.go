@@ -24,7 +24,7 @@ func HandleBF2042VehiclesCommand(interaction *events.ApplicationCommandInteracti
 		return errors.New("username failed validation")
 	}
 
-	data, err := datafetcher.Fetch[types.TrnVehiclesResponse](utils.TRNBF2042VehiclesURL(platform, username))
+	data, err := datafetcher.Fetch[types.TrnVehiclesResponse](utils.TRNBF2042VehiclesURL(platform, username), interaction, loc, username)
 	if err != nil {
 		return err
 	}

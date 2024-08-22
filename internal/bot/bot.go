@@ -13,6 +13,7 @@ import (
 	"github.com/disgoorg/disgo/httpserver"
 	"github.com/disgoorg/snowflake/v2"
 	"github.com/leonlarsson/bfstats-go/internal/bot/commands"
+	"github.com/leonlarsson/bfstats-go/internal/bot/data"
 )
 
 // NOTE: Run ngrok http 80 to expose the local server to the internet. Add {ngrok_url}/interactions/callback to the Discord application's interaction endpoint to use this.
@@ -40,6 +41,9 @@ func Start(deployCommands bool) {
 
 		fmt.Printf("registered %d commands\n", len(cmds))
 	}
+
+	// Populate some data
+	data.FetchApplicationData(client)
 
 	if err = client.OpenHTTPServer(); err != nil {
 		panic("error while starting http server: " + err.Error())
